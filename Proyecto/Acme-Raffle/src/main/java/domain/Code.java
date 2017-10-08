@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -27,6 +28,21 @@ public class Code extends DomainEntity {
 
 	public void setCode(final String code) {
 		this.code = code;
+	}
+
+
+	//	Relationships	----------------------
+
+	private Raffle	raffle;
+
+
+	@ManyToOne(optional = false)
+	public Raffle getRaffle() {
+		return this.raffle;
+	}
+
+	public void setRaffle(final Raffle raffle) {
+		this.raffle = raffle;
 	}
 
 }

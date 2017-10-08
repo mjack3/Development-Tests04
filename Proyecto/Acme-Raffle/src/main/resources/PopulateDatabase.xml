@@ -18,7 +18,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMINISTRATOR" />
+					<property name="authority" value="ADMIN" />
 				</bean>
 			</list>
 		</property>
@@ -73,7 +73,60 @@
 		</property>
 	</bean>
 
-	
 
+<!-- MANAGERS -->
+
+	<bean id="manager1" class="domain.Manager">
+		<property name="userAccount" ref="userAccount4" />
+		<property name="name" value="nameManager1" />
+		<property name="surname" value="surnameManager1" />
+		<property name="email" value="emailManager@manager.es" />
+		<property name="phone" value="111111111" />
+		<property name="postal" value="11560" />
+		<property name="city" value="Sevilla" />
+		<property name="country" value="España" />
+		<property name="raffles">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+<!-- RAFFLES -->
+
+	<bean id="raffles1" class="domain.Raffle">
+		<property name="logo" value="https://vignette1.wikia.nocookie.net/conworld/images/c/c1/Pepa-Cola.jpg"/>
+		<property name="title" value="The Pepa-Cola Vacation"/>
+		<property name="description" value="descriptionRaffle1"/>
+		<property name="publicationTime" value="15/07/2018"/>
+		<property name="deadline" value="08/10/2019"/>
+		<property name="manager" ref="manager1"/>
+		<property name="codes">
+		<list>
+		</list>
+		</property>
+		<property name="prizes">
+		<list>
+		</list>
+		</property>
+	</bean>
+	
+	<!-- CODES -->
+	
+	<bean id="code1" class="domain.Code">
+		<property name="code" value="MALD-IVES" />
+		<property name="winner" value="false" />
+	</bean>
+	<bean id="code2" class="domain.Code">
+		<property name="code" value="JULY-2019" />
+		<property name="winner" value="false" />
+	</bean>
+	<bean id="code3" class="domain.Code">
+		<property name="code" value="LETS-GO2G" />
+		<property name="winner" value="false" />
+	</bean>
+	<bean id="code4" class="domain.Code">
+		<property name="code" value="4500-EURO" />
+		<property name="winner" value="true" />
+	</bean>
 	
 </beans>

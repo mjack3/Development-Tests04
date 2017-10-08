@@ -1,18 +1,21 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -56,8 +59,8 @@ public class Raffle extends DomainEntity {
 		this.description = description;
 	}
 
-	@Past
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getPublicationTime() {
 		return this.publicationTime;
 	}
@@ -69,12 +72,48 @@ public class Raffle extends DomainEntity {
 	@NotNull
 	@Future
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getDeadline() {
 		return this.deadline;
 	}
 
 	public void setDeadline(final Date deadline) {
 		this.deadline = deadline;
+	}
+
+
+	//	Relationships -------------------
+
+	private Collection<Prize>	prizes;
+	private Collection<Code>	codes;
+	private Manager				manager;
+
+
+	@OneToMany(mappedBy = "raffle")
+	public Collection<Prize> getPrizes() {
+		return this.prizes;
+	}
+
+	public void setPrizes(final Collection<Prize> prizes) {
+		this.prizes = prizes;
+	}
+
+	@OneToMany(mappedBy = "raffle")
+	public Collection<Code> getCodes() {
+		return this.codes;
+	}
+
+	public void setCodes(final Collection<Code> codes) {
+		this.codes = codes;
+	}
+
+	@ManyToOne(optional = false)
+	public Manager getManager() {
+		return this.manager;
+	}
+
+	public void setManager(final Manager manager) {
+		this.manager = manager;
 	}
 
 }
