@@ -93,14 +93,14 @@
 	
 <!-- RAFFLES -->
 
-	<bean id="raffles1" class="domain.Raffle">
+	<bean id="raffle1" class="domain.Raffle">
 		<property name="logo" value="https://vignette1.wikia.nocookie.net/conworld/images/c/c1/Pepa-Cola.jpg"/>
 		<property name="title" value="The Pepa-Cola Vacation"/>
 		<property name="description" value="descriptionRaffle1"/>
 		<property name="publicationTime" value="15/07/2018"/>
 		<property name="deadline" value="08/10/2019"/>
 		<property name="manager" ref="manager1"/>
-		<property name="codes">
+		<property name="participations">
 		<list>
 		</list>
 		</property>
@@ -110,23 +110,72 @@
 		</property>
 	</bean>
 	
-	<!-- CODES -->
+	<!-- PRIZES -->
 	
-	<bean id="code1" class="domain.Code">
+	<bean id="prize1" class="domain.Prize">
+		<property name="name" value="Maldives" />
+		<property name="description" value="A dream par-adise on earth" />
+		<property name="codes" >
+			<list>
+			</list>
+		</property>
+		<property name="raffle" ref="raffle1" />
+	</bean>
+	
+	<bean id="prize2" class="domain.Prize">
+		<property name="name" value="Tanzania" />
+		<property name="description" value="An adventurer’s dream made true" />
+		<property name="codes" >
+			<list>
+			</list>
+		</property>
+		<property name="raffle" ref="raffle1" />
+	</bean>
+	
+	<!-- CODES -->
+		<!-- prize1 -->
+	<bean id="code11" class="domain.Code">
 		<property name="code" value="MALD-IVES" />
-		<property name="winner" value="false" />
+		<property name="isWinner" value="False" />
+		<property name="prize" ref="prize1" />
 	</bean>
-	<bean id="code2" class="domain.Code">
+	<bean id="code12" class="domain.Code">
 		<property name="code" value="JULY-2019" />
-		<property name="winner" value="false" />
+		<property name="isWinner" value="False" />
+		<property name="prize" ref="prize1" />
 	</bean>
-	<bean id="code3" class="domain.Code">
-		<property name="code" value="LETS-GO2G" />
-		<property name="winner" value="false" />
+	<bean id="code13" class="domain.Code">
+		<property name="code" value="LETS-G02G" />
+		<property name="isWinner" value="False" />
+		<property name="prize" ref="prize1" />
 	</bean>
-	<bean id="code4" class="domain.Code">
+	<bean id="code14" class="domain.Code">
 		<property name="code" value="4500-EURO" />
-		<property name="winner" value="true" />
+		<property name="isWinner" value="True" />
+		<property name="prize" ref="prize1" />
+	</bean>
+	
+		<!-- prize2 -->
+		
+	<bean id="code21" class="domain.Code">
+		<property name="code" value="TANZ-ANIA" />
+		<property name="isWinner" value="False" />
+		<property name="prize" ref="prize1" />
+	</bean>
+	<bean id="code22" class="domain.Code">
+		<property name="code" value="DECX-2018" />
+		<property name="isWinner" value="False" />
+		<property name="prize" ref="prize1" />
+	</bean>
+	<bean id="code23" class="domain.Code">
+		<property name="code" value="LETS-GO2G" />
+		<property name="isWinner" value="False" />
+		<property name="prize" ref="prize1" />
+	</bean>
+	<bean id="code24" class="domain.Code">
+		<property name="code" value="BEMY-BAIT" />
+		<property name="isWinner" value="True" />
+		<property name="prize" ref="prize1" />
 	</bean>
 	
 </beans>

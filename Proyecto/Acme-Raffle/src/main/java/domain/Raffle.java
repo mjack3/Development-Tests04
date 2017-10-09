@@ -84,9 +84,9 @@ public class Raffle extends DomainEntity {
 
 	//	Relationships -------------------
 
-	private Collection<Prize>	prizes;
-	private Collection<Code>	codes;
-	private Manager				manager;
+	private Collection<Prize>			prizes;
+	private Collection<Participation>	participations;
+	private Manager						manager;
 
 
 	@OneToMany(mappedBy = "raffle")
@@ -98,15 +98,6 @@ public class Raffle extends DomainEntity {
 		this.prizes = prizes;
 	}
 
-	@OneToMany(mappedBy = "raffle")
-	public Collection<Code> getCodes() {
-		return this.codes;
-	}
-
-	public void setCodes(final Collection<Code> codes) {
-		this.codes = codes;
-	}
-
 	@ManyToOne(optional = false)
 	public Manager getManager() {
 		return this.manager;
@@ -114,6 +105,15 @@ public class Raffle extends DomainEntity {
 
 	public void setManager(final Manager manager) {
 		this.manager = manager;
+	}
+
+	@OneToMany(mappedBy = "raffle")
+	public Collection<Participation> getParticipations() {
+		return this.participations;
+	}
+
+	public void setParticipations(final Collection<Participation> participations) {
+		this.participations = participations;
 	}
 
 }

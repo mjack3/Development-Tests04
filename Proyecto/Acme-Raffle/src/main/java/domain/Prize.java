@@ -6,9 +6,8 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.persistence.OneToMany;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -56,7 +55,6 @@ public class Prize extends DomainEntity {
 		this.raffle = raffle;
 	}
 
-	@NotNull
 	@ManyToOne
 	public Taxonomy getTaxonomy() {
 		return this.taxonomy;
@@ -75,7 +73,7 @@ public class Prize extends DomainEntity {
 		this.user = user;
 	}
 
-	@ManyToMany
+	@OneToMany(mappedBy = "prize")
 	public Collection<Code> getCodes() {
 		return this.codes;
 	}

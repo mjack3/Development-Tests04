@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -20,18 +19,9 @@ public class User extends Actor {
 
 	//	Relationships	------------------
 
-	private Collection<Code>	codes;	//	códigos usados
-	private Collection<Prize>	prizes;		//	premios ganados
+	private Collection<Prize>			prizes;		//	premios ganados
+	private Collection<Participation>	participations;
 
-
-	@ManyToMany
-	public Collection<Code> getCodes() {
-		return this.codes;
-	}
-
-	public void setCodes(final Collection<Code> codes) {
-		this.codes = codes;
-	}
 
 	@OneToMany(mappedBy = "user")
 	public Collection<Prize> getPrizes() {
@@ -40,6 +30,15 @@ public class User extends Actor {
 
 	public void setPrizes(final Collection<Prize> prizes) {
 		this.prizes = prizes;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public Collection<Participation> getParticipations() {
+		return this.participations;
+	}
+
+	public void setParticipations(final Collection<Participation> participations) {
+		this.participations = participations;
 	}
 
 }
