@@ -25,6 +25,10 @@
 
 
 		<!-- SECURITY: ALL -->
+				<security:intercept-url pattern="/actor/edit.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/actor/signup.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/actor/save-user-create.do" access="isAnonymous()" />
+    	<security:intercept-url pattern="/actor/save-manager-create.do" access="isAnonymous()" />
 		
 		<!-- SECURITY: USER -->
 		
