@@ -26,7 +26,15 @@
 		
 		<value>/views/legislation/messages</value>
 		
-	
+		<value>/views/user/messages</value>
+		<value>/views/manager/messages</value>
+		<value>/views/actor/messages</value>
+		<value>/views/raffle/messages</value>
+		<value>/views/prize/messages</value>
+		<value>/views/code/messages</value>
+		<value>/views/taxonomy/messages</value>
+		<value>/views/administrator/messages</value>
+		<value>/views/participation/messages</value>
 		
 		
 		

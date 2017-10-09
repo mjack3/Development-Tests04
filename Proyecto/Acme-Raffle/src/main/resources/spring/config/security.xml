@@ -23,6 +23,17 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/" access="permitAll" />
 
+
+		<!-- SECURITY: ALL -->
+		
+		<!-- SECURITY: USER -->
+		
+		<!-- SECURITY: MANAGER -->
+		
+		<!-- SECURITY: ADMINISTRATOR -->
+		
+		<!-- miscellaneous -->
+
 		<security:intercept-url pattern="/favicon.ico"
 			access="permitAll" />
 		<security:intercept-url pattern="/images/**"

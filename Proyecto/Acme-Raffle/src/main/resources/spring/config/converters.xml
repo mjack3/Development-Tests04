@@ -47,6 +47,9 @@
 		
 		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.StringToActorConverter" />
+		
+		<bean class="converters.TaxonomyToStringConverter" />
+		<bean class="converters.StringToTaxonomyConverter" />
 	</util:list>
 	
 </beans>
