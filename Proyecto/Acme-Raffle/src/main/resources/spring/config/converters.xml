@@ -21,13 +21,32 @@
 		
 		<!--<bean class="converters.AuthorityToStringConverter" />-->
 		<bean class="converters.UserAccountToStringConverter" />
-		
-		
-
 		<bean class="converters.StringToUserAccountConverter" />
 		
 		
+		<bean class="converters.UserToStringConverter" />
+		<bean class="converters.StringToUserConverter" />
 		
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		
+		<bean class="converters.ManagerToStringConverter" />
+		<bean class="converters.StringToManagerConverter" />
+		
+		<bean class="converters.RaffleToStringConverter" />
+		<bean class="converters.StringToRaffleConverter" />
+		
+		<bean class="converters.PrizeToStringConverter" />
+		<bean class="converters.StringToPrizeConverter" />
+		
+		<bean class="converters.CodeToStringConverter" />
+		<bean class="converters.StringToCodeConverter" />
+		
+		<bean class="converters.ParticipationToStringConverter" />
+		<bean class="converters.StringToParticipationConverter" />
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
 	</util:list>
 	
 </beans>
