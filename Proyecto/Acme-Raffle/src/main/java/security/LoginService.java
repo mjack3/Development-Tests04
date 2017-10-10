@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+
 @Service
 @Transactional
 public class LoginService implements UserDetailsService {
@@ -59,7 +61,7 @@ public class LoginService implements UserDetailsService {
 			principal = authentication.getPrincipal();
 
 			return principal instanceof UserAccount;
-		} catch (Throwable t) {
+		} catch (final Throwable t) {
 			return false;
 		}
 	}
@@ -77,34 +79,31 @@ public class LoginService implements UserDetailsService {
 			result = (UserAccount) principal;
 
 			return result;
-		} catch (Throwable t) {
+		} catch (final Throwable t) {
 			return null;
 		}
 	}
 
-	public static boolean hasRole(String role) {
-		UserAccount account = LoginService.getAuthenticated();
+	public static boolean hasRole(final String role) {
+		final UserAccount account = LoginService.getAuthenticated();
 
-		if (account == null) {
+		if (account == null)
 			return false;
-		}
 
-		for (Authority e : account.getAuthorities()) {
-			if (e.getAuthority().equalsIgnoreCase(role)) {
+		for (final Authority e : account.getAuthorities())
+			if (e.getAuthority().equalsIgnoreCase(role))
 				return true;
-			}
-		}
 
 		return false;
 	}
-	//	
-	//	public Actor findActorByUsername(String username) {
-	//		return userRepository.findActorByUsername(LoginService.getPrincipal().getUsername());
-	//	}
-	//	
-	//	public Actor findActorByUsername(Integer id) {
-	//		return userRepository.findActorByUsernameId(id);
-	//	}
+
+	public Actor findActorByUsername(final String username) {
+		return this.userRepository.findActorByUsername(LoginService.getPrincipal().getUsername());
+	}
+
+	public Actor findActorByUsername(final Integer id) {
+		return this.userRepository.findActorByUsernameId(id);
+	}
 
 	public static UserAccount getPrincipal() {
 		UserAccount result;
@@ -132,11 +131,15 @@ public class LoginService implements UserDetailsService {
 		return result;
 	}
 
-	public boolean exists(Integer id) {
-		return userRepository.exists(id);
+	public boolean exists(final Integer id) {
+		return this.userRepository.exists(id);
 	}
 
-	public UserAccount findOne(Integer id) {
-		return userRepository.findOne(id);
+	public UserAccount findOne(final Integer id) {
+		return this.userRepository.findOne(id);
+	}
+
+	public Actor selectSelf() {
+		return userRepository.findActorByUsernameId(LoginService.getPrincipal().getId());
 	}
 }

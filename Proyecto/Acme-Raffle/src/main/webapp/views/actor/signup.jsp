@@ -19,8 +19,16 @@
 		<form:hidden path="userAccount.authorities" />
 		
 		
-		<form:hidden path="prizes" />
-		<form:hidden path="participations" />
+		<jstl:if test="${type==1}">
+			<form:hidden path="prizes" />
+			<form:hidden path="participations" />
+		</jstl:if>
+
+		<jstl:if test="${type==2}">
+			<form:hidden path="" />
+		</jstl:if>
+		
+
 
 
 	    <div class="form-group" style="width: 20%;"> 

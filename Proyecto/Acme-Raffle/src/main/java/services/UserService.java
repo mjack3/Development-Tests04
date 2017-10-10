@@ -23,7 +23,7 @@ import security.UserAccount;
 @Transactional
 public class UserService {
 
-	//Manager repositories
+	//User repositories
 
 	@Autowired
 	private UserRepository userRepository;
