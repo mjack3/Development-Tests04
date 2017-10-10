@@ -73,6 +73,20 @@
 		</property>
 	</bean>
 
+
+<!-- ADMIN -->
+
+	<bean id="admin1" class="domain.Administrator">
+		<property name="userAccount" ref="userAccount1" />
+		<property name="name" value="nameAdmin" />
+		<property name="surname" value="surnameAdmin1" />
+		<property name="email" value="emailAdmin1@user.es" />
+		<property name="phone" value="111111111" />
+		<property name="postal" value="11560" />
+		<property name="city" value="Sevilla" />
+		<property name="country" value="España" />
+	</bean>
+
 <!-- USER -->
 
 	<bean id="user1" class="domain.User">
