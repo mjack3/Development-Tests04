@@ -73,6 +73,45 @@
 		</property>
 	</bean>
 
+<!-- USER -->
+
+	<bean id="user1" class="domain.User">
+		<property name="userAccount" ref="userAccount2" />
+		<property name="name" value="nameUser1" />
+		<property name="surname" value="surnameUser1" />
+		<property name="email" value="emailUser1@user.es" />
+		<property name="phone" value="111111111" />
+		<property name="postal" value="11560" />
+		<property name="city" value="Sevilla" />
+		<property name="country" value="España" />
+		<property name="participations">
+			<list>
+			</list>
+		</property>
+		<property name="prizes">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="user2" class="domain.User">
+		<property name="userAccount" ref="userAccount3" />
+		<property name="name" value="nameUser2" />
+		<property name="surname" value="surnameUser2" />
+		<property name="email" value="emailUser2@user.es" />
+		<property name="phone" value="111111111" />
+		<property name="postal" value="11560" />
+		<property name="city" value="Sevilla" />
+		<property name="country" value="España" />
+		<property name="participations">
+			<list>
+			</list>
+		</property>
+		<property name="prizes">
+			<list>
+			</list>
+		</property>
+	</bean>
 
 <!-- MANAGERS -->
 
@@ -81,6 +120,21 @@
 		<property name="name" value="nameManager1" />
 		<property name="surname" value="surnameManager1" />
 		<property name="email" value="emailManager@manager.es" />
+		<property name="phone" value="111111111" />
+		<property name="postal" value="11560" />
+		<property name="city" value="Sevilla" />
+		<property name="country" value="España" />
+		<property name="raffles">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="manager2" class="domain.Manager">
+		<property name="userAccount" ref="userAccount5" />
+		<property name="name" value="nameManager2" />
+		<property name="surname" value="surnameManager2" />
+		<property name="email" value="emailManager2@manager.es" />
 		<property name="phone" value="111111111" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
@@ -100,6 +154,25 @@
 		<property name="publicationTime" value="15/07/2018"/>
 		<property name="deadline" value="08/10/2019"/>
 		<property name="manager" ref="manager1"/>
+		<property name="participations">
+		<list>
+		
+		</list>
+		</property>
+		<property name="prizes">
+		<list>
+			
+		</list>
+		</property>
+	</bean>
+	
+	<bean id="raffle2" class="domain.Raffle">
+		<property name="logo" value="https://vignette1.wikia.nocookie.net/conworld/images/c/c1/Pepa-Cola.jpg"/>
+		<property name="title" value="The Pepa-Cola Vacation 2"/>
+		<property name="description" value="descriptionRaffle2"/>
+		<property name="publicationTime" value="15/07/2018"/>
+		<property name="deadline" value="08/10/2019"/>
+		<property name="manager" ref="manager2"/>
 		<property name="participations">
 		<list>
 		</list>
@@ -176,6 +249,20 @@
 		<property name="code" value="BEMY-BAIT" />
 		<property name="isWinner" value="True" />
 		<property name="prize" ref="prize1" />
+	</bean>
+	
+	<!-- TAXONOMY -->
+	
+	<bean id="taxonomy1" class="domain.Taxonomy">
+		<property name="property" value="property1" />
+	</bean>
+	
+	<bean id="taxonomy2" class="domain.Taxonomy">
+		<property name="property" value="property2" />
+	</bean>
+	
+	<bean id="taxonomy3" class="domain.Taxonomy">
+		<property name="property" value="property3" />
 	</bean>
 	
 </beans>
