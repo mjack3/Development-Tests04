@@ -41,10 +41,10 @@ public class RaffleManagerController extends AbstractController {
 
 	private ModelAndView createEditModelAndView(final RaffleForm raffleForm, final String message) {
 		// TODO Auto-generated method stub
-		final ModelAndView resul = new ModelAndView("raffle/create");
+		final ModelAndView resul = new ModelAndView("raffle/edit");
 		resul.addObject("raffleForm", raffleForm);
 		resul.addObject("message", message);
 		resul.addObject("requestURI", "raffle/manager/edit.do");
-		return null;
+		return resul;
 	}
 }

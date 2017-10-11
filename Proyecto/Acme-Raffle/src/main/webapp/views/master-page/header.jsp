@@ -37,7 +37,6 @@
 				          </ul>
 				        </li>
 				        
-				        <li><a href="Raffles/list.do"><spring:message code="master.page.raffles" /> </a></li>
 
 						
 					</security:authorize>

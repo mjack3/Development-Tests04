@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="requestURI" modelAttribute="raffle">
+<form:form action="requestURI" modelAttribute="raffleForm">
 
 <form:hidden path="id"/>
 <form:hidden path="version"/>
@@ -28,4 +28,10 @@
 <acme:textbox2 code="raffle.publicationTime" path="publicationTime"/>
 <acme:textbox2 code="raffle.deadline" path="deadline"/>
 
+<acme:textbox2 code="raffle.numCodes" path="num"/>
+<acme:textbox2 code="raffle.numWinner" path="numWinner"/>
+
+
+<acme:submit name="save" code="raffle.save"/>
+<acme:cancel url="/welcome/index.do" code="raffle.cancel"/>
 </form:form>
