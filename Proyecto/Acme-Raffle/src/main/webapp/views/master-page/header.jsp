@@ -68,7 +68,7 @@
 							<ul class="dropdown-menu">
 	<!-- DESPLEGABLE DE RAFFLES -->
 								<security:authorize access="hasRole('MANAGER')">
-								<li><a href="manager/raffle/create.do"><spring:message
+								<li><a href="raffle/manager/create.do"><spring:message
 											code="master.page.create" /> </a></li>
 								</security:authorize>
 							</ul></li>

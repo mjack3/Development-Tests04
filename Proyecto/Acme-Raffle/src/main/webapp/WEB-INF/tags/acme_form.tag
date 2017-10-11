@@ -1,6 +1,9 @@
 <!-- 
 	author: jjvalle
-	version: 1.0
+	version: 2.0
+	copyrigth: jjvalle (2017)
+	license: creativecommons 4.0
+	It is not allowed to use this code without the prior approval of the author
  -->
 
 <%@tag import="org.springframework.validation.FieldError"%>
@@ -260,8 +263,9 @@
 	<input name="save" type="submit" class="btn btn-primary" value="<spring:message code="<%=saved_text %>"/>">
 <%
 	if(cancel != null) {
+		//<input onclick="${cancel}" type="button" class="btn btn-warning" value="<spring:message code="acme.cancel" />">
 %>
-	<input onclick="${cancel}" type="button" class="btn btn-warning" value="<spring:message code="acme.cancel" />">
+	<input onclick="window.history.back()" type="button" class="btn btn-warning" value="<spring:message code="acme.cancel" />">
 <%
 	} else {
 %>

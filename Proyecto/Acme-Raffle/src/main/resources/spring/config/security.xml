@@ -36,7 +36,7 @@
 		<!-- SECURITY: MANAGER -->
 		
     	<security:intercept-url pattern="/actor/save-mana.do" access="hasRole('MANAGER')" />
-		
+		<security:intercept-url pattern="/raffle/manager/**" access="hasRole('MANAGER')" />
 		<!-- SECURITY: ADMINISTRATOR -->
 		
 				<security:intercept-url pattern="/actor/save-administrator.do" access="hasRole('ADMIN')" />

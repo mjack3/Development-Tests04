@@ -1,5 +1,5 @@
 <%--
- * cancel.tag
+ * textbox.tag
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -7,10 +7,10 @@
  * TDG Licence, a copy of which you may download from 
  * http://www.tdg-seville.info/License.html
  --%>
- 
+
 <%@ tag language="java" body-content="empty" %>
- 
- <%-- Taglibs --%>
+
+<%-- Taglibs --%>
 
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -22,32 +22,21 @@
 
 <%-- Attributes --%> 
  
+<%@ attribute name="path" required="true" %>
 <%@ attribute name="code" required="true" %>
-<%@ attribute name="url" required="true" %>
+
+<%@ attribute name="readonly" required="false" %>
+
+<jstl:if test="${readonly == null}">
+	<jstl:set var="readonly" value="false" />
+</jstl:if>
 
 <%-- Definition --%>
 
-<button type="button" class="btn btn-warning" onclick="javascript: relativeRedir('${url}')" >
-	<spring:message code="${code}" />
-</button>
-
-<%-- Notes --%>
-
-<%-- 
-
-	If you wish to use this custom tag, you need add the following 
-	script in your master page: 
-
-	<script type="text/javascript">
-		function relativeRedir(loc) {	
-			var b = document.getElementsByTagName('base');
-			if (b && b[0] && b[0].href) {
-	  			if (b[0].href.substr(b[0].href.length - 1) == '/' && loc.charAt(0) == '/')
-	    		loc = loc.substr(1);
-	  			loc = b[0].href + loc;
-			}
-			window.location.replace(loc);
-		}
-	</script>
-
---%>
+<div class="form-group" style="width: 55%;">
+	<form:label path="${path}">
+		<spring:message code="${code}" />
+	</form:label>	
+	<form:input class="form-control" path="${path}" readonly="${readonly}" />	
+	<form:errors path="${path}"  cssClass="error" />
+</div>	

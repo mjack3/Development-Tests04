@@ -1,6 +1,9 @@
 <!-- 
 	author: jjvalle
-	version: 1.0
+	version: 3.1
+	copyrigth: jjvalle (2017)
+	license: creativecommons 4.0
+	It is not allowed to use this code without the prior approval of the author
  -->
 
 <%@tag import="javax.servlet.jsp.el.VariableResolver"%>
@@ -277,7 +280,6 @@
 %>
 <%
 						if(val instanceof Date) {
-							
 							SimpleDateFormat format;
 							if(time_stamps_map.containsKey(e.getName())) {
 								format = new SimpleDateFormat(time_stamps_map.get(e.getName()));

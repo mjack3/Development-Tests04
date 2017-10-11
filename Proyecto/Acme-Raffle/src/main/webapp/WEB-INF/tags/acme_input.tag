@@ -26,7 +26,7 @@
 <%
 	if(typeIn.equalsIgnoreCase("hidden")) {
 %>
-	<form:hidden path="<%=f.getName() %>"/>
+	<form:hidden path="<%=name %>"/>
 <%
 	} else {
 %>

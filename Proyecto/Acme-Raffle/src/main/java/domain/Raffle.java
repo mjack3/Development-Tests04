@@ -16,6 +16,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -34,6 +35,7 @@ public class Raffle extends DomainEntity {
 	}
 
 	@NotBlank
+	@URL
 	public String getLogo() {
 		return this.logo;
 	}

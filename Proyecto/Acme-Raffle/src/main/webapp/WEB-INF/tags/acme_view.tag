@@ -1,6 +1,9 @@
 <!-- 
 	author: jjvalle
-	version: 1.0
+	version: 1.5
+	copyrigth: jjvalle (2017)
+	license: creativecommons 4.0
+	It is not allowed to use this code without the prior approval of the author
  -->
 
 <%@tag import="java.util.List"%>
