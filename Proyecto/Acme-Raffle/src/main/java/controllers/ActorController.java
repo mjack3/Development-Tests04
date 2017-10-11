@@ -163,10 +163,10 @@ public class ActorController extends AbstractController {
 			result = new ModelAndView("actor/signup");
 			result.addObject("actor", actor);
 			result.addObject("user", actor);
-			result.addObject("manager", actor);
-			result.addObject("message", null);
+			//result.addObject("manager", actor);
+			//result.addObject("message", null);
 
-			result.addObject("url", "actor/save-user-create.do");
+			//result.addObject("url", "actor/save-user-create.do");
 		} else
 			try {
 				this.userService.save(actor);
@@ -176,7 +176,7 @@ public class ActorController extends AbstractController {
 				result = new ModelAndView("actor/signup");
 				result.addObject("actor", actor);
 				result.addObject("user", actor);
-				result.addObject("manager", actor);
+				//result.addObject("manager", actor);
 				result.addObject("message", "actor.commit.error");
 				result.addObject("url", "actor/save-manager-create.do");
 			}
