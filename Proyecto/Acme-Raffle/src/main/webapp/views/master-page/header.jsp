@@ -55,22 +55,30 @@
 							</ul></li>
 
 						<li><a href="actor/edit.do?userAccountID=${id}"><spring:message code="master.page.actor.edit" /></a></li>
-						<li><a href="Raffles/list.do"><spring:message code="master.page.raffles" /> </a></li>
 					</security:authorize>
 					
-					
-					<security:authorize access="hasRole('MANAGER')">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+					<security:authorize access="permitAll()">
+						
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false">
-							hHOLA
+	<!-- RAFFLES -->
+							<spring:message code="master.page.raffles" /><span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								
+	<!-- DESPLEGABLE DE RAFFLES -->
+								<security:authorize access="hasRole('MANAGER')">
 								<li><a href="manager/raffle/create.do"><spring:message
-											code="master.page.raffle.create" /> </a></li>
+											code="master.page.create" /> </a></li>
+								</security:authorize>
 							</ul></li>
+						
 					</security:authorize>
+					
+					
+					
+					
+					
 					
 				</ul>
 			</div>
