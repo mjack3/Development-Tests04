@@ -25,6 +25,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<ul class="nav navbar-nav">
+					
 					<security:authorize access="isAnonymous()">
 						<li><a class="fNiv" href="security/login.do"><spring:message
 									code="master.page.login" /></a></li>
@@ -55,8 +56,22 @@
 
 						<li><a href="actor/edit.do?userAccountID=${id}"><spring:message code="master.page.actor.edit" /></a></li>
 						<li><a href="Raffles/list.do"><spring:message code="master.page.raffles" /> </a></li>
-					
 					</security:authorize>
+					
+					
+					<security:authorize access="hasRole('MANAGER')">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">
+							hHOLA
+							</a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="manager/raffle/create.do"><spring:message
+											code="master.page.raffle.create" /> </a></li>
+							</ul></li>
+					</security:authorize>
+					
 				</ul>
 			</div>
 		</div>
