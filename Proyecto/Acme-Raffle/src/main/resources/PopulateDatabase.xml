@@ -170,12 +170,14 @@
 		<property name="manager" ref="manager1"/>
 		<property name="participations">
 		<list>
-		
 		</list>
 		</property>
 		<property name="prizes">
 		<list>
-			
+		</list>
+		</property>
+		<property name="codes">
+		<list>
 		</list>
 		</property>
 	</bean>
@@ -192,6 +194,10 @@
 		</list>
 		</property>
 		<property name="prizes">
+		<list>
+		</list>
+		</property>
+		<property name="codes">
 		<list>
 		</list>
 		</property>
@@ -225,21 +231,25 @@
 		<property name="code" value="MALD-IVES" />
 		<property name="isWinner" value="False" />
 		<property name="prize" ref="prize1" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	<bean id="code12" class="domain.Code">
 		<property name="code" value="JULY-2019" />
 		<property name="isWinner" value="False" />
 		<property name="prize" ref="prize1" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	<bean id="code13" class="domain.Code">
 		<property name="code" value="LETS-G02G" />
 		<property name="isWinner" value="False" />
 		<property name="prize" ref="prize1" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	<bean id="code14" class="domain.Code">
 		<property name="code" value="4500-EURO" />
 		<property name="isWinner" value="True" />
 		<property name="prize" ref="prize1" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	
 		<!-- prize2 -->
@@ -247,22 +257,26 @@
 	<bean id="code21" class="domain.Code">
 		<property name="code" value="TANZ-ANIA" />
 		<property name="isWinner" value="False" />
-		<property name="prize" ref="prize1" />
+		<property name="prize" ref="prize2" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	<bean id="code22" class="domain.Code">
 		<property name="code" value="DECX-2018" />
 		<property name="isWinner" value="False" />
-		<property name="prize" ref="prize1" />
+		<property name="prize" ref="prize2" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	<bean id="code23" class="domain.Code">
 		<property name="code" value="LETS-GO2G" />
 		<property name="isWinner" value="False" />
-		<property name="prize" ref="prize1" />
+		<property name="prize" ref="prize2" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	<bean id="code24" class="domain.Code">
 		<property name="code" value="BEMY-BAIT" />
 		<property name="isWinner" value="True" />
-		<property name="prize" ref="prize1" />
+		<property name="prize" ref="prize2" />
+		<property name="raffle" ref="raffle1" />
 	</bean>
 	
 	<!-- TAXONOMY -->

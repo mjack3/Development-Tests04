@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -87,6 +88,7 @@ public class Raffle extends DomainEntity {
 	private Collection<Prize>			prizes;
 	private Collection<Participation>	participations;
 	private Manager						manager;
+	private Collection<Code>			codes;
 
 
 	@OneToMany(mappedBy = "raffle")
@@ -114,6 +116,15 @@ public class Raffle extends DomainEntity {
 
 	public void setParticipations(final Collection<Participation> participations) {
 		this.participations = participations;
+	}
+
+	@OneToMany(mappedBy = "raffle", cascade = CascadeType.ALL)
+	public Collection<Code> getCodes() {
+		return this.codes;
+	}
+
+	public void setCodes(final Collection<Code> codes) {
+		this.codes = codes;
 	}
 
 }

@@ -44,8 +44,18 @@ public class Code extends DomainEntity {
 
 	//	Relationships	----------------------
 
+	private Raffle	raffle;
 	private Prize	prize;
 
+
+	@ManyToOne(optional = false)
+	public Raffle getRaffle() {
+		return this.raffle;
+	}
+
+	public void setRaffle(final Raffle raffle) {
+		this.raffle = raffle;
+	}
 
 	@ManyToOne(optional = false)
 	public Prize getPrize() {
