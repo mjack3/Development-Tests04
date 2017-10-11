@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -11,10 +12,12 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Manager;
 import repositories.ManagerRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
+import domain.Code;
+import domain.Manager;
 
 @Service
 @Transactional
@@ -23,7 +26,9 @@ public class ManagerService {
 	//Manager repositories
 
 	@Autowired
-	private ManagerRepository managerRepository;
+	private ManagerRepository	managerRepository;
+	@Autowired
+	private LoginService		loginService;
 
 
 	//Constructor
@@ -95,6 +100,22 @@ public class ManagerService {
 	public boolean exists(final Integer arg0) {
 		Assert.notNull(arg0);
 		return this.managerRepository.exists(arg0);
+	}
+	/**
+	 * Devuelve al manager logueado
+	 * 
+	 * @return manager
+	 */
+	public Manager findPrincipal() {
+		// TODO Auto-generated method stub
+		Assert.isTrue(LoginService.hasRole("MANAGER"));
+		final Manager manager = this.managerRepository.findOneUserAccount(LoginService.getPrincipal().getId());
+		return manager;
+	}
+
+	public Collection<Code> getCodes(final Integer totalCodes, final Integer numWinner) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

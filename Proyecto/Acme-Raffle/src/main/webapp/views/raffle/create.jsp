@@ -17,19 +17,34 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="requestURI" modelAttribute="raffleForm">
+<form:form action="${requestURI }" modelAttribute="raffleForm">
 
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 
+
+
 <acme:textbox2 code="raffle.logo" path="logo"/>
 <acme:textbox2 code="raffle.title" path="title"/>
-<acme:textbox2 code="raffle.description" path="description"/>
+<acme:textarea2 code="raffle.description" path="description"/>
 <acme:textbox2 code="raffle.publicationTime" path="publicationTime"/>
 <acme:textbox2 code="raffle.deadline" path="deadline"/>
 
+<fieldset>
+
+<b><legend><spring:message code="prize.prize" /></legend></b>
+
+<acme:textbox2 code="prize.name" path="namePrize"/>
+<acme:textarea2 code="prize.description" path="descriptionPrize"/>
+
+<br/>
+
 <acme:textbox2 code="raffle.numCodes" path="num"/>
 <acme:textbox2 code="raffle.numWinner" path="numWinner"/>
+
+</fieldset>
+
+
 
 
 <acme:submit name="save" code="raffle.save"/>

@@ -16,9 +16,9 @@
        
 <tiles-definitions>
 
-	<definition name="raffle/edit" extends="master.page">
+	<definition name="raffle/create" extends="master.page">
 		<put-attribute name="title" value="Raffle edition" />
-		<put-attribute name="body" value="/views/raffle/edit.jsp" />
+		<put-attribute name="body" value="/views/raffle/create.jsp" />
 	</definition>
 
 </tiles-definitions>
