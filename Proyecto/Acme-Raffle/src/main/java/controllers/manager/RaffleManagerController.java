@@ -1,6 +1,8 @@
 
 package controllers.manager;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CodeService;
 import services.ManagerService;
+import services.PrizeService;
 import services.RaffleService;
 import controllers.AbstractController;
+import domain.Code;
 import domain.Prize;
 import domain.Raffle;
 import forms.RaffleForm;
@@ -25,6 +30,10 @@ public class RaffleManagerController extends AbstractController {
 	RaffleService	raffleService;
 	@Autowired
 	ManagerService	managerService;
+	@Autowired
+	PrizeService	prizeService;
+	@Autowired
+	CodeService		codeService;
 
 
 	public RaffleManagerController() {
@@ -58,6 +67,7 @@ public class RaffleManagerController extends AbstractController {
 					bindingResult.rejectValue("num", "error.num", "error");
 					throw new IllegalArgumentException();
 				}
+
 				final Raffle raffle = new Raffle();
 				//	genero rifa
 				raffle.setTitle(raffleForm.getTitle());
@@ -72,11 +82,17 @@ public class RaffleManagerController extends AbstractController {
 				prize.setName(raffleForm.getNamePrize());
 				prize.setDescription(raffleForm.getDescriptionPrize());
 
-				//genero código
-
 				//Guardo rifa
+
+				final Raffle raffleSaved = this.raffleService.save(raffle);
+
 				//Guardo Premios
-				//Guardo los premios
+
+				prize.setRaffle(raffleSaved);
+				final Prize prizeSaved = this.prizeService.save(prize);
+
+				//Genero y almaceno los códigos
+				final Collection<Code> codeSaveds = this.codeService.getCodes(raffleForm.getNum(), raffleForm.getNumWinner(), raffleSaved, prizeSaved);
 
 				resul = new ModelAndView("redirect:/welcome/index.do");
 
