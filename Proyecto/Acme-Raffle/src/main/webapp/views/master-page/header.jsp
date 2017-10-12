@@ -65,12 +65,17 @@
 							<spring:message code="master.page.raffles" /><span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
+							<li><a href="raffle/list.do"><spring:message code="master.page.raffle"></spring:message></a></li>
+							
+							
+							
 	<!-- DESPLEGABLE DE RAFFLES -->
 								<security:authorize access="hasRole('MANAGER')">
 								<li><a href="raffle/manager/create.do"><spring:message
 											code="master.page.create" /> </a></li>
 								</security:authorize>
 							</ul></li>
+							
 						
 					</security:authorize>
 					

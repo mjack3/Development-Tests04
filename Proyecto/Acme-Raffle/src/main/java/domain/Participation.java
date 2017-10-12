@@ -11,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +40,7 @@ public class Participation extends DomainEntity {
 	}
 
 	@NotNull
+	@Pattern(regexp = "^[A-Z0-9]{4}[-| |\\/]{0,1}\\w{4}$")
 	public String getUsedCode() {
 		return this.usedCode;
 	}

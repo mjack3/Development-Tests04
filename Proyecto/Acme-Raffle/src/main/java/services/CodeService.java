@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -12,14 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.CodeRepository;
-import security.LoginService;
 import domain.Code;
+import domain.Participation;
 import domain.Prize;
 import domain.Raffle;
+import repositories.CodeRepository;
+import security.LoginService;
 
 @Transactional
 @Service
+
 public class CodeService {
 
 	@Autowired
@@ -97,6 +100,14 @@ public class CodeService {
 		resul.setCode(string);
 
 		return resul;
+	}
+	public List<Code> codeByRaffle(int id) {
+		Assert.notNull(id);
+		return codeRepository.codeByRaffle(id);
+	}
+	public List<Participation> codeByParticipation(int id) {
+		Assert.notNull(id);
+		return codeRepository.codeByParticipation(id);
 	}
 
 }

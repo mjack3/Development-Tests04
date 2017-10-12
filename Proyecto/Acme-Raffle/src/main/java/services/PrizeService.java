@@ -1,15 +1,17 @@
 
 package services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Prize;
 import repositories.PrizeRepository;
 import security.LoginService;
-import domain.Prize;
 
 @Service
 @Transactional
@@ -30,6 +32,15 @@ public class PrizeService {
 			saved = this.prizeRepository.save(prize);
 		}
 		return saved;
+	}
+
+	public List<Prize> findAll() {
+		return prizeRepository.findAll();
+	}
+
+	public Prize findOne(Integer id) {
+		Assert.notNull(id);
+		return prizeRepository.findOne(id);
 	}
 
 }

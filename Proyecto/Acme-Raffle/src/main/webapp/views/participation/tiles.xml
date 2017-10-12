@@ -16,9 +16,11 @@
        
 <tiles-definitions>
 
-	<definition name="" extends="master.page">
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="participation/create" extends="master.page">
+		<put-attribute name="title" value="Enter Code" />
+		<put-attribute name="body" value="/views/participation/create.jsp" />
 	</definition>
+	
+	
 
 </tiles-definitions>
