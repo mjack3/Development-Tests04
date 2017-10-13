@@ -24,6 +24,12 @@
 		<td>
 </security:authorize>
 
+<security:authorize access="hasRole('MANAGER')">
+<a class="btn btn-primary"
+		href="prize/manager/list.do?prizeId=${e.id}"> <spring:message
+			code="raffle.prizes" />
+	</a>
+</security:authorize>
 </acme:list>
 
 
