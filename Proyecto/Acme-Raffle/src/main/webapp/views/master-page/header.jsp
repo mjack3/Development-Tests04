@@ -76,6 +76,14 @@
 								</security:authorize>
 							</ul></li>
 							
+							<security:authorize access="hasRole('ADMIN')">
+								<li><a href="user/administrator/list.do"><spring:message
+											code="master.page.user.list" /> </a></li>
+								<li><a href="administrator/dashboard.do"><spring:message
+											code="master.page.administrator.dashboard" /> </a></li>
+								<li><a href="taxonomy/administrator/list.do"><spring:message
+											code="master.page.administrator.taxonomy" /> </a></li>
+							</security:authorize>
 						
 					</security:authorize>
 					

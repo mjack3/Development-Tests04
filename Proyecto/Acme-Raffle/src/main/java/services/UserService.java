@@ -101,4 +101,14 @@ public class UserService {
 		return this.userRepository.exists(arg0);
 	}
 
+	public List<User> usersBanned() {
+		return userRepository.usersBanned();
+	}
+
+	public List<User> usersNotBanned() {
+		return userRepository.usersNotBanned();
+	}
+	
+	
+
 }

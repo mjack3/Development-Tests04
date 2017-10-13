@@ -2,18 +2,22 @@
 package services;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.id.UUIDGenerationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Administrator;
+import domain.User;
 import repositories.AdministratorRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
 
 @Service
@@ -24,6 +28,9 @@ public class AdministratorService {
 
 	@Autowired
 	private AdministratorRepository administratorRepository;
+	
+	@Autowired
+	private UserService userService;
 
 
 	//Constructor
@@ -97,5 +104,53 @@ public class AdministratorService {
 		Assert.notNull(arg0);
 		return this.administratorRepository.exists(arg0);
 	}
+	
+	/**
+	 * Devuelve al administrador logueado
+	 *
+	 * @return manager
+	 */
+	public Administrator findPrincipal() {
+
+		Assert.isTrue(LoginService.hasRole("ADMIN"));
+		final Administrator admin = this.administratorRepository.findOneUserAccount(LoginService.getPrincipal().getId());
+		return admin;
+	}
+	
+	public User bannedUser(User user) {
+		Assert.notNull(user);
+		Assert.isTrue(userService.exists(user.getId()));
+		
+		UserAccount account = user.getUserAccount();
+		account.setBanned(true);
+		user.setUserAccount(account);
+		
+		return userService.save(user);
+	}
+	
+	public User readmitUser(User user) {
+		Assert.notNull(user);
+		Assert.isTrue(userService.exists(user.getId()));
+		
+		UserAccount account = user.getUserAccount();
+		account.setBanned(false);
+		user.setUserAccount(account);
+		
+		return userService.save(user);
+	}
+	
+	public List<Object> dashboard(){
+		List<Object> res = new LinkedList<Object>();
+		
+		res.add(userService.usersBanned().size()/userService.usersNotBanned().size());
+		res.add(administratorRepository.prizesPerRaffle());
+		res.add(administratorRepository.codesPerPrizes());
+		res.add(administratorRepository.validCodesPerUser());
+		res.add(administratorRepository.userWithMoreValidCodes());
+		
+		return res;
+	}
+	
+	
 
 }
