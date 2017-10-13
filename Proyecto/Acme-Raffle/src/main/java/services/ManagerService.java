@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -12,12 +13,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Code;
+import domain.Manager;
+import domain.Raffle;
 import repositories.ManagerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Code;
-import domain.Manager;
 
 @Service
 @Transactional
@@ -59,8 +61,7 @@ public class ManagerService {
 		//account.setActivate(true);
 
 		manager.setUserAccount(account);
-		//user.setPrizes(new ArrayList<Prize>());
-		//user.setParticipations(new ArrayList<Participation>());
+		manager.setRaffles(new ArrayList<Raffle>());
 
 		return manager;
 	}
@@ -103,7 +104,7 @@ public class ManagerService {
 	}
 	/**
 	 * Devuelve al manager logueado
-	 * 
+	 *
 	 * @return manager
 	 */
 	public Manager findPrincipal() {

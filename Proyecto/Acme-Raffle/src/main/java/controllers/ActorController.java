@@ -56,7 +56,7 @@ public class ActorController extends AbstractController {
 			url = "actor/save-user-create.do";
 		} else if (q == 2) {
 			actor = this.managerService.create();
-			url = "actor/save-manager-create.do";
+			url = "actor/save-mana-create.do";
 		}
 
 		result.addObject("actor", actor);
@@ -73,45 +73,55 @@ public class ActorController extends AbstractController {
 	public ModelAndView saveUserCreate(@Valid final User actor, final BindingResult binding, final String message) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(actor, null);
+			result = this.signupModelAndView(actor, "actor.commit.error");
 			for (final ObjectError e : binding.getAllErrors())
 				System.out.println(e.toString());
 		} else
 			try {
 				this.userService.save(actor);
 				result = new ModelAndView("redirect:/welcome/index.do");
-				result.addObject("message", message);
 			} catch (final Throwable th) {
 				th.printStackTrace();
-				result = new ModelAndView("actor/signup");
-				result.addObject("actor", actor);
-				result.addObject("user", actor);
-				result.addObject("message", message);
-				result.addObject("message", "actor.commit.error");
+				result = this.signupModelAndView(actor, "actor.commit.error");
 			}
 		return result;
 	}
 
-	@RequestMapping(value = "/save-manager-create", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/save-mana-create", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveManagerCreate(@Valid final Manager actor, final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			result = new ModelAndView("actor/signup");
-			result.addObject("actor", actor);
-			result.addObject("manager", actor);
-			result.addObject("message", null);
-			result.addObject("url", "actor/save-manager-create.do");
+			result = this.signupModelAndView(actor, "actor.commit.error");
+			for (final ObjectError e : binding.getAllErrors())
+				System.out.println(e.toString());
 		} else
 			try {
 				this.managerService.save(actor);
 				result = new ModelAndView("redirect:/welcome/index.do");
-			} catch (final Throwable e) {
-				result = new ModelAndView("actor/signup");
-				result.addObject("actor", actor);
-				result.addObject("manager", actor);
-				result.addObject("message", "actor.commit.error");
-				result.addObject("url", "actor/save-manager-create.do");
+			} catch (final Throwable th) {
+				th.printStackTrace();
+				result = this.signupModelAndView(actor, "actor.commit.error");
 			}
+		return result;
+	}
+
+	protected ModelAndView signupModelAndView(final Actor actor) {
+
+		ModelAndView result;
+		result = this.signupModelAndView(actor, null);
+		return result;
+	}
+
+	protected ModelAndView signupModelAndView(final Actor actor, final String message) {
+
+		ModelAndView result;
+
+		result = new ModelAndView("actor/signup");
+		result.addObject("actor", actor);
+		result.addObject("user", actor);
+		result.addObject("manager", actor);
+		result.addObject("message", message);
+
 		return result;
 	}
 
@@ -136,7 +146,7 @@ public class ActorController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(actor, null);
+			result = this.createEditModelAndView(actor, "actor.commit.error");
 			for (final ObjectError e : binding.getAllErrors())
 				System.out.println(e.toString());
 
@@ -175,7 +185,7 @@ public class ActorController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(actor, null);
+			result = this.createEditModelAndView(actor, "actor.commit.error");
 			for (final ObjectError e : binding.getAllErrors())
 				System.out.println(e.toString());
 		} else

@@ -25,7 +25,7 @@
 		</jstl:if>
 
 		<jstl:if test="${type==2}">
-			<form:hidden path="" />
+			<form:hidden path="raffles" />
 		</jstl:if>
 		
 
