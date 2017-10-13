@@ -492,10 +492,10 @@ public class Kreator {
 	}
 
 
-	private static final String		class_name	= "School";
-	private static final String		user_name	= "administrator";
+	private static final String		class_name	= "Prize";
+	private static final String		user_name	= "manager";
 	private static final String[]	roles		= new String[] {
-		"ADMINISTRATOR"
+		"MANAGER"
 	};
 
 

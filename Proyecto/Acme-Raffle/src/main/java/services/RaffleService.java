@@ -2,7 +2,6 @@
 package services;
 
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RaffleRepository;
-import security.LoginService;
 import domain.Raffle;
 
 @Service
@@ -26,8 +24,6 @@ public class RaffleService {
 	
 
 
-	@Autowired
-	private LoginService loginService;
 
 
 
@@ -42,7 +38,7 @@ public class RaffleService {
 		return saved;
 	}
 	
-	public Collection<Raffle> findAll(){
+	public List<Raffle> findAll(){
 		return this.raffleRepository.findAll();
 	}
 	public Boolean exist(int raffleId){
