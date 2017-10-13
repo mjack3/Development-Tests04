@@ -145,12 +145,11 @@ public class ActorController extends AbstractController {
 	public ModelAndView saveAdministrator(@Valid final Administrator actor, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(actor, "actor.commit.error");
-			for (final ObjectError e : binding.getAllErrors())
-				System.out.println(e.toString());
-
-		} else
+		//for (final ObjectError e : binding.getAllErrors())
+		//System.out.println(e.toString());
+		else
 			try {
 				this.administratorService.save(actor);
 				result = new ModelAndView("redirect:/welcome/index.do");
@@ -216,6 +215,8 @@ public class ActorController extends AbstractController {
 		result.addObject("user", actor);
 		result.addObject("manager", actor);
 		result.addObject("message", message);
+
+		System.out.println(message);
 
 		return result;
 	}
