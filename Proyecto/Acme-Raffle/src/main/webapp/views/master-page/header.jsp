@@ -74,7 +74,14 @@
 								<li><a href="raffle/manager/create.do"><spring:message
 											code="master.page.create" /> </a></li>
 								</security:authorize>
+								
+								<security:authorize access="hasRole('USER')">
+								<li><a href="raffle/user/listparticipation.do"><spring:message
+											code="master.page.listparticipation" /> </a></li>
+								</security:authorize>
 							</ul></li>
+							
+							
 							
 							<security:authorize access="hasRole('ADMIN')">
 								<li><a href="user/administrator/list.do"><spring:message
@@ -86,6 +93,8 @@
 							</security:authorize>
 						
 					</security:authorize>
+					
+					
 					
 					
 					

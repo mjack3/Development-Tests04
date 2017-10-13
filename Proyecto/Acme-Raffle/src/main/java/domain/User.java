@@ -18,10 +18,12 @@ public class User extends Actor {
 		super();
 	}
 
+
 	private Integer validCodes;
 
+
 	@NotNull
-	@Min(value=0)
+	@Min(value = 0)
 	public Integer getValidCodes() {
 		return validCodes;
 	}
@@ -32,8 +34,7 @@ public class User extends Actor {
 	//	Relationships	------------------
 
 
-
-	private Collection<Prize>			prizes;		//	premios ganados
+	private Collection<Prize>			prizes;					//	premios ganados
 	private Collection<Participation>	participations;
 
 

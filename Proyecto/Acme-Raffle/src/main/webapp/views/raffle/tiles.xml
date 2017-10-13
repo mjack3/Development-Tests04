@@ -24,6 +24,15 @@
 	<definition name="raffle/list" extends="master.page">
 		<put-attribute name="title" value="List Raffle" />
 		<put-attribute name="body" value="/views/raffle/list.jsp" />
+
 	</definition>
+	
+	
+	<definition name="raffle/listparticipation" extends="master.page">
+		<put-attribute name="title" value="My List Raffle Participations" />
+		<put-attribute name="body" value="/views/raffle/listparticipation.jsp" />
+
+	</definition>
+	
 
 </tiles-definitions>

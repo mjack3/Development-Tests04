@@ -38,6 +38,9 @@
 		    	<security:intercept-url pattern="/participation/user/create.do" access="hasRole('USER')" />
 		    	<security:intercept-url pattern="/prize/win.do" access="hasRole('USER')" />
 		    	<security:intercept-url pattern="/prize/lose.do" access="hasRole('USER')" />
+		    	<security:intercept-url pattern="/raffle/user/listparticipation.do" access="hasRole('USER')" />
+		    	<security:intercept-url pattern="/prize/user/list.do" access="hasRole('USER')" />
+		    	
 		    	
 		
 		<!-- SECURITY: MANAGER -->

@@ -15,4 +15,22 @@
 
 <h1><spring:message code="prize.youwin"></spring:message> </h1>
 
-<acme:acme_view entity="${prize}" skip_fields="id,version,raffle,taxonomy,user,codes"></acme:acme_view>
+<acme:acme_view entity="${prize}" skip_fields="id,version,raffle,user,codes">
+
+<tr>
+  <td><spring:message code="prize.taxonomy"/></td>
+  <td>
+   <table class="table">
+    <jstl:forEach var="e" items="${prize.taxonomy}">
+     <tr>
+      <td><jstl:out value="${e.name}" /></td>
+     </tr>
+    </jstl:forEach>
+   </table>
+  </td>
+ </tr>
+ <tr>
+
+
+</acme:acme_view>
+

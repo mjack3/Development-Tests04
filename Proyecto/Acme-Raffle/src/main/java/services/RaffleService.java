@@ -46,4 +46,9 @@ public class RaffleService {
 		return raffleRepository.findOne(id);
 	}
 
+	public List<Raffle> raffleByParticpation(int id) {
+		Assert.notNull(id);
+		return raffleRepository.raffleByParticpation(id);
+	}
+
 }

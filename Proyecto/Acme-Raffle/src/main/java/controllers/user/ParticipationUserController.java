@@ -72,7 +72,9 @@ public class ParticipationUserController {
 		Boolean isWin = false;
 		Integer codewin = 0;
 		List<Participation> participations = codeService.codeByParticipation(participationId);
-		Date today = new Date();
+		User user = (User) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		Boolean isUsed = false;
+
 		for (Code a : codes) {
 
 			if (a.getCode().contentEquals(participation.getUsedCode())) {
@@ -90,12 +92,22 @@ public class ParticipationUserController {
 			}
 		}
 
+		for (Participation a : user.getParticipations()) {
+			if (a.getUsedCode().contentEquals(participation.getUsedCode())) {
+				isUsed = true;
+				break;
+			}
+		}
+
 		if (binding.hasErrors()) {
 
 			result = createNewModelAndView(participation, null);
 		} else {
 			try {
-				if (!codeRegister) {
+				if (isUsed) {
+					result = createNewModelAndView(participation, "code.used");
+
+				} else if (!codeRegister) {
 					result = createNewModelAndView(participation, "code.register");
 				} else if (codeParticipation) {
 					result = createNewModelAndView(participation, "code.participation");

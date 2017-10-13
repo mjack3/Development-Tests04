@@ -11,19 +11,22 @@
 <input type="text" id="textSearch" /> 
 <button type="button" class="btn btn-primary" >  <spring:message code="raffle.search" /></button>
 
-<acme:list requestURI="${requestURI}" list="raffle" hidden_fields="codes,participations,manager,prizes" image_fields="logo" variable="e">
+
+<acme:list requestURI="${requestURI}"  list="raffle" hidden_fields="codes,participations,manager,prizes" image_fields="logo" variable="e">
 
 				<security:authorize access="hasRole('USER')">
 				<td>
-				<jstl:if test="${today.before(e.deadline)}">
+			
 				<a href="participation/user/create.do?q=${e.id}"> <spring:message
 						code='particiption.user' /></a>
-					</jstl:if>	
+					
 			</td>
 		<td>
 </security:authorize>
 
 </acme:list>
+
+
 
 
 <script>
