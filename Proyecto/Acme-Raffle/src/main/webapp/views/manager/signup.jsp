@@ -14,66 +14,54 @@
 
 
 
-<form:form action="${url}" modelAttribute="actor">
+<form:form action="${url}" modelAttribute="manager">
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="userAccount.authorities" />
 		<form:hidden path="userAccount.banned" />
-		
-		
-		<jstl:if test="${type==1}">
-			<form:hidden path="validCodes" />
-			<form:hidden path="participations" />
-			
-		</jstl:if>
-
-		<jstl:if test="${type==2}">
-			<form:hidden path="raffles" />
-		</jstl:if>
-		
-
+		<form:hidden path="raffles" />
 
 
 	    <div class="form-group" style="width: 20%;"> 
 	    
-	    <label> <spring:message code="actor.userAccount.username"/> </label><br />
-		<input class="form-control" value="${actor.userAccount.username}" type="text" name="userAccount.username"/>
+	    <label> <spring:message code="mana.userAccount.username"/> </label><br />
+		<input class="form-control" value="${manager.userAccount.username}" type="text" name="userAccount.username"/>
 		<form:errors cssClass="error" path="userAccount.username" /> <br />
 		
-		<label> <spring:message code="actor.userAccount.password"/> </label><br />
-		<input class="form-control" value="${actor.userAccount.password}" type="password" name="userAccount.password"/>
+		<label> <spring:message code="mana.userAccount.password"/> </label><br />
+		<input class="form-control" value="${manager.userAccount.password}" type="password" name="userAccount.password"/>
 		<form:errors cssClass="error" path="userAccount.password" /> <br />
 	    
-		<label> <spring:message code="actor.actorName"/> </label>
+		<label> <spring:message code="mana.actorName"/> </label>
 		<br />
-		<input class="form-control" value="${actor.name}" type="text" name="name"/>
+		<input class="form-control" value="${manager.name}" type="text" name="name"/>
 		<form:errors cssClass="error" path="name" /> <br />
 		
-		<label> <spring:message code="actor.surname"/> </label><br />
-		<input class="form-control" value="${actor.surname}" type="text" name="surname"/>
+		<label> <spring:message code="mana.surname"/> </label><br />
+		<input class="form-control" value="${manager.surname}" type="text" name="surname"/>
 		<form:errors cssClass="error" path="surname" /> <br />
 		
-		<label> <spring:message code="actor.email"/> </label><br />
-		<input class="form-control" value="${actor.email}" type="text" name="email"/>
+		<label> <spring:message code="mana.email"/> </label><br />
+		<input class="form-control" value="${manager.email}" type="text" name="email"/>
 		<form:errors cssClass="error" path="email" /> <br />
 		
-		<label> <spring:message code="actor.phone"/> </label><br />
-		<input class="form-control" value="${actor.phone}" type="text" name="phone"/>
+		<label> <spring:message code="mana.phone"/> </label><br />
+		<input class="form-control" value="${manager.phone}" type="text" name="phone"/>
 		<form:errors cssClass="error" path="phone" /> <br />
 		
-		<label> <spring:message code="actor.postalAddress"/> </label><br />
-		<input class="form-control" value="${actor.postal}" type="text" name="postal"/>
+		<label> <spring:message code="mana.postalAddress"/> </label><br />
+		<input class="form-control" value="${manager.postal}" type="text" name="postal"/>
 		<form:errors cssClass="error" path="postal" /> <br />
 		
 		
-		<label> <spring:message code="actor.city"/> </label><br />
-		<input class="form-control" value="${actor.city}" type="text" name="city"/>
+		<label> <spring:message code="mana.city"/> </label><br />
+		<input class="form-control" value="${manager.city}" type="text" name="city"/>
 		<form:errors cssClass="error" path="city" /> <br />
 		
 		
-		<label> <spring:message code="actor.country"/> </label><br />
-		<input class="form-control" value="${actor.country}" type="text" name="country"/>
+		<label> <spring:message code="mana.country"/> </label><br />
+		<input class="form-control" value="${manager.country}" type="text" name="country"/>
 		<form:errors cssClass="error" path="country" /> <br />
 		
 		</div>

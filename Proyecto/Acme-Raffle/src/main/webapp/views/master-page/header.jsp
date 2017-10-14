@@ -32,8 +32,8 @@
 						<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><spring:message code="master.page.signup" /><span class="caret"></span></a>
 				          <ul class="dropdown-menu">
-				          	<li><a href="actor/signup.do?q=1"><spring:message code="master.page.user.signup" /> </a></li>
-							<li><a href="actor/signup.do?q=2"><spring:message code="master.page.manager.signup" /> </a></li>
+				          	<li><a href="user/signup.do"><spring:message code="master.page.user.signup" /> </a></li>
+							<li><a href="mana/signup.do"><spring:message code="master.page.manager.signup" /> </a></li>
 				          </ul>
 				        </li>
 				        
@@ -52,8 +52,6 @@
 								<li><a href="j_spring_security_logout"><spring:message
 											code="master.page.logout" /> </a></li>
 							</ul></li>
-
-						<li><a href="actor/edit.do?userAccountID=${id}"><spring:message code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 					
 					<security:authorize access="permitAll()">
@@ -66,24 +64,27 @@
 							</a>
 							<ul class="dropdown-menu">
 							<li><a href="raffle/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
-							
+							</ul>
 							
 							
 	<!-- DESPLEGABLE DE RAFFLES -->
 								<security:authorize access="hasRole('MANAGER')">
+								<li><a href="mana/edit.do?userAccountID=${id}"><spring:message code="master.page.actor.edit" /></a></li>
 								<li><a href="raffle/manager/create.do"><spring:message
 											code="master.page.create" /> </a></li>
 								</security:authorize>
 								
 								<security:authorize access="hasRole('USER')">
-								<li><a href="raffle/user/listparticipation.do"><spring:message
-											code="master.page.listparticipation" /> </a></li>
+								<li><a href="user/edit.do?userAccountID=${id}"><spring:message code="master.page.user.edit" /></a></li>
+								<li><a href="raffle/user/listparticipation.do"><spring:message code="master.page.listparticipation" /> </a></li>
+								
 								</security:authorize>
-							</ul></li>
+							
 							
 							
 							
 							<security:authorize access="hasRole('ADMIN')">
+								<li><a href="administrator/edit.do?userAccountID=${id}"><spring:message code="master.page.administrator.edit" /></a></li>
 								<li><a href="user/administrator/list.do"><spring:message
 											code="master.page.user.list" /> </a></li>
 								<li><a href="administrator/dashboard.do"><spring:message

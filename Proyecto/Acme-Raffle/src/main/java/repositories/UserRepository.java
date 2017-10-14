@@ -14,7 +14,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select u from User u where u.userAccount.banned = true")
 	List<User> usersBanned();
-	
+
 	@Query("select u from User u where u.userAccount.banned = false")
 	List<User> usersNotBanned();
+
+	@Query("select u from User u where u.userAccount.id = ?1")
+	User findActorByUsernameId(Integer username);
 }

@@ -89,6 +89,11 @@ public class ManagerService {
 		return m;
 	}
 
+	public Manager findManagerByUsername(final Integer id) {
+		Assert.notNull(id);
+		return this.managerRepository.findOneUserAccount(id);
+	}
+
 	public List<Manager> findAll() {
 		return this.managerRepository.findAll();
 	}

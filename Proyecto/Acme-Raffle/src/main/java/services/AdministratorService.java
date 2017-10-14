@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.id.UUIDGenerationStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,10 +26,10 @@ public class AdministratorService {
 	//User repositories
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
-	
+	private AdministratorRepository	administratorRepository;
+
 	@Autowired
-	private UserService userService;
+	private UserService				userService;
 
 
 	//Constructor
@@ -104,7 +103,7 @@ public class AdministratorService {
 		Assert.notNull(arg0);
 		return this.administratorRepository.exists(arg0);
 	}
-	
+
 	/**
 	 * Devuelve al administrador logueado
 	 *
@@ -116,41 +115,44 @@ public class AdministratorService {
 		final Administrator admin = this.administratorRepository.findOneUserAccount(LoginService.getPrincipal().getId());
 		return admin;
 	}
-	
-	public User bannedUser(User user) {
+
+	public Administrator findActorByUsername(final Integer id) {
+		Assert.notNull(id);
+		return this.administratorRepository.findOneUserAccount(id);
+	}
+
+	public User bannedUser(final User user) {
 		Assert.notNull(user);
-		Assert.isTrue(userService.exists(user.getId()));
-		
-		UserAccount account = user.getUserAccount();
+		Assert.isTrue(this.userService.exists(user.getId()));
+
+		final UserAccount account = user.getUserAccount();
 		account.setBanned(true);
 		user.setUserAccount(account);
-		
-		return userService.save(user);
+
+		return this.userService.save(user);
 	}
-	
-	public User readmitUser(User user) {
+
+	public User readmitUser(final User user) {
 		Assert.notNull(user);
-		Assert.isTrue(userService.exists(user.getId()));
-		
-		UserAccount account = user.getUserAccount();
+		Assert.isTrue(this.userService.exists(user.getId()));
+
+		final UserAccount account = user.getUserAccount();
 		account.setBanned(false);
 		user.setUserAccount(account);
-		
-		return userService.save(user);
+
+		return this.userService.save(user);
 	}
-	
-	public List<Object> dashboard(){
-		List<Object> res = new LinkedList<Object>();
-		
-		res.add(userService.usersBanned().size()/userService.usersNotBanned().size());
-		res.add(administratorRepository.prizesPerRaffle());
-		res.add(administratorRepository.codesPerPrizes());
-		res.add(administratorRepository.validCodesPerUser());
-		res.add(administratorRepository.userWithMoreValidCodes());
-		
+
+	public List<Object> dashboard() {
+		final List<Object> res = new LinkedList<Object>();
+
+		res.add(this.userService.usersBanned().size() / this.userService.usersNotBanned().size());
+		res.add(this.administratorRepository.prizesPerRaffle());
+		res.add(this.administratorRepository.codesPerPrizes());
+		res.add(this.administratorRepository.validCodesPerUser());
+		res.add(this.administratorRepository.userWithMoreValidCodes());
+
 		return res;
 	}
-	
-	
 
 }

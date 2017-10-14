@@ -25,16 +25,17 @@
 
 
 		<!-- SECURITY: ALL -->
-		<security:intercept-url pattern="/actor/edit.do" access="permitAll" />
-		<security:intercept-url pattern="/actor/signup.do" access="permitAll" />
-		<security:intercept-url pattern="/actor/save-user-create.do" access="permitAll" />
-    	<security:intercept-url pattern="/actor/save-mana-create.do" access="permitAll" />
+		<security:intercept-url pattern="/user/signup.do" access="permitAll" />
+		<security:intercept-url pattern="/user/save-user-create.do" access="permitAll" />
+		<security:intercept-url pattern="/mana/signup.do" access="permitAll" />
+    	<security:intercept-url pattern="/mana/save-mana-create.do" access="permitAll" />
    		<security:intercept-url pattern="/raffle/list.do" access="permitAll()" />
    		<security:intercept-url pattern="/prize/list.do" access="permitAll()" />
     	
 		
 		<!-- SECURITY: USER -->
-		    	<security:intercept-url pattern="/actor/save-user.do" access="hasRole('USER')" />
+				<security:intercept-url pattern="/user/edit.do" access="hasRole('USER')" />
+		    	<security:intercept-url pattern="/user/save-user.do" access="hasRole('USER')" />
 		    	<security:intercept-url pattern="/participation/user/save.do" access="hasRole('USER')" />
 		    	<security:intercept-url pattern="/participation/user/create.do" access="hasRole('USER')" />
 		    	<security:intercept-url pattern="/prize/win.do" access="hasRole('USER')" />
@@ -46,13 +47,15 @@
 		
 		<!-- SECURITY: MANAGER -->
 		
-    	<security:intercept-url pattern="/actor/save-mana.do" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/mana/edit.do" access="hasRole('MANAGER')" />
+    	<security:intercept-url pattern="/mana/save-mana.do" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/raffle/manager/**" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/prize/manager/**" access="hasRole('MANAGER')" />
 		
 		<!-- SECURITY: ADMINISTRATOR -->
 		
-		<security:intercept-url pattern="/actor/save-administrator.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/administrator/edit.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/administrator/save-administrator.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/user/administrator/banned.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/user/administrator/readmit.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/user/administrator/list.do" access="hasRole('ADMIN')" />

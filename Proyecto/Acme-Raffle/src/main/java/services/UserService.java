@@ -87,6 +87,11 @@ public class UserService {
 		return u;
 	}
 
+	public User findActorByUsername(final Integer id) {
+		Assert.notNull(id);
+		return this.userRepository.findActorByUsernameId(id);
+	}
+
 	public List<User> findAll() {
 		return this.userRepository.findAll();
 	}
