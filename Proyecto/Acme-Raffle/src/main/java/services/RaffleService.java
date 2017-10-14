@@ -2,6 +2,7 @@
 package services;
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -58,6 +59,12 @@ public class RaffleService {
 	public List<Raffle> raffleByParticpation(int id) {
 		Assert.notNull(id);
 		return raffleRepository.raffleByParticpation(id);
+	}
+
+	public Boolean isEditable(int raffleId) {
+		Raffle raffle = this.findOne(raffleId);
+		Date now = new Date();
+		return raffle.getPublicationTime().after(now);//True if can be editable
 	}
 
 }

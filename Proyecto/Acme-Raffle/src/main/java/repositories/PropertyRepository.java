@@ -4,9 +4,9 @@ package repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.Taxonomy;
+import domain.Property;
 
 @Repository
-public interface TaxonomyRepository extends JpaRepository<Taxonomy, Integer> {
+public interface PropertyRepository extends JpaRepository<Property, Integer> {
 
 }

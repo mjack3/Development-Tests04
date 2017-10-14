@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.TaxonomyRepository;
-import domain.Taxonomy;
+import repositories.PropertyRepository;
+import domain.Property;
 
 @Component
 @Transactional
-public class StringToTaxonomyConverter implements Converter<String, Taxonomy> {
+public class StringToTaxonomyConverter implements Converter<String, Property> {
 
 	@Autowired
-	TaxonomyRepository	userAccountRepository;
+	PropertyRepository	userAccountRepository;
 
 
 	@Override
-	public Taxonomy convert(final String text) {
-		Taxonomy res;
+	public Property convert(final String text) {
+		Property res;
 		int id;
 
 		try {

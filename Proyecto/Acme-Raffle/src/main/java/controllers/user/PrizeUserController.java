@@ -8,16 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Raffle;
-import services.PrizeService;
 import services.RaffleService;
+import domain.Raffle;
 
 @Controller
 @RequestMapping("/prize/user")
 public class PrizeUserController {
 
-	@Autowired
-	private PrizeService	prizeService;
 	@Autowired
 	private RaffleService	raffleService;
 
@@ -28,7 +25,6 @@ public class PrizeUserController {
 		result = new ModelAndView("prize/list");
 		result.addObject("requestURI", "prize/user/list.do");
 		Raffle raffle = raffleService.findOne(q);
-
 		result.addObject("prize", raffle.getPrizes());
 
 		return result;

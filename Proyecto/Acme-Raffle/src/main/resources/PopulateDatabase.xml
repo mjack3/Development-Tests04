@@ -207,6 +207,12 @@
 	<bean id="prize1" class="domain.Prize">
 		<property name="name" value="Maldives" />
 		<property name="description" value="A dream par-adise on earth" />
+		<property name="properties" >
+			<list>
+			<ref bean="property1" />
+			<ref bean="property2" />
+			</list>
+		</property>
 		<property name="codes" >
 			<list>
 			</list>
@@ -217,6 +223,12 @@
 	<bean id="prize2" class="domain.Prize">
 		<property name="name" value="Tanzania" />
 		<property name="description" value="An adventurer’s dream made true" />
+		<property name="properties" >
+			<list>
+			<ref bean="property3" />
+			<ref bean="property2" />
+			</list>
+		</property>
 		<property name="codes" >
 			<list>
 			</list>
@@ -278,18 +290,18 @@
 		<property name="raffle" ref="raffle1" />
 	</bean>
 	
-	<!-- TAXONOMY -->
+	<!-- PROPERTY -->
 	
-	<bean id="taxonomy1" class="domain.Taxonomy">
-		<property name="property" value="property1" />
+	<bean id="property1" class="domain.Property">
+		<property name="name" value="property1" />
 	</bean>
 	
-	<bean id="taxonomy2" class="domain.Taxonomy">
-		<property name="property" value="property2" />
+	<bean id="property2" class="domain.Property">
+		<property name="name" value="property2" />
 	</bean>
 	
-	<bean id="taxonomy3" class="domain.Taxonomy">
-		<property name="property" value="property3" />
+	<bean id="property3" class="domain.Property">
+		<property name="name" value="property3" />
 	</bean>
 	
 </beans>

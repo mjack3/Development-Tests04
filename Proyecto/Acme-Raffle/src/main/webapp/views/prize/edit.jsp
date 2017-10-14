@@ -8,4 +8,22 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<acme:acme_form type="edit" entity="${prize}" url="prize/manager/edit.do" numberSteps="0.25" cancel="welcome/index.do"/>
+<form:form action="${requestParam}" modelAttribute="prize">
+
+	<form:hidden path="raffleId" />
+	<form:hidden path="id" />
+	<acme:textbox code="prize.name" path="name"/>
+	<br />
+	<acme:textbox code="prize.description" path="description" />
+	<br />
+	
+	
+	<!-- Buttons -->
+		
+	<acme:submit name="save" code="prize.save" />
+	
+
+	<acme:cancel url="/raffle/list.do" code="prize.cancel" />
+		
+
+</form:form>

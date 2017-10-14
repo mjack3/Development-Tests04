@@ -5,14 +5,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Taxonomy;
+import domain.Property;
 
 @Component
 @Transactional
-public class TaxonomyToStringConverter implements Converter<Taxonomy, String> {
+public class TaxonomyToStringConverter implements Converter<Property, String> {
 
 	@Override
-	public String convert(final Taxonomy userAccount) {
+	public String convert(final Property userAccount) {
 		String res;
 
 		if (userAccount == null)

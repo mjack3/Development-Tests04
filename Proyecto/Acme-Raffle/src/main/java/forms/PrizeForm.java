@@ -16,4 +16,6 @@ public class PrizeForm extends Prize {
 		this.raffleId = raffleId;
 	}
 
+	
+
 }

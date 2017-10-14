@@ -65,7 +65,7 @@
 							<spring:message code="master.page.raffles" /><span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-							<li><a href="raffle/list.do"><spring:message code="master.page.raffle"></spring:message></a></li>
+							<li><a href="raffle/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
 							
 							
 							

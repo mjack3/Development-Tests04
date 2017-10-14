@@ -3,7 +3,6 @@ package services;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -26,8 +25,6 @@ public class PrizeService {
 
 	@Autowired
 	private PrizeRepository	prizeRepository;
-	@Autowired
-	private LoginService	loginService;
 	
 	@Autowired
 	private ManagerService managerService;
@@ -41,6 +38,8 @@ public class PrizeService {
 		if (prize.getId() == 0) {	//alta nueva
 			Assert.isTrue(LoginService.hasRole("MANAGER"));
 			saved = this.prizeRepository.save(prize);
+		}else{
+			saved= this.prizeRepository.save(prize);
 		}
 		return saved;
 	}
@@ -62,18 +61,24 @@ public class PrizeService {
 	@Autowired
 	private Validator validator;
 	public Prize reconstruct(PrizeForm prizeForm, BindingResult binding){
-		Prize prize = new Prize();
+		Prize prize;
+		if(prizeForm.getId()==0){
+			prize = new Prize();
+			prize.setRaffle(raffleService.findOne(prizeForm.getRaffleId()));
+		}else{
+			prize = prizeRepository.findOne(prizeForm.getId());
+		}
 		prize.setCodes(new ArrayList<Code>());
 		prize.setDescription(prizeForm.getDescription());
 		prize.setName(prizeForm.getName());
-		prize.setRaffle(raffleService.findOne(prizeForm.getRaffleId()));
+		
 		
 		validator.validate(prize, binding);
 		return prize;
 		
 	}
 
-	public Collection<Prize> findAllByRaffleId(int raffleId) {
+	public List<Prize> findAllByRaffleId(int raffleId) {
 		Assert.isTrue(raffleService.exist(raffleId));
 		return this.prizeRepository.findAllByRaffleId(raffleId);
 	}
@@ -82,7 +87,9 @@ public class PrizeService {
 	public PrizeForm reconstruct(int prizeId) {
 		Assert.isTrue(this.exists(prizeId));
 		PrizeForm prizeForm = new PrizeForm();
+		
 		Prize prize = this.prizeRepository.findOne(prizeId);
+		prizeForm.setId(prizeId);
 		prizeForm.setDescription(prize.getDescription());
 		prizeForm.setRaffleId(prize.getRaffle().getId());
 		prizeForm.setName(prize.getName());

@@ -8,50 +8,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Taxonomy;
-import repositories.TaxonomyRepository;
+import repositories.PropertyRepository;
+
+import domain.Property;
 
 @Transactional
 @Service
-public class TaxonomyService {
+public class PropertyService {
 
 	@Autowired
-	TaxonomyRepository repository;
+	PropertyRepository repository;
 	
-	public TaxonomyService() {
+	public PropertyService() {
 		super();
 	}
 	
-	public Taxonomy create() {
-		Taxonomy res = new Taxonomy();
+	public Property create() {
+		Property res = new Property();
 		
-		res.setProperty("");
+		res.setName("");
 		
 		return res;
 	}
 
-	public Taxonomy save(Taxonomy entity) {
+	public Property save(Property entity) {
 		Assert.notNull(entity);
 		return repository.save(entity);
 	}
 	
-	public Taxonomy update(Taxonomy entity) {
+	public Property update(Property entity) {
 		Assert.notNull(entity);
 		Assert.isTrue(repository.exists(entity.getId()));
 		return repository.save(entity);
 	}
 
-	public List<Taxonomy> findAll() {
+	public List<Property> findAll() {
 		return repository.findAll();
 	}
 
-	public Taxonomy findOne(Integer id) {
+	public Property findOne(Integer id) {
 		Assert.notNull(id);
 		Assert.isTrue(repository.exists(id));
 		return repository.findOne(id);
 	}
 
-	public void delete(Taxonomy entity) {
+	public void delete(Property entity) {
 		Assert.notNull(entity);
 		Assert.isTrue(repository.exists(entity.getId()));
 		repository.delete(entity);
