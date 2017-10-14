@@ -30,6 +30,7 @@
 		<security:intercept-url pattern="/actor/save-user-create.do" access="permitAll" />
     	<security:intercept-url pattern="/actor/save-mana-create.do" access="permitAll" />
    		<security:intercept-url pattern="/raffle/list.do" access="permitAll()" />
+   		<security:intercept-url pattern="/prize/list.do" access="permitAll()" />
     	
 		
 		<!-- SECURITY: USER -->

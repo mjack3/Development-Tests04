@@ -1,7 +1,6 @@
 
 package controllers;
 
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.PrizeService;
 import services.RaffleService;
 import domain.Prize;
+import domain.Raffle;
 import forms.PrizeForm;
 
 @RequestMapping("/prize")
@@ -25,13 +25,24 @@ import forms.PrizeForm;
 public class PrizeController {
 
 	@Autowired
-	private PrizeService prizeService;
-	@Autowired 
-	private RaffleService raffleService;
+	private PrizeService	prizeService;
+	@Autowired
+	private RaffleService	raffleService;
 
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam final int q) {
+		ModelAndView result;
+		result = new ModelAndView("prize/list");
+		result.addObject("requestURI", "prize/list.do");
+		final Raffle raffle = this.raffleService.findOne(q);
+		result.addObject("prize", raffle.getPrizes());
+
+		return result;
+	}
 
 	@RequestMapping("/win")
-	public ModelAndView view(@RequestParam Prize q) {
+	public ModelAndView view(@RequestParam final Prize q) {
 		ModelAndView res;
 
 		res = new ModelAndView("prize/win");
@@ -48,19 +59,17 @@ public class PrizeController {
 
 		return res;
 	}
-	
 
 	@RequestMapping(value = "/manager/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int raffleId) {
+	public ModelAndView create(@RequestParam final int raffleId) {
 		ModelAndView result;
 
-		result = createEditModelAndView(prizeService.createForm(raffleId), null);
+		result = this.createEditModelAndView(this.prizeService.createForm(raffleId), null);
 
 		return result;
 	}
 
-
-	protected ModelAndView createNewModelAndView(Prize prize, String message) {
+	protected ModelAndView createNewModelAndView(final Prize prize, final String message) {
 		ModelAndView result;
 		result = new ModelAndView("prize/create");
 		result.addObject("prize", prize);
@@ -69,17 +78,16 @@ public class PrizeController {
 	}
 
 	@RequestMapping(value = "/manager/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam int raffleId,
-			RedirectAttributes redirectAttrs) {
+	public ModelAndView list(@RequestParam final int raffleId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
 			result = new ModelAndView("prize/list");
-			List <Prize>prizes= prizeService.findAllByRaffleId(raffleId);
-			result.addObject("prize",prizes);
+			final List<Prize> prizes = this.prizeService.findAllByRaffleId(raffleId);
+			result.addObject("prize", prizes);
 			result.addObject("requestURI", "prize/manager/list.do");
 			result.addObject("raffleId", raffleId);
-			result.addObject("editable",raffleService.isEditable(raffleId));
-		} catch (Throwable oops) {
+			result.addObject("editable", this.raffleService.isEditable(raffleId));
+		} catch (final Throwable oops) {
 			result = new ModelAndView("raffle/list");
 			redirectAttrs.addFlashAttribute("message", "raffle.error.exist");
 		}
@@ -88,56 +96,52 @@ public class PrizeController {
 	}
 
 	@RequestMapping(value = "/manager/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int prizeId,
-			RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int prizeId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
-			PrizeForm prize = this.prizeService.reconstruct(prizeId);
+			final PrizeForm prize = this.prizeService.reconstruct(prizeId);
 			result = new ModelAndView("prize/edit");
 			result.addObject("prize", prize);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			result = new ModelAndView("raffle/manager/list");
-			redirectAttrs.addFlashAttribute("message",
-					"raffle.error.prize.exist");
+			redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/manager/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView deleteEdit(@Valid PrizeForm prize) {
+	public ModelAndView deleteEdit(@Valid final PrizeForm prize) {
 		ModelAndView result;
 
 		try {
-			prizeService.delete(prize);
+			this.prizeService.delete(prize);
 			result = new ModelAndView("redirect:/prize/list.do");
-		} catch (Throwable th) {
-			result = createEditModelAndView(prize, "prize.commit.error");
+		} catch (final Throwable th) {
+			result = this.createEditModelAndView(prize, "prize.commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/manager/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveEdit(PrizeForm prize, BindingResult binding) {
+	public ModelAndView saveEdit(final PrizeForm prize, final BindingResult binding) {
 		ModelAndView result;
-		if (binding.hasErrors()) {
-			result = createEditModelAndView(prize, null);
-		} else {
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(prize, null);
+		else
 			try {
-				Prize prizeR = prizeService.reconstruct(prize, binding);
-				Prize prizeS = prizeService.save(prizeR);
-				result = new ModelAndView("redirect:/prize/manager/list.do?raffleId="
-						+ prizeS.getRaffle().getId());
-			} catch (Throwable th) {
-				result = createEditModelAndView(prize, "prize.commit.error");
+				final Prize prizeR = this.prizeService.reconstruct(prize, binding);
+				final Prize prizeS = this.prizeService.save(prizeR);
+				result = new ModelAndView("redirect:/prize/manager/list.do?raffleId=" + prizeS.getRaffle().getId());
+			} catch (final Throwable th) {
+				result = this.createEditModelAndView(prize, "prize.commit.error");
 			}
-		}
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(PrizeForm prize, String message) {
-		ModelAndView result = new ModelAndView("prize/edit");
+	protected ModelAndView createEditModelAndView(final PrizeForm prize, final String message) {
+		final ModelAndView result = new ModelAndView("prize/edit");
 		result.addObject("requestParam", "prize/manager/edit.do");
 		result.addObject("prize", prize);
 		result.addObject("message", message);

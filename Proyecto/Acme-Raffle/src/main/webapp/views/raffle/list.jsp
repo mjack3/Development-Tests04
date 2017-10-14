@@ -12,7 +12,7 @@
 <button type="button" class="btn btn-primary" >  <spring:message code="raffle.search" /></button>
 
 
-<acme:list requestURI="${requestURI}"  list="raffle" hidden_fields="raffle,codes,user,taxonomy" image_fields="logo" variable="e">
+<acme:list entityUrl="{prizes:prize/list.do}" requestURI="${requestURI}"  list="raffle" hidden_fields="raffle,codes,user,taxonomy,manager,participations" image_fields="logo" variable="e">
 
 				<security:authorize access="hasRole('USER')">
 				<td>

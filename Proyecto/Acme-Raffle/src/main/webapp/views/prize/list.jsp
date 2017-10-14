@@ -21,8 +21,8 @@
 	<display:column property="description" title="${description}"
 		sortable="false" />
 	<display:column title="${taxonomy}" sortable="false">
-		<jstl:forEach var="p" items="${row.taxonomy}" varStatus="loop">
-			<jstl:out value="${p.property}" />
+		<jstl:forEach var="p" items="${row.properties}" varStatus="loop">
+			<jstl:out value="${p.name}" />
 			<jstl:if test="${!loop.last}">, </jstl:if>
 		</jstl:forEach>
 	</display:column>

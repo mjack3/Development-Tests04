@@ -37,7 +37,7 @@
 		</display:column>
 		
 <display:column title="${prize}" sortable="false">
-<a href= "prize/user/list.do?q=${row.id}"><spring:message
+<a href= "prize/list.do?q=${row.id}"><spring:message
 							code='raffle.prizes' /></a>
 
 </display:column>
