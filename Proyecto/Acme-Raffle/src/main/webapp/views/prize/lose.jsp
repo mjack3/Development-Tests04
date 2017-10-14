@@ -10,3 +10,4 @@
 <img src="http://www.ucarecdn.com/cc0e61e9-9b28-4511-bd7d-b98e05f65298/-/preview/">
 
 <h1><spring:message code="prize.lose"></spring:message></h1>
+<input onclick="window.location='/Acme-Raffle/raffle/user/listparticipation.do'" type="button" class="btn btn-warning" value="<spring:message code="prize.listraffle" />">

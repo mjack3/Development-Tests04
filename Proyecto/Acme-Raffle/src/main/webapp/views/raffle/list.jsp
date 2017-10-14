@@ -16,12 +16,13 @@
 
 				<security:authorize access="hasRole('USER')">
 				<td>
-			
+				<jstl:if test="${today.before(e.deadline)&& today.after(e.publicationTime)}">
 				<a href="participation/user/create.do?q=${e.id}"> <spring:message
 						code='particiption.user' /></a>
-					
+					</jstl:if>
 			</td>
 		<td>
+		
 </security:authorize>
 
 <security:authorize access="hasRole('MANAGER')">

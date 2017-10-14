@@ -52,7 +52,7 @@ public class ParticipationUserController {
 		participation.setUser(user);
 		participation.setRaffle(raffle);
 		Date today = new Date();
-		if (today.before(raffle.getDeadline())) {
+		if (today.before(raffle.getDeadline()) && today.after(raffle.getPublicationTime())) {
 			result = createNewModelAndView(participation, null);
 			participationId = q;
 		} else {
@@ -65,7 +65,6 @@ public class ParticipationUserController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveCreate(@Valid Participation participation, BindingResult binding) {
 		ModelAndView result;
-		System.out.println(participationId);
 		Boolean codeRegister = false;
 		Boolean codeParticipation = false;
 		List<Code> codes = codeService.codeByRaffle(participationId);
@@ -74,6 +73,10 @@ public class ParticipationUserController {
 		List<Participation> participations = codeService.codeByParticipation(participationId);
 		User user = (User) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
 		Boolean isUsed = false;
+		Date today = new Date();
+		if (!today.after(raffleService.findOne(participationId).getPublicationTime()) && !today.before(raffleService.findOne(participationId).getDeadline())) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		for (Code a : codes) {
 
@@ -104,6 +107,7 @@ public class ParticipationUserController {
 			result = createNewModelAndView(participation, null);
 		} else {
 			try {
+
 				if (isUsed) {
 					result = createNewModelAndView(participation, "code.used");
 

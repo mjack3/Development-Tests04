@@ -12,7 +12,7 @@
 
 <spring:message code="prize.name" var="name" />
 <spring:message code="prize.description" var="description" />
-<spring:message code="prize.taxonomy" var="taxonomy" />
+<spring:message code="prize.properties" var="property" />
 
 <display:table name="prize" id="row" requestURI="${requestURI}"
 	pagesize="8" class="table table-over">
@@ -20,7 +20,7 @@
 	<display:column property="name" title="${name}" sortable="false" />
 	<display:column property="description" title="${description}"
 		sortable="false" />
-	<display:column title="${taxonomy}" sortable="false">
+	<display:column title="${property}" sortable="false">
 		<jstl:forEach var="p" items="${row.properties}" varStatus="loop">
 			<jstl:out value="${p.name}" />
 			<jstl:if test="${!loop.last}">, </jstl:if>
