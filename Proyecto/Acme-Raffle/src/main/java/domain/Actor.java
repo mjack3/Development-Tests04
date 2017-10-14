@@ -1,10 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,15 +27,15 @@ public abstract class Actor extends DomainEntity {
 	}
 
 
-	private String		name;
-	private String		surname;
-	private String		email;
-	private String		phone;
-	private String		postal;
-	private String		city;
-	private String		country;
-
-	private UserAccount	userAccount;
+	private String						name;
+	private String						surname;
+	private String						email;
+	private String						phone;
+	private String						postal;
+	private String						city;
+	private String						country;
+	private UserAccount					userAccount;
+	private Collection<SocialIdentity>	socialIdentities;
 
 
 	@NotBlank
@@ -105,6 +108,15 @@ public abstract class Actor extends DomainEntity {
 
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
+	}
+
+	@OneToMany
+	public Collection<SocialIdentity> getSocialIdentities() {
+		return socialIdentities;
+	}
+
+	public void setSocialIdentities(Collection<SocialIdentity> socialIdentities) {
+		this.socialIdentities = socialIdentities;
 	}
 
 }

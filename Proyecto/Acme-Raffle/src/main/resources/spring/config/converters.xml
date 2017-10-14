@@ -52,6 +52,9 @@
 		
 		<bean class="converters.TaxonomyToStringConverter" />
 		<bean class="converters.StringToTaxonomyConverter" />
+		
+		<bean class="converters.SocialIdentityToStringConverter"/>
+		<bean class="converters.StringToSocialIdentityConverter"/>
 	</util:list>
 	
 </beans>

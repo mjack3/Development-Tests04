@@ -31,7 +31,15 @@
     	<security:intercept-url pattern="/mana/save-mana-create.do" access="permitAll" />
    		<security:intercept-url pattern="/raffle/list.do" access="permitAll()" />
    		<security:intercept-url pattern="/prize/list.do" access="permitAll()" />
-    	
+   		
+   		
+   		<!-- SECURITY: AUTHENTICATED -->
+   		<security:intercept-url pattern="/socialidentity/actor/edit.do" access="isAuthenticated()" />
+   		<security:intercept-url pattern="/socialidentity/actor/list.do" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/socialidentity/actor/save.do" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/socialidentity/actor/saveEdit.do" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/socialidentity/actor/delete.do" access="isAuthenticated()" />
+    	<security:intercept-url pattern="/socialidentity/actor/create.do" access="isAuthenticated()" />
 		
 		<!-- SECURITY: USER -->
 				<security:intercept-url pattern="/user/edit.do" access="hasRole('USER')" />
