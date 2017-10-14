@@ -25,27 +25,29 @@ public class User extends Actor {
 	@NotNull
 	@Min(value = 0)
 	public Integer getValidCodes() {
-		return validCodes;
+		return this.validCodes;
 	}
 
-	public void setValidCodes(Integer validCodes) {
+	public void setValidCodes(final Integer validCodes) {
 		this.validCodes = validCodes;
 	}
 	//	Relationships	------------------
 
 
-	private Collection<Prize>			prizes;					//	premios ganados
-	private Collection<Participation>	participations;
+	//private Collection<Prize>			prizes;					//	premios ganados
+	private Collection<Participation> participations;
 
 
-	@OneToMany(mappedBy = "user")
-	public Collection<Prize> getPrizes() {
-		return this.prizes;
-	}
-
-	public void setPrizes(final Collection<Prize> prizes) {
-		this.prizes = prizes;
-	}
+	/*
+	 * @OneToMany(mappedBy = "user")
+	 * public Collection<Prize> getPrizes() {
+	 * return this.prizes;
+	 * }
+	 * 
+	 * public void setPrizes(final Collection<Prize> prizes) {
+	 * this.prizes = prizes;
+	 * }
+	 */
 
 	@OneToMany(mappedBy = "user")
 	public Collection<Participation> getParticipations() {

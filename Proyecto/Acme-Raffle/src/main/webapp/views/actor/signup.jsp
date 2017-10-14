@@ -20,7 +20,7 @@
 		
 		
 		<jstl:if test="${type==1}">
-			<form:hidden path="prizes" />
+			<form:hidden path="" />
 			<form:hidden path="participations" />
 		</jstl:if>
 

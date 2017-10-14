@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Participation;
-import domain.Prize;
 import domain.User;
 import repositories.UserRepository;
 import security.Authority;
@@ -57,7 +56,7 @@ public class UserService {
 		//account.setActivate(true);
 
 		user.setUserAccount(account);
-		user.setPrizes(new ArrayList<Prize>());
+		//user.setPrizes(new ArrayList<Prize>());
 		user.setParticipations(new ArrayList<Participation>());
 
 		return user;
@@ -76,7 +75,7 @@ public class UserService {
 			u.setPhone(user.getPhone());
 			u.setPostal(user.getPostal());
 			u.setSurname(user.getSurname());
-			user.setPrizes(user.getPrizes());
+			//user.setPrizes(user.getPrizes());
 			user.setParticipations(user.getParticipations());
 			u = this.userRepository.save(u);
 		} else {
@@ -102,13 +101,11 @@ public class UserService {
 	}
 
 	public List<User> usersBanned() {
-		return userRepository.usersBanned();
+		return this.userRepository.usersBanned();
 	}
 
 	public List<User> usersNotBanned() {
-		return userRepository.usersNotBanned();
+		return this.userRepository.usersNotBanned();
 	}
-	
-	
 
 }
