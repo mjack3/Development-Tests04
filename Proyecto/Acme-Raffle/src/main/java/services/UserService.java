@@ -46,6 +46,7 @@ public class UserService {
 		user.setPostal(new String());
 		user.setCity(new String());
 		user.setCountry(new String());
+		user.setValidCodes(0);
 
 		final Authority auth = new Authority();
 		auth.setAuthority("USER");
@@ -53,7 +54,7 @@ public class UserService {
 		account.setAuthorities(Arrays.asList(auth));
 		account.setUsername(new String());
 		account.setPassword(new String());
-		//account.setActivate(true);
+		account.setBanned(false);
 
 		user.setUserAccount(account);
 		//user.setPrizes(new ArrayList<Prize>());

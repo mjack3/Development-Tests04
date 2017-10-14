@@ -17,10 +17,11 @@
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="userAccount.authorities" />
+		<form:hidden path="userAccount.banned" />
 		
 		
 		<jstl:if test="${type==1}">
-			<form:hidden path="" />
+			<form:hidden path="validCodes" />
 			<form:hidden path="participations" />
 		</jstl:if>
 

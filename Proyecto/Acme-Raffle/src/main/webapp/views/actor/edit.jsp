@@ -28,8 +28,7 @@
 <form:form action="${url}" modelAttribute="actor">
 
 		<security:authorize access="hasRole('USER')">
-			<!--<form:hidden path="" />
-			<form:hidden path="" />-->
+			<form:hidden path="validCodes" />
 		</security:authorize>
 
 		<security:authorize access="hasRole('MANAGER')">
@@ -42,6 +41,7 @@
 		<form:hidden path="userAccount.username" />
 		<form:hidden path="userAccount.password" />
 		<form:hidden path="userAccount.authorities" />
+		<form:hidden path="userAccount.banned" />
 
 
 	    <div class="form-group" style="width: 20%;"> 

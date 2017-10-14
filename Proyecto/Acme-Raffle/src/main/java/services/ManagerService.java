@@ -58,7 +58,7 @@ public class ManagerService {
 		account.setAuthorities(Arrays.asList(auth));
 		account.setUsername(new String());
 		account.setPassword(new String());
-		//account.setActivate(true);
+		account.setBanned(false);
 
 		manager.setUserAccount(account);
 		manager.setRaffles(new ArrayList<Raffle>());
