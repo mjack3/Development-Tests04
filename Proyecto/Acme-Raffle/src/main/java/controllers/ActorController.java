@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Actor;
-import domain.Administrator;
-import domain.Manager;
-import domain.User;
 import security.LoginService;
 import services.AdministratorService;
 import services.ManagerService;
 import services.UserService;
+import domain.Actor;
+import domain.Administrator;
+import domain.Manager;
+import domain.User;
 
 @Controller
 @RequestMapping("/actor")
@@ -48,20 +48,20 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView signup(@RequestParam final int q) {
 		final ModelAndView result = new ModelAndView("actor/signup");
-		Actor actor = null;
+		User user = null;
+		Manager manager = null;
 		String url = null;
 
 		if (q == 1) {
-			actor = this.userService.create();
+			user = this.userService.create();
 			url = "actor/save-user-create.do";
+			result.addObject("user", user);
 		} else if (q == 2) {
-			actor = this.managerService.create();
+			manager = this.managerService.create();
 			url = "actor/save-mana-create.do";
+			result.addObject("actor", manager);
 		}
 
-		result.addObject("actor", actor);
-		result.addObject("user", actor);
-		result.addObject("manager", actor);
 		result.addObject("message", null);
 		result.addObject("url", url);
 		result.addObject("type", q);
@@ -70,19 +70,19 @@ public class ActorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/save-user-create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveUserCreate(@Valid final User actor, final BindingResult binding, final String message) {
+	public ModelAndView saveUserCreate(@Valid final User user, final BindingResult binding, final String message) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
-			result = this.signupModelAndView(actor, "actor.commit.error");
+			result = this.signupModelAndView(user, "actor.commit.error");
 			for (final ObjectError e : binding.getAllErrors())
 				System.out.println(e.toString());
 		} else
 			try {
-				this.userService.save(actor);
+				this.userService.save(user);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable th) {
 				th.printStackTrace();
-				result = this.signupModelAndView(actor, "actor.commit.error");
+				result = this.signupModelAndView(user, "actor.commit.error");
 			}
 		return result;
 	}
@@ -105,21 +105,19 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView signupModelAndView(final Actor actor) {
+	protected ModelAndView signupModelAndView(final User actor) {
 
 		ModelAndView result;
 		result = this.signupModelAndView(actor, null);
 		return result;
 	}
 
-	protected ModelAndView signupModelAndView(final Actor actor, final String message) {
+	protected ModelAndView signupModelAndView(final User user, final String message) {
 
 		ModelAndView result;
 
 		result = new ModelAndView("actor/signup");
-		result.addObject("actor", actor);
-		result.addObject("user", actor);
-		result.addObject("manager", actor);
+		result.addObject("user", user);
 		result.addObject("message", message);
 
 		return result;

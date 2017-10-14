@@ -12,7 +12,9 @@
 
 <security:authorize access="isAnonymous()" >
 
-<form:form action="${url}" modelAttribute="actor">
+
+
+<form:form action="${url}" modelAttribute="user">
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
