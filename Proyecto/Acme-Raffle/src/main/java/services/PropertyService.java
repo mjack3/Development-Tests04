@@ -20,7 +20,7 @@ import forms.PropertyForm;
 public class PropertyService {
 
 	@Autowired
-	PropertyRepository repository;
+	private PropertyRepository repository;
 	@Autowired
 	private PrizeService prizeService;
 	

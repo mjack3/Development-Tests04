@@ -14,6 +14,8 @@
 
 	<form:hidden path="raffleId" />
 	<form:hidden path="id" />
+	<form:hidden path="prizeId" />
+	<form:hidden path="version" />
 	<acme:textbox code="prize.total" path="total" />
 	<br />
 	<acme:textbox code="prize.winners" path="winners" />

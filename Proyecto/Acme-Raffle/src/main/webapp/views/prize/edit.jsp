@@ -14,6 +14,8 @@
 
 	<form:hidden path="raffleId" />
 	<form:hidden path="id" />
+	<form:hidden path="prizeId" />
+	<form:hidden path="version" />
 	<acme:textbox code="prize.name" path="name" />
 	<br />
 	<acme:textbox code="prize.description" path="description" />
@@ -25,13 +27,13 @@
 		<display:column>
 			<jstl:if test="${!prizeForm.properties.contains(row)}">
 				<a
-					href="prize/manager/addProperty.do?prizeId=${prizeForm.id}&propertyId=${row.id}">
+					href="prize/manager/addProperty.do?prizeId=${prizeForm.prizeId}&propertyId=${row.id}">
 					<spring:message code="prize.addProperty" />
 				</a>
 			</jstl:if>
 			<jstl:if test="${prizeForm.properties.contains(row)}">
 				<a
-					href="prize/manager/removeProperty.do?prizeId=${prizeForm.id}&propertyId=${row.id}">
+					href="prize/manager/removeProperty.do?prizeId=${prizeForm.prizeId}&propertyId=${row.id}">
 					<spring:message code="prize.removeProperty" />
 				</a>
 			</jstl:if>
@@ -42,7 +44,7 @@
 
 
 	</display:table>
-	<a href="property/manager/create.do?prizeId=${prizeForm.id}"> <spring:message
+	<a href="property/manager/create.do?prizeId=${prizeForm.prizeId}"> <spring:message
 			code="prize.createProperty" />
 	</a>
 	<br />

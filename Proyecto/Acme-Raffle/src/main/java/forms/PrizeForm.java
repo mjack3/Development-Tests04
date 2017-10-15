@@ -8,6 +8,7 @@ public class PrizeForm extends Prize {
 	private int winners;
 	private int total;
 	private int raffleId;
+	private int prizeId;
 	
 	
 	public int getRaffleId() {
@@ -32,6 +33,14 @@ public class PrizeForm extends Prize {
 
 	public void setTotal(int total) {
 		this.total = total;
+	}
+
+	public int getPrizeId() {
+		return prizeId;
+	}
+
+	public void setPrizeId(int prizeId) {
+		this.prizeId = prizeId;
 	}
 
 	

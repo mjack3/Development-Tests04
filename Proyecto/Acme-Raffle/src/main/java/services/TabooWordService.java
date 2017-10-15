@@ -16,7 +16,7 @@ import repositories.TabooWordRepository;
 public class TabooWordService {
 
 	@Autowired
-	TabooWordRepository	repository;
+	private TabooWordRepository	repository;
 	
 	public TabooWordService() {
 		super();

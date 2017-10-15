@@ -65,11 +65,11 @@ public class PrizeService {
 	private Validator validator;
 	public Prize reconstruct(PrizeForm prizeForm, BindingResult binding){
 		Prize prize;
-		if(prizeForm.getId()==0){
+		if(prizeForm.getPrizeId()==0){
 			prize = new Prize();
 			prize.setRaffle(raffleService.findOne(prizeForm.getRaffleId()));
 		}else{
-			prize = prizeRepository.findOne(prizeForm.getId());
+			prize = prizeRepository.findOne(prizeForm.getPrizeId());
 		}
 		prize.setCodes(new ArrayList<Code>());
 		prize.setDescription(prizeForm.getDescription());
@@ -84,7 +84,7 @@ public class PrizeService {
 	public Prize regCode(PrizeForm prizeForm){
 		Prize prize;
 		
-		prize = prizeRepository.findOne(prizeForm.getId());
+		prize = prizeRepository.findOne(prizeForm.getPrizeId());
 		for(Code c: prize.getCodes()){
 			codeService.delete(c);
 		}
@@ -103,7 +103,7 @@ public class PrizeService {
 		PrizeForm prizeForm = new PrizeForm();
 		
 		Prize prize = this.prizeRepository.findOne(prizeId);
-		prizeForm.setId(prizeId);
+		prizeForm.setPrizeId(prizeId);
 		int total = prize.getCodes().size();
 		int winners = this.prizeRepository.countWinnersCode(prizeId);
 		prizeForm.setTotal(total);
@@ -117,7 +117,7 @@ public class PrizeService {
 		
 		Prize prize = this.prizeRepository.findOne(prizeId);
 		Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()),"raffle.error.editable");
-		prizeForm.setId(prizeId);
+		prizeForm.setPrizeId(prizeId);
 		prizeForm.setDescription(prize.getDescription());
 		prizeForm.setRaffleId(prize.getRaffle().getId());
 		prizeForm.setName(prize.getName());
@@ -132,7 +132,7 @@ public class PrizeService {
 
 	public void delete(PrizeForm prize) {
 		Assert.notNull(managerService.findPrincipal());
-		Prize pr = this.prizeRepository.findOne(prize.getId());
+		Prize pr = this.prizeRepository.findOne(prize.getPrizeId());
 		for(Code c : pr.getCodes()){
 			codeService.delete(c);
 		}

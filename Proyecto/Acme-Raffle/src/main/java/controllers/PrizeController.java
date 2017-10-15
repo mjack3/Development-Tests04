@@ -25,7 +25,7 @@ import forms.PrizeForm;
 
 @RequestMapping("/prize")
 @Controller
-public class PrizeController {
+public class PrizeController extends AbstractController{
 
 	@Autowired
 	private PrizeService prizeService;
@@ -35,6 +35,11 @@ public class PrizeController {
 	private PropertyService propertyService;
 	@Autowired
 	private CodeService codeService;
+	
+
+	public PrizeController() {
+		super();
+	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int q) {

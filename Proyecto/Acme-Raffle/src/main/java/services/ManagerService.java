@@ -29,8 +29,6 @@ public class ManagerService {
 
 	@Autowired
 	private ManagerRepository	managerRepository;
-	@Autowired
-	private LoginService		loginService;
 
 
 	//Constructor
