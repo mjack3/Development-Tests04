@@ -113,7 +113,7 @@ public class PrizeController {
 				redirectAttrs
 						.addFlashAttribute("message", "raffle.error.exist");
 			} else if (oops.getLocalizedMessage() == "raffle.error.editable") {
-				result = new ModelAndView("raffle/list");
+				result = new ModelAndView("redirect:/raffle/list.do");
 				redirectAttrs.addFlashAttribute("message",
 						"raffle.error.editable");
 			} else {
@@ -129,7 +129,7 @@ public class PrizeController {
 
 	@RequestMapping(value = "/manager/regCode", method = RequestMethod.GET)
 	public ModelAndView regCode(@RequestParam final int prizeId,
-			@RequestParam final RedirectAttributes redirectAttrs) {
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
 			PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
@@ -139,11 +139,11 @@ public class PrizeController {
 		} catch (Throwable oops) {
 			if (oops.getLocalizedMessage() == "raffle.error.prize.exist") {
 
-				result = new ModelAndView("raffle/list");
+				result = new ModelAndView("redirect:raffle/list.do");
 				redirectAttrs.addFlashAttribute("message",
 						"raffle.error.prize.exist");
 			} else {
-				result = new ModelAndView("raffle/list");
+				result = new ModelAndView("redirect:raffle/list.do");
 				redirectAttrs
 						.addFlashAttribute("message", "prize.error.commit");
 			}
@@ -156,6 +156,7 @@ public class PrizeController {
 	public ModelAndView saveRegCode(final PrizeForm prizeForm,
 			final BindingResult binding) {
 		ModelAndView result;
+		
 		try {
 			prizeService.checkNumberCodes(prizeForm, binding);
 
@@ -221,14 +222,18 @@ public class PrizeController {
 		try {
 
 			final PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
-			result = new ModelAndView("prize/edit");
-			result.addObject("properties", propertyService.findAll());
-			result.addObject("requestParam", "prize/manager/edit.do");
-			result.addObject("prizeForm", prizeForm);
+			result= this.createEditModelAndView(prizeForm, null);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/raffle/list.do");
+			if(oops.getLocalizedMessage()=="raffle.error.editable")
 			redirectAttrs.addFlashAttribute("message",
-					"raffle.error.prize.exist");
+					"raffle.error.editable");
+			else if(oops.getLocalizedMessage()=="raffle.error.prize.exist")
+				redirectAttrs.addFlashAttribute("message",
+						"raffle.error.prize.exist");
+			else
+				redirectAttrs.addFlashAttribute("message",
+						"prize.error.commit");
 		}
 
 		return result;
@@ -411,12 +416,13 @@ public class PrizeController {
 
 	protected ModelAndView createEditModelAndView(final PrizeForm prizeForm,
 			final String message) {
-		final ModelAndView result = new ModelAndView("prize/edit");
+		ModelAndView result = new ModelAndView("prize/edit");
 		result.addObject("properties", propertyService.findAll());
 		result.addObject("requestParam", "prize/manager/edit.do");
 		result.addObject("prizeForm", prizeForm);
 		result.addObject("message", message);
-
+		
+		
 		return result;
 	}
 

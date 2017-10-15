@@ -48,9 +48,10 @@
 
 
 </display:table>
-
+<jstl:if test="${editable}">
 <security:authorize access="hasRole('MANAGER')">
 	<a href="prize/manager/create.do?raffleId=${raffleId}"> <spring:message
 			code="prize.create" />
 	</a>
 </security:authorize>
+</jstl:if>

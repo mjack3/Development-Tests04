@@ -30,7 +30,8 @@ public class PrizeService {
 	private ManagerService managerService;
 	@Autowired
 	private RaffleService raffleService;
-	@Autowired CodeService codeService;
+	@Autowired 
+	private CodeService codeService;
 
 	public Prize save(final Prize prize) {
 		Prize saved = null;
@@ -115,7 +116,7 @@ public class PrizeService {
 		PrizeForm prizeForm = new PrizeForm();
 		
 		Prize prize = this.prizeRepository.findOne(prizeId);
-		Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()));
+		Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()),"raffle.error.editable");
 		prizeForm.setId(prizeId);
 		prizeForm.setDescription(prize.getDescription());
 		prizeForm.setRaffleId(prize.getRaffle().getId());

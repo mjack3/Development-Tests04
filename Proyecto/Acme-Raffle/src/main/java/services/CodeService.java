@@ -27,11 +27,9 @@ import security.LoginService;
 public class CodeService {
 
 	@Autowired
-	CodeRepository	codeRepository;
+	private CodeRepository	codeRepository;
 	@Autowired
-	LoginService	loginService;
-	@Autowired
-	TabooWordService	tabooWordService;
+	private TabooWordService	tabooWordService;
 
 
 	public CodeService() {

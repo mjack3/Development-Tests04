@@ -183,7 +183,7 @@
   <property name="logo" value="https://vignette1.wikia.nocookie.net/conworld/images/c/c1/Pepa-Cola.jpg"/>
   <property name="title" value="The Pepa-Cola Vacation"/>
   <property name="description" value="descriptionRaffle1"/>
-  <property name="publicationTime" value="08/10/2017"/>
+  <property name="publicationTime" value="12/31/2017"/>
   <property name="deadline" value="08/10/2019"/>
   <property name="manager" ref="manager1"/>
   <property name="participations">
