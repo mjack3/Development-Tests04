@@ -1,5 +1,7 @@
+
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,27 +17,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import domain.Code;
+import domain.Participation;
+import domain.Prize;
+import domain.Raffle;
+import domain.User;
+import forms.PrizeForm;
+import security.LoginService;
 import services.CodeService;
 import services.PrizeService;
 import services.PropertyService;
 import services.RaffleService;
-import domain.Prize;
-import domain.Raffle;
-import forms.PrizeForm;
 
 @RequestMapping("/prize")
 @Controller
-public class PrizeController extends AbstractController{
+public class PrizeController extends AbstractController {
 
 	@Autowired
-	private PrizeService prizeService;
+	private PrizeService	prizeService;
 	@Autowired
-	private RaffleService raffleService;
+	private RaffleService	raffleService;
 	@Autowired
-	private PropertyService propertyService;
+	private PropertyService	propertyService;
 	@Autowired
-	private CodeService codeService;
-	
+	private CodeService		codeService;
+	@Autowired
+	private LoginService	loginService;
+
 
 	public PrizeController() {
 		super();
@@ -57,7 +65,30 @@ public class PrizeController extends AbstractController{
 		ModelAndView res;
 
 		res = new ModelAndView("prize/win");
-		res.addObject("prize", q);
+		User user = (User) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+		List<String> userCode = new ArrayList<String>();
+		List<String> prizeCode = new ArrayList<String>();
+		String codewiner = "";
+
+		for (Participation p : user.getParticipations()) {
+			userCode.add(p.getUsedCode());
+		}
+
+		for (Code c : q.getCodes()) {
+			prizeCode.add(c.getCode());
+			if (c.getIsWinner() == true) {
+				codewiner = c.getCode();
+
+			}
+		}
+
+		userCode.retainAll(prizeCode);
+
+		if (userCode.contains(codewiner)) {
+			res.addObject("prize", q);
+		} else {
+			res = new ModelAndView("redirect:/raffle/list.do");
+		}
 
 		return res;
 	}
@@ -72,59 +103,47 @@ public class PrizeController extends AbstractController{
 	}
 
 	@RequestMapping(value = "/manager/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveCreate(final PrizeForm prizeForm,
-			final BindingResult binding) {
+	public ModelAndView saveCreate(final PrizeForm prizeForm, final BindingResult binding) {
 		ModelAndView result;
 		try {
 			prizeService.checkNumberCodes(prizeForm, binding);
 
-			final Prize prizeR = this.prizeService.reconstruct(prizeForm,
-					binding);
+			final Prize prizeR = this.prizeService.reconstruct(prizeForm, binding);
 
 			if (binding.hasErrors())
 				result = this.createNewModelAndView(prizeForm, null);
 			else {
 				final Prize prizeS = this.prizeService.save(prizeR);
 
-				this.codeService.getCodes(prizeForm.getTotal(),
-						prizeForm.getWinners(),
-						raffleService.findOne(prizeForm.getRaffleId()), prizeS);
+				this.codeService.getCodes(prizeForm.getTotal(), prizeForm.getWinners(), raffleService.findOne(prizeForm.getRaffleId()), prizeS);
 
-				result = new ModelAndView(
-						"redirect:/prize/manager/list.do?raffleId="
-								+ prizeS.getRaffle().getId());
+				result = new ModelAndView("redirect:/prize/manager/list.do?raffleId=" + prizeS.getRaffle().getId());
 			}
 		} catch (Throwable oops) {
 			if (binding.hasErrors())
 				result = this.createNewModelAndView(prizeForm, null);
 			else
-				result = this.createNewModelAndView(prizeForm,
-						"prize.commit.error");
+				result = this.createNewModelAndView(prizeForm, "prize.commit.error");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/manager/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int raffleId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView create(@RequestParam final int raffleId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
-			result = this.createNewModelAndView(
-					this.prizeService.createForm(raffleId), null);
+			result = this.createNewModelAndView(this.prizeService.createForm(raffleId), null);
 		} catch (Throwable oops) {
 			if (oops.getLocalizedMessage() == "raffle.error.exist") {
 
 				result = new ModelAndView("redirect:/raffle/list.do");
-				redirectAttrs
-						.addFlashAttribute("message", "raffle.error.exist");
+				redirectAttrs.addFlashAttribute("message", "raffle.error.exist");
 			} else if (oops.getLocalizedMessage() == "raffle.error.editable") {
 				result = new ModelAndView("redirect:/raffle/list.do");
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.editable");
+				redirectAttrs.addFlashAttribute("message", "raffle.error.editable");
 			} else {
 				result = new ModelAndView("redirect:/raffle/list.do");
-				redirectAttrs
-						.addFlashAttribute("message", "prize.commit.error");
+				redirectAttrs.addFlashAttribute("message", "prize.commit.error");
 			}
 
 		}
@@ -133,8 +152,7 @@ public class PrizeController extends AbstractController{
 	}
 
 	@RequestMapping(value = "/manager/regCode", method = RequestMethod.GET)
-	public ModelAndView regCode(@RequestParam final int prizeId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView regCode(@RequestParam final int prizeId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
 			PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
@@ -145,12 +163,10 @@ public class PrizeController extends AbstractController{
 			if (oops.getLocalizedMessage() == "raffle.error.prize.exist") {
 
 				result = new ModelAndView("redirect:raffle/list.do");
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.prize.exist");
+				redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 			} else {
 				result = new ModelAndView("redirect:raffle/list.do");
-				redirectAttrs
-						.addFlashAttribute("message", "prize.error.commit");
+				redirectAttrs.addFlashAttribute("message", "prize.error.commit");
 			}
 		}
 
@@ -158,10 +174,9 @@ public class PrizeController extends AbstractController{
 	}
 
 	@RequestMapping(value = "/manager/regCode", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveRegCode(final PrizeForm prizeForm,
-			final BindingResult binding) {
+	public ModelAndView saveRegCode(final PrizeForm prizeForm, final BindingResult binding) {
 		ModelAndView result;
-		
+
 		try {
 			prizeService.checkNumberCodes(prizeForm, binding);
 
@@ -170,9 +185,7 @@ public class PrizeController extends AbstractController{
 			else {
 				this.prizeService.regCode(prizeForm);
 
-				result = new ModelAndView(
-						"redirect:/prize/manager/list.do?raffleId="
-								+ prizeForm.getRaffleId());
+				result = new ModelAndView("redirect:/prize/manager/list.do?raffleId=" + prizeForm.getRaffleId());
 			}
 		} catch (Throwable oops) {
 			if (binding.hasErrors()) {
@@ -189,8 +202,7 @@ public class PrizeController extends AbstractController{
 		return result;
 	}
 
-	protected ModelAndView createNewModelAndView(final PrizeForm prizeForm,
-			final String message) {
+	protected ModelAndView createNewModelAndView(final PrizeForm prizeForm, final String message) {
 		ModelAndView result;
 		result = new ModelAndView("prize/create");
 		result.addObject("prizeForm", prizeForm);
@@ -200,18 +212,15 @@ public class PrizeController extends AbstractController{
 	}
 
 	@RequestMapping(value = "/manager/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int raffleId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView list(@RequestParam final int raffleId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
 			result = new ModelAndView("prize/list");
-			final List<Prize> prizes = this.prizeService
-					.findAllByRaffleId(raffleId);
+			final List<Prize> prizes = this.prizeService.findAllByRaffleId(raffleId);
 			result.addObject("prize", prizes);
 			result.addObject("requestURI", "prize/manager/list.do");
 			result.addObject("raffleId", raffleId);
-			result.addObject("editable",
-					this.raffleService.isEditable(raffleId));
+			result.addObject("editable", this.raffleService.isEditable(raffleId));
 		} catch (final Throwable oops) {
 			result = new ModelAndView("raffle/list");
 			redirectAttrs.addFlashAttribute("message", "raffle.error.exist");
@@ -221,44 +230,35 @@ public class PrizeController extends AbstractController{
 	}
 
 	@RequestMapping(value = "/manager/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int prizeId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int prizeId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
 
 			final PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
-			result= this.createEditModelAndView(prizeForm, null);
+			result = this.createEditModelAndView(prizeForm, null);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/raffle/list.do");
-			if(oops.getLocalizedMessage()=="raffle.error.editable")
-			redirectAttrs.addFlashAttribute("message",
-					"raffle.error.editable");
-			else if(oops.getLocalizedMessage()=="raffle.error.prize.exist")
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.prize.exist");
+			if (oops.getLocalizedMessage() == "raffle.error.editable")
+				redirectAttrs.addFlashAttribute("message", "raffle.error.editable");
+			else if (oops.getLocalizedMessage() == "raffle.error.prize.exist")
+				redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 			else
-				redirectAttrs.addFlashAttribute("message",
-						"prize.error.commit");
+				redirectAttrs.addFlashAttribute("message", "prize.error.commit");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/manager/addProperty", method = RequestMethod.GET)
-	public ModelAndView addProperty(@RequestParam final int prizeId,
-			@RequestParam int propertyId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView addProperty(@RequestParam final int prizeId, @RequestParam int propertyId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
-			Assert.isTrue(prizeService.exists(prizeId),
-					"raffle.error.prize.exist");
-			Assert.isTrue(propertyService.exists(propertyId),
-					"prize.property.error");
+			Assert.isTrue(prizeService.exists(prizeId), "raffle.error.prize.exist");
+			Assert.isTrue(propertyService.exists(propertyId), "prize.property.error");
 
 			Prize prize = prizeService.findOne(prizeId);
-			Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()),
-					"raffle.error.editable");
-			final domain.Property property = this.propertyService
-					.findOne(propertyId);
+			Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()), "raffle.error.editable");
+			final domain.Property property = this.propertyService.findOne(propertyId);
 			Collection<domain.Property> properties = prize.getProperties();
 			properties.remove(property);
 			properties.add(property);
@@ -277,35 +277,26 @@ public class PrizeController extends AbstractController{
 			if (oops.getLocalizedMessage() == "raffle.error.prize.exist") {
 
 				result = new ModelAndView("redirect:/raffle/list.do");
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.prize.exist");
+				redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 			} else if (oops.getLocalizedMessage() == "prize.property.error") {
-				final PrizeForm prizeForm = this.prizeService
-						.reconstruct(prizeId);
+				final PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
 				result = new ModelAndView("prize/edit");
 				result.addObject("properties", propertyService.findAll());
 				result.addObject("requestParam", "prize/manager/edit.do");
 				result.addObject("prizeForm", prizeForm);
-				redirectAttrs.addFlashAttribute("message",
-						"prize.property.error");
+				redirectAttrs.addFlashAttribute("message", "prize.property.error");
 			} else if (oops.getLocalizedMessage() == "raffle.error.editable") {
-				final PrizeForm prizeForm = this.prizeService
-						.reconstruct(prizeId);
-				result = new ModelAndView(
-						"redirect:prize/manager/list.do?raffleId="
-								+ prizeForm.getRaffleId());
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.prize.exist");
+				final PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
+				result = new ModelAndView("redirect:prize/manager/list.do?raffleId=" + prizeForm.getRaffleId());
+				redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 			} else {
-				final PrizeForm prizeForm = this.prizeService
-						.reconstruct(prizeId);
+				final PrizeForm prizeForm = this.prizeService.reconstruct(prizeId);
 
 				result = new ModelAndView("prize/edit");
 				result.addObject("properties", propertyService.findAll());
 				result.addObject("requestParam", "prize/manager/edit.do");
 				result.addObject("prizeForm", prizeForm);
-				redirectAttrs
-						.addFlashAttribute("message", "prize.commit.error");
+				redirectAttrs.addFlashAttribute("message", "prize.commit.error");
 			}
 
 		}
@@ -314,20 +305,15 @@ public class PrizeController extends AbstractController{
 	}
 
 	@RequestMapping(value = "/manager/removeProperty", method = RequestMethod.GET)
-	public ModelAndView removeProperty(@RequestParam final int prizeId,
-			@RequestParam int propertyId, final RedirectAttributes redirectAttrs) {
+	public ModelAndView removeProperty(@RequestParam final int prizeId, @RequestParam int propertyId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		try {
-			Assert.isTrue(prizeService.exists(prizeId),
-					"raffle.error.prize.exist");
-			Assert.isTrue(propertyService.exists(propertyId),
-					"prize.property.error");
+			Assert.isTrue(prizeService.exists(prizeId), "raffle.error.prize.exist");
+			Assert.isTrue(propertyService.exists(propertyId), "prize.property.error");
 
 			Prize prize = prizeService.findOne(prizeId);
-			Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()),
-					"raffle.error.editable");
-			final domain.Property property = this.propertyService
-					.findOne(propertyId);
+			Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()), "raffle.error.editable");
+			final domain.Property property = this.propertyService.findOne(propertyId);
 			Collection<domain.Property> properties = prize.getProperties();
 			properties.remove(property);
 			prize.setProperties(properties);
@@ -346,29 +332,23 @@ public class PrizeController extends AbstractController{
 			if (oops.getLocalizedMessage() == "raffle.error.prize.exist") {
 
 				result = new ModelAndView("redirect:/raffle/list.do");
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.prize.exist");
+				redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 			} else if (oops.getLocalizedMessage() == "prize.property.error") {
 
 				result = new ModelAndView("prize/edit");
 				result.addObject("properties", propertyService.findAll());
 				result.addObject("requestParam", "prize/manager/edit.do");
 				result.addObject("prizeForm", prizeForm);
-				redirectAttrs.addFlashAttribute("message",
-						"prize.property.error");
+				redirectAttrs.addFlashAttribute("message", "prize.property.error");
 			} else if (oops.getLocalizedMessage() == "raffle.error.editable") {
-				result = new ModelAndView(
-						"redirect:prize/manager/list.do?raffleId="
-								+ prizeForm.getRaffleId());
-				redirectAttrs.addFlashAttribute("message",
-						"raffle.error.prize.exist");
+				result = new ModelAndView("redirect:prize/manager/list.do?raffleId=" + prizeForm.getRaffleId());
+				redirectAttrs.addFlashAttribute("message", "raffle.error.prize.exist");
 			} else {
 				result = new ModelAndView("prize/edit");
 				result.addObject("properties", propertyService.findAll());
 				result.addObject("requestParam", "prize/manager/edit.do");
 				result.addObject("prizeForm", prizeForm);
-				redirectAttrs
-						.addFlashAttribute("message", "prize.commit.error");
+				redirectAttrs.addFlashAttribute("message", "prize.commit.error");
 			}
 
 		}
@@ -382,52 +362,42 @@ public class PrizeController extends AbstractController{
 
 		try {
 			this.prizeService.delete(prizeForm);
-			result = new ModelAndView(
-					"redirect:/prize/manager/list.do?raffleId="
-							+ prizeForm.getRaffleId());
+			result = new ModelAndView("redirect:/prize/manager/list.do?raffleId=" + prizeForm.getRaffleId());
 		} catch (final Throwable th) {
-			result = this.createEditModelAndView(prizeForm,
-					"prize.commit.error");
+			result = this.createEditModelAndView(prizeForm, "prize.commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/manager/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveEdit(final PrizeForm prizeForm,
-			final BindingResult binding) {
+	public ModelAndView saveEdit(final PrizeForm prizeForm, final BindingResult binding) {
 		ModelAndView result;
 		try {
-			final Prize prizeR = this.prizeService.reconstruct(prizeForm,
-					binding);
+			final Prize prizeR = this.prizeService.reconstruct(prizeForm, binding);
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(prizeForm, null);
 			else {
 				final Prize prizeS = this.prizeService.save(prizeR);
-				result = new ModelAndView(
-						"redirect:/prize/manager/list.do?raffleId="
-								+ prizeS.getRaffle().getId());
+				result = new ModelAndView("redirect:/prize/manager/list.do?raffleId=" + prizeS.getRaffle().getId());
 			}
 		} catch (Throwable oops) {
 			if (binding.hasErrors()) {
 				result = this.createEditModelAndView(prizeForm, null);
 			} else {
-				result = this.createEditModelAndView(prizeForm,
-						"prize.commit.error");
+				result = this.createEditModelAndView(prizeForm, "prize.commit.error");
 			}
 		}
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final PrizeForm prizeForm,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final PrizeForm prizeForm, final String message) {
 		ModelAndView result = new ModelAndView("prize/edit");
 		result.addObject("properties", propertyService.findAll());
 		result.addObject("requestParam", "prize/manager/edit.do");
 		result.addObject("prizeForm", prizeForm);
 		result.addObject("message", message);
-		
-		
+
 		return result;
 	}
 
