@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Prize extends DomainEntity {
@@ -21,7 +23,7 @@ public class Prize extends DomainEntity {
 	public Prize() {
 		super();
 	}
-
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}
@@ -29,7 +31,7 @@ public class Prize extends DomainEntity {
 	public void setName(final String name) {
 		this.name = name;
 	}
-
+	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}

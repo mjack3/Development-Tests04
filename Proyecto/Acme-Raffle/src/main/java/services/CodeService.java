@@ -134,6 +134,11 @@ public class CodeService {
 		Assert.notNull(id);
 		return codeRepository.codeByParticipation(id);
 	}
+	public void delete(Code c) {
+		this.codeRepository.delete(c.getId());
+		
+	}
+
 	
 	private String transform(String code) {
 		String res = code;

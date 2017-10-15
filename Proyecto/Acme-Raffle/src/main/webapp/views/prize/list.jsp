@@ -35,6 +35,12 @@
 						code="prize.edit" />
 				</a>
 			</display:column>
+			<display:column>
+
+				<a href="prize/manager/regCode.do?prizeId=${row.id }"> <spring:message
+						code="prize.regCode" />
+				</a>
+			</display:column>
 
 		</security:authorize>
 	</jstl:if>

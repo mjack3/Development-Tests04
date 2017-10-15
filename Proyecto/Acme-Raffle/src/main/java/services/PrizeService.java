@@ -30,6 +30,7 @@ public class PrizeService {
 	private ManagerService managerService;
 	@Autowired
 	private RaffleService raffleService;
+	@Autowired CodeService codeService;
 
 	public Prize save(final Prize prize) {
 		Prize saved = null;
@@ -52,7 +53,8 @@ public class PrizeService {
 	}
 	
 	public PrizeForm createForm(int raffleId){
-		Assert.isTrue(raffleService.exist(raffleId));
+		Assert.isTrue(raffleService.exist(raffleId),"raffle.error.exist");
+		Assert.isTrue(this.raffleService.isEditable(raffleId),"raffle.error.editable");
 		PrizeForm prizeForm= new PrizeForm();
 		prizeForm.setRaffleId(raffleId);
 		return prizeForm;
@@ -77,22 +79,48 @@ public class PrizeService {
 		return prize;
 		
 	}
+	
+	public Prize regCode(PrizeForm prizeForm){
+		Prize prize;
+		
+		prize = prizeRepository.findOne(prizeForm.getId());
+		for(Code c: prize.getCodes()){
+			codeService.delete(c);
+		}
+		codeService.getCodes(prizeForm.getTotal(), prizeForm.getWinners(), prize.getRaffle(), prize);
+		return prize;
+		
+	}
 
 	public List<Prize> findAllByRaffleId(int raffleId) {
 		Assert.isTrue(raffleService.exist(raffleId));
 		return this.prizeRepository.findAllByRaffleId(raffleId);
 	}
 	
-
-	public PrizeForm reconstruct(int prizeId) {
+	public PrizeForm regCodeReconstruct(int prizeId) {
 		Assert.isTrue(this.exists(prizeId));
 		PrizeForm prizeForm = new PrizeForm();
 		
 		Prize prize = this.prizeRepository.findOne(prizeId);
 		prizeForm.setId(prizeId);
+		int total = prize.getCodes().size();
+		int winners = this.prizeRepository.countWinnersCode(prizeId);
+		prizeForm.setTotal(total);
+		prizeForm.setWinners(winners);
+		return prizeForm;
+	}
+
+	public PrizeForm reconstruct(int prizeId) {
+		Assert.isTrue(this.exists(prizeId),"raffle.error.prize.exist");
+		PrizeForm prizeForm = new PrizeForm();
+		
+		Prize prize = this.prizeRepository.findOne(prizeId);
+		Assert.isTrue(raffleService.isEditable(prize.getRaffle().getId()));
+		prizeForm.setId(prizeId);
 		prizeForm.setDescription(prize.getDescription());
 		prizeForm.setRaffleId(prize.getRaffle().getId());
 		prizeForm.setName(prize.getName());
+		prizeForm.setProperties(prize.getProperties());
 		return prizeForm;
 	}
 
@@ -101,9 +129,13 @@ public class PrizeService {
 		return this.prizeRepository.exists(prizeId);
 	}
 
-	public void delete(Prize prize) {
+	public void delete(PrizeForm prize) {
 		Assert.notNull(managerService.findPrincipal());
-		this.prizeRepository.delete(prize.getId());
+		Prize pr = this.prizeRepository.findOne(prize.getId());
+		for(Code c : pr.getCodes()){
+			codeService.delete(c);
+		}
+		this.prizeRepository.delete(pr.getId());
 		
 	}
 
@@ -114,6 +146,26 @@ public class PrizeService {
 	public Prize findOne(Integer id) {
 		Assert.notNull(id);
 		return prizeRepository.findOne(id);
+	}
+
+	public void checkNumberCodes(PrizeForm prizeForm, BindingResult binding) {
+
+		if (prizeForm.getTotal() < prizeForm.getWinners()) {
+			binding.rejectValue("total", "prize.num.error", "error");
+			throw new IllegalArgumentException();
+		}
+		if(prizeForm.getTotal() <= 0 ){
+			binding.rejectValue("total", "prize.num.error.0", "error");
+			throw new IllegalArgumentException();
+		}
+		if(prizeForm.getWinners() <= 0 ){
+			binding.rejectValue("winners", "prize.winner.error.0", "error");
+			throw new IllegalArgumentException();
+		}
+		
+		
+		
+		
 	}
 
 }

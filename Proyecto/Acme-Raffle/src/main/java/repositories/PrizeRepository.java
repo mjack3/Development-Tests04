@@ -13,5 +13,10 @@ import domain.Prize;
 public interface PrizeRepository extends JpaRepository<Prize, Integer> {
 	@Query("select p from Raffle r join r.prizes p where r.id= ?1")
 	List<Prize> findAllByRaffleId(int raffleId);
+	
+	
+	
+	@Query("select count(c) from Prize p join p.codes c where p.id=?1 and c.isWinner=true")
+	int countWinnersCode(int prizeId);
 
 }
