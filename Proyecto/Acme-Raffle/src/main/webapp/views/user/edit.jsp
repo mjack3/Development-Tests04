@@ -19,10 +19,6 @@
 
 <form:form action="${url}" modelAttribute="user">
 
-		<security:authorize access="hasRole('USER')">
-			<form:hidden path="validCodes" />
-		</security:authorize>
-
 		
 
 		<form:hidden path="id" />
@@ -31,6 +27,7 @@
 		<form:hidden path="userAccount.password" />
 		<form:hidden path="userAccount.authorities" />
 		<form:hidden path="userAccount.banned" />
+		<form:hidden path="userAccount.socialIdentities" />
 
 
 	    <div class="form-group" style="width: 20%;"> 

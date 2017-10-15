@@ -17,6 +17,7 @@ import domain.Code;
 import domain.Participation;
 import domain.Prize;
 import domain.Raffle;
+import domain.TabooWord;
 import repositories.CodeRepository;
 import security.LoginService;
 
@@ -29,6 +30,8 @@ public class CodeService {
 	CodeRepository	codeRepository;
 	@Autowired
 	LoginService	loginService;
+	@Autowired
+	TabooWordService	tabooWordService;
 
 
 	public CodeService() {
@@ -53,12 +56,34 @@ public class CodeService {
 
 		for (int i = 0; i < num - numWinner; i++) {
 			final Code code = this.getCode(prizeSaved, raffleSaved);
+			boolean containTaboo = false;
+			for(TabooWord taboo: tabooWordService.findAll()) {
+				if(transform(code.getCode()).contains(taboo.getName())) {
+					i--;
+					containTaboo=true;
+					break;
+				}
+			}
+			if(containTaboo) {
+				continue;
+			}
 			saveds.add(this.save(code));
 		}
 
 		for (int i = 0; i < numWinner; i++) {
 			final Code code = this.getCode(prizeSaved, raffleSaved);
 			code.setIsWinner(true);
+			boolean containTaboo = false;
+			for(TabooWord taboo: tabooWordService.findAll()) {
+				if(transform(code.getCode()).contains(taboo.getName())) {
+					i--;
+					containTaboo=true;
+					break;
+				}
+			}
+			if(containTaboo) {
+				continue;
+			}
 			saveds.add(this.save(code));
 		}
 		return saveds;
@@ -108,6 +133,23 @@ public class CodeService {
 	public List<Participation> codeByParticipation(int id) {
 		Assert.notNull(id);
 		return codeRepository.codeByParticipation(id);
+	}
+	
+	private String transform(String code) {
+		String res = code;
+		
+		if(code.contains("/")) {
+			String[] parts= code.split("/");
+			res = parts[0] + parts[1];
+		}else if(code.contains("-")) {
+			String[] parts= code.split("-");
+			res = parts[0] + parts[1];
+		}else if(code.contains(" ")) {
+			String[] parts= code.split(" ");
+			res = parts[0] + parts[1];
+		}
+		
+		return res;
 	}
 
 }

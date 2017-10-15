@@ -55,6 +55,9 @@
 		
 		<bean class="converters.SocialIdentityToStringConverter"/>
 		<bean class="converters.StringToSocialIdentityConverter"/>
+		
+		<bean class="converters.TabooWordToStringConverter"/>
+		<bean class="converters.StringToTabooWordConverter"/>
 	</util:list>
 	
 </beans>

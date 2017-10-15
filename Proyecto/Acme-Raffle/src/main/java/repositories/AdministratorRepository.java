@@ -29,9 +29,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select min(p.codes.size),max(p.codes.size),avg(p.codes.size),stddev(p.codes.size) from Prize p")
 	Object[] codesPerPrizes();
 	
-	@Query("select min(u.validCodes),max(u.validCodes),avg(u.validCodes),stddev(u.validCodes) from User u")
+	@Query("select min(u.participations.size),max(u.participations.size),avg(u.participations.size),stddev(u.participations.size) from User u")
 	Object[] validCodesPerUser();
 	
-	@Query("select u from User u where u.validCodes = (select max(a.validCodes) from User a)")
+	@Query("select u from User u where u.participations.size = (select max(a.participations.size) from User a)")
 	List<User> userWithMoreValidCodes();
 }

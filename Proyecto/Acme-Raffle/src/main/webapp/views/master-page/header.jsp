@@ -93,8 +93,10 @@
 											code="master.page.user.list" /> </a></li>
 								<li><a href="administrator/dashboard.do"><spring:message
 											code="master.page.administrator.dashboard" /> </a></li>
-								<li><a href="taxonomy/administrator/list.do"><spring:message
-											code="master.page.administrator.taxonomy" /> </a></li>
+								<li><a href="property/administrator/list.do"><spring:message
+											code="master.page.administrator.property" /> </a></li>
+								<li><a href="tabooword/administrator/list.do"><spring:message
+											code="master.page.administrator.tabooword" /> </a></li>
 							</security:authorize>
 						
 					</security:authorize>

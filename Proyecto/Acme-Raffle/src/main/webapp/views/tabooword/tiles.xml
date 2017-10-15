@@ -16,19 +16,19 @@
        
 <tiles-definitions>
 
-	<definition name="taxonomy/list" extends="master.page">
-		<put-attribute name="title" value="List of properties" />
-		<put-attribute name="body" value="/views/taxonomy/list.jsp" />
+	<definition name="tabooword/list" extends="master.page">
+		<put-attribute name="title" value="List of Taboo Words" />
+		<put-attribute name="body" value="/views/tabooword/list.jsp" />
 	</definition>
 	
-	<definition name="taxonomy/create" extends="master.page">
-		<put-attribute name="title" value="Create property" />
-		<put-attribute name="body" value="/views/taxonomy/create.jsp" />
+	<definition name="tabooword/create" extends="master.page">
+		<put-attribute name="title" value="Create Taboo Word" />
+		<put-attribute name="body" value="/views/tabooword/create.jsp" />
 	</definition>
 	
-	<definition name="taxonomy/edit" extends="master.page">
-		<put-attribute name="title" value="Edit property" />
-		<put-attribute name="body" value="/views/taxonomy/edit.jsp" />
+	<definition name="tabooword/edit" extends="master.page">
+		<put-attribute name="title" value="Edit Taboo Word" />
+		<put-attribute name="body" value="/views/tabooword/edit.jsp" />
 	</definition>
 
 </tiles-definitions>

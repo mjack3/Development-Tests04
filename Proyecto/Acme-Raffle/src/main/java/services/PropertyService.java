@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PropertyRepository;
-
+import domain.Prize;
 import domain.Property;
 
 @Transactional
@@ -18,6 +18,9 @@ public class PropertyService {
 
 	@Autowired
 	PropertyRepository repository;
+	
+	@Autowired
+	PrizeService  prizeService;
 	
 	public PropertyService() {
 		super();
@@ -55,6 +58,16 @@ public class PropertyService {
 	public void delete(Property entity) {
 		Assert.notNull(entity);
 		Assert.isTrue(repository.exists(entity.getId()));
+		
+		for(Prize p: prizeService.findAll()) {
+			if(p.getProperties().contains(entity)) {
+				List<Property> props = (List<Property>) p.getProperties();
+				props.remove(entity);
+				p.setProperties(props);
+				prizeService.save(p);
+			}
+		}
+		
 		repository.delete(entity);
 	}
 

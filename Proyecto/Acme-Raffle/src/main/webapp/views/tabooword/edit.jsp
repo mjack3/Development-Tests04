@@ -11,7 +11,7 @@
 
 
 
-<acme:acme_form url="taxonomy/administrator/saveEdit.do" entity="${taxonomy}" type="edit">
+<acme:acme_form url="tabooword/administrator/saveEdit.do" entity="${tabooword}" type="edit">
 </acme:acme_form>
 
 

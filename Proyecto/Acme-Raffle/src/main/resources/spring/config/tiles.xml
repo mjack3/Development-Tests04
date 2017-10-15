@@ -24,15 +24,14 @@
 		<value>/views/raffle/tiles.xml</value>
 		<value>/views/prize/tiles.xml</value>
 		<value>/views/code/tiles.xml</value>
-		<value>/views/taxonomy/tiles.xml</value>
+		<value>/views/property/tiles.xml</value>
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/participation/tiles.xml</value>
 		
 		
-	<value>/views/raffle/tiles.xml</value>
-    <value>/views/raffle/tiles.xml</value>
-    <value>/views/prize/tiles.xml</value>
-    <value>/views/socialIdentity/tiles.xml</value>
+    	<value>/views/prize/tiles.xml</value>
+    	<value>/views/socialIdentity/tiles.xml</value>
+    	<value>/views/tabooword/tiles.xml</value>
     </util:list>
 
 </beans>

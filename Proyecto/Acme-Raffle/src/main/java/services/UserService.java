@@ -46,7 +46,6 @@ public class UserService {
 		user.setPostal(new String());
 		user.setCity(new String());
 		user.setCountry(new String());
-		user.setValidCodes(0);
 
 		final Authority auth = new Authority();
 		auth.setAuthority("USER");

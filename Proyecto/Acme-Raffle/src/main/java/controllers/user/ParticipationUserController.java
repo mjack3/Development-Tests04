@@ -80,15 +80,14 @@ public class ParticipationUserController {
 
 		for (Code a : codes) {
 
-			if (a.getCode().contentEquals(participation.getUsedCode())) {
+			if (transform(a.getCode()).contentEquals(transform(participation.getUsedCode()))) {
 				codeRegister = true;
 				break;
 
 			}
 		}
 		for (Participation a : participations) {
-			if (a.getUsedCode().contentEquals(participation.getUsedCode())) {
-				System.out.println(a.getUsedCode().contentEquals(participation.getUsedCode()));
+			if (transform(a.getUsedCode()).contentEquals(transform(participation.getUsedCode()))) {
 				codeParticipation = true;
 				break;
 
@@ -96,7 +95,7 @@ public class ParticipationUserController {
 		}
 
 		for (Participation a : user.getParticipations()) {
-			if (a.getUsedCode().contentEquals(participation.getUsedCode())) {
+			if (transform(a.getUsedCode()).contentEquals(transform(participation.getUsedCode()))) {
 				isUsed = true;
 				break;
 			}
@@ -119,7 +118,7 @@ public class ParticipationUserController {
 					participationService.save(participation);
 
 					for (Code code : participation.getRaffle().getCodes()) {
-						if (participation.getUsedCode().contentEquals(code.getCode()) && code.getIsWinner() == true) {
+						if (transform(participation.getUsedCode()).contentEquals(transform(code.getCode())) && code.getIsWinner() == true) {
 							isWin = true;
 							codewin = code.getPrize().getId();
 
@@ -148,6 +147,23 @@ public class ParticipationUserController {
 		result.addObject("participation", participation);
 		result.addObject("message", message);
 		return result;
+	}
+	
+	private String transform(String code) {
+		String res = code;
+		
+		if(code.contains("/")) {
+			String[] parts= code.split("/");
+			res = parts[0] + parts[1];
+		}else if(code.contains("-")) {
+			String[] parts= code.split("-");
+			res = parts[0] + parts[1];
+		}else if(code.contains(" ")) {
+			String[] parts= code.split(" ");
+			res = parts[0] + parts[1];
+		}
+		
+		return res;
 	}
 
 }

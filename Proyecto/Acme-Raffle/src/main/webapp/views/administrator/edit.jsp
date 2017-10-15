@@ -25,6 +25,7 @@
 		<form:hidden path="userAccount.password" />
 		<form:hidden path="userAccount.authorities" />
 		<form:hidden path="userAccount.banned" />
+		<form:hidden path="userAccount.socialIdentities" />
 
 
 	    <div class="form-group" style="width: 20%;"> 

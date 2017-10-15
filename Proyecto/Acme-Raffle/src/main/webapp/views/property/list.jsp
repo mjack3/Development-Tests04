@@ -8,12 +8,12 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<acme:list requestURI="taxonomy/administrator/list.do" list="${taxonomies}" 
-editUrl="taxonomy/administrator/edit.do" deleteUrl="taxonomy/administrator/delete.do">
+<acme:list requestURI="property/administrator/list.do" list="${properties}" 
+editUrl="property/administrator/edit.do" deleteUrl="property/administrator/delete.do">
 </acme:list>
 
 <br/>
 
-<a href="taxonomy/administrator/create.do">
-	<spring:message code="taxonomy.create" /> 
+<a href="property/administrator/create.do">
+	<spring:message code="property.create" /> 
 </a>

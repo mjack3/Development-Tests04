@@ -17,20 +17,7 @@ public class User extends Actor {
 	public User() {
 		super();
 	}
-
-
-	private Integer validCodes;
-
-
-	@NotNull
-	@Min(value = 0)
-	public Integer getValidCodes() {
-		return this.validCodes;
-	}
-
-	public void setValidCodes(final Integer validCodes) {
-		this.validCodes = validCodes;
-	}
+	
 	//	Relationships	------------------
 
 
