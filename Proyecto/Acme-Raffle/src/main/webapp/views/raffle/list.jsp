@@ -16,7 +16,7 @@
 </button>
 
 
-<acme:list entityUrl="{prizes:prize/manager/list.do}" requestURI="${requestURI}"
+<acme:list entityUrl="{prizes:prize/list.do}" requestURI="${requestURI}"
 	list="${raffle}"
 	hidden_fields="raffle,codes,user,taxonomy,manager,participations"
 	image_fields="logo" variable="e">

@@ -25,7 +25,6 @@ import services.RaffleService;
 import domain.Code;
 import domain.Participation;
 import domain.Prize;
-import domain.Raffle;
 import domain.User;
 import forms.PrizeForm;
 
@@ -54,9 +53,10 @@ public class PrizeController extends AbstractController {
 		ModelAndView result;
 		result = new ModelAndView("prize/list");
 		result.addObject("requestURI", "prize/list.do");
-		final Raffle raffle = this.raffleService.findOne(q);
-		result.addObject("prize", raffle.getPrizes());
-
+		final List<Prize> prizes = this.prizeService.findAllByRaffleId(q);
+		result.addObject("prize", prizes);
+		result.addObject("raffleId", q);
+		result.addObject("editable", this.raffleService.isEditable(q));
 		return result;
 	}
 
