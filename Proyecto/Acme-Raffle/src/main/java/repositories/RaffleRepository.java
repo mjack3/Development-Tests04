@@ -15,4 +15,7 @@ public interface RaffleRepository extends JpaRepository<Raffle, Integer> {
 	@Query("select distinct a from Raffle a join a.participations b join b.user c where c.id=?1 ")
 	List<Raffle> raffleByParticpation(int id);
 
+	@Query("select distinct a from Raffle a where a.manager.id=?1 ")
+	List<Raffle> findByManager(int id);
+
 }

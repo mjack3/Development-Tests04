@@ -57,10 +57,9 @@
 		
 		<security:intercept-url pattern="/mana/edit.do" access="hasRole('MANAGER')" />
     	<security:intercept-url pattern="/mana/save-mana.do" access="hasRole('MANAGER')" />
-		<security:intercept-url pattern="/raffle/manager/**" access="hasRole('MANAGER')" />
+		<security:intercept-url pattern="/raffle/managers/**" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/prize/manager/**" access="hasRole('MANAGER')" />
 		<security:intercept-url pattern="/property/manager/**" access="hasRole('MANAGER')" />
-		
 		<!-- SECURITY: ADMINISTRATOR -->
 		
 		<security:intercept-url pattern="/administrator/edit.do" access="hasRole('ADMIN')" />

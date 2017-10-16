@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Raffle;
 import services.RaffleService;
+import domain.Raffle;
 
 @RequestMapping("/raffle")
 @Controller
 public class RaffleController {
 
 	@Autowired
-	private RaffleService raffleService;
+	private RaffleService	raffleService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Date today = new Date();
+		final Date today = new Date();
 		result = new ModelAndView("raffle/list");
 		result.addObject("requestURI", "raffle/list.do");
-		List<Raffle> raffle = raffleService.findAll();
+		final List<Raffle> raffle = this.raffleService.findAll();
 		result.addObject("raffle", raffle);
 		result.addObject("today", today);
 

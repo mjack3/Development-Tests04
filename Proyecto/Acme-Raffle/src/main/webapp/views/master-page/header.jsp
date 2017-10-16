@@ -67,14 +67,20 @@
 							<spring:message code="master.page.raffles" /><span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-							<li><a href="raffle/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
+							<security:authorize access="!hasRole('MANAGER')">
+								<li><a href="raffle/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
+							</security:authorize>
+							
+							<security:authorize access="hasRole('MANAGER')">
+								<li><a href="raffle/managers/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
+							</security:authorize>
 							</ul>
 							
 							
 	<!-- DESPLEGABLE DE RAFFLES -->
 								<security:authorize access="hasRole('MANAGER')">
 								<li><a href="mana/edit.do?userAccountID=${id}"><spring:message code="master.page.actor.edit" /></a></li>
-								<li><a href="raffle/manager/create.do"><spring:message
+								<li><a href="raffle/managers/create.do"><spring:message
 											code="master.page.create" /> </a></li>
 								</security:authorize>
 								

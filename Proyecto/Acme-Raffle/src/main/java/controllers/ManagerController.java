@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Manager;
 import services.ManagerService;
+import domain.Manager;
 
 @Controller
 @RequestMapping("/mana")
 public class ManagerController extends AbstractController {
 
 	@Autowired
-	private ManagerService managerService;
+	private ManagerService	managerService;
 
 
 	public ManagerController() {
@@ -122,8 +122,6 @@ public class ManagerController extends AbstractController {
 		result = new ModelAndView("mana/edit");
 		result.addObject("manager", mana);
 		result.addObject("message", message);
-
-		System.out.println(message);
 
 		return result;
 	}

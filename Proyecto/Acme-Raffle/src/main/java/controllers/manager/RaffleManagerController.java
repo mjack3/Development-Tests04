@@ -2,14 +2,18 @@
 package controllers.manager;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CodeService;
@@ -18,11 +22,12 @@ import services.PrizeService;
 import services.RaffleService;
 import controllers.AbstractController;
 import domain.Code;
+import domain.Manager;
 import domain.Prize;
 import domain.Raffle;
 import forms.RaffleForm;
 
-@RequestMapping("/raffle/manager/")
+@RequestMapping("/raffle/managers/")
 @Controller
 public class RaffleManagerController extends AbstractController {
 
@@ -38,6 +43,21 @@ public class RaffleManagerController extends AbstractController {
 
 	public RaffleManagerController() {
 		super();
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		final Date today = new Date();
+		result = new ModelAndView("raffle/list");
+		result.addObject("requestURI", "raffle/list.do");
+		final Manager manag = this.managerService.findPrincipal();
+
+		final Collection<Raffle> raffle = this.raffleService.findByManager(manag.getId());
+		result.addObject("raffle", raffle);
+		result.addObject("today", today);
+
+		return result;
 	}
 
 	//	CREACION ==================
@@ -113,7 +133,63 @@ public class RaffleManagerController extends AbstractController {
 		final ModelAndView resul = new ModelAndView("raffle/create");
 		resul.addObject("raffleForm", raffleForm);
 		resul.addObject("message", message);
-		resul.addObject("requestURI", "raffle/manager/create.do");
+		resul.addObject("requestURI", "raffle/managers/create.do");
 		return resul;
+	}
+
+	// Edition ----------------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int q) {
+		ModelAndView result;
+		result = this.createEditModelAndView(this.raffleService.findOne(q), null);
+		return result;
+	}
+
+	@RequestMapping(value = "/saveEdit", method = RequestMethod.POST)
+	public ModelAndView saveEdit(@Valid final Raffle raffle, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(raffle, null);
+		else
+			try {
+				this.raffleService.save(raffle);
+
+				result = new ModelAndView("redirect:/raffle/managers/list.do");
+			} catch (final Exception e) {
+				result = this.createEditModelAndView(raffle, "commit.error");
+			}
+
+		return result;
+	}
+
+	@Transactional
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int q) {
+		ModelAndView result;
+		final Date today = new Date();
+		final Raffle raffle = this.raffleService.findOne(q);
+
+		//Si aún no ha pasado la fecha de publicación, se puede borrar
+		if (raffle.getPublicationTime().after(new Date()))
+			this.raffleService.delete(raffle);
+
+		result = new ModelAndView("raffle/list");
+		result.addObject("requestURI", "raffle/list.do");
+		final Manager manag = this.managerService.findPrincipal();
+		final List<Raffle> raffles = this.raffleService.findByManager(manag.getId());
+		result.addObject("raffle", raffles);
+		result.addObject("today", today);
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Raffle raffle, final String message) {
+		final ModelAndView result = new ModelAndView("raffle/edit");
+
+		result.addObject("raffle", raffle);
+		result.addObject("message", message);
+
+		return result;
 	}
 }

@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Participation;
 import repositories.ParticipationRepository;
+import domain.Participation;
 
 @Service
 @Transactional
 public class ParticipationService {
 
 	@Autowired
-	private ParticipationRepository participationRepository;
+	private ParticipationRepository	participationRepository;
 
 
 	public ParticipationService() {
@@ -26,44 +26,48 @@ public class ParticipationService {
 	}
 
 	public Participation create() {
-		Participation participation = new Participation();
+		final Participation participation = new Participation();
 		participation.setMoment(new Date());
 		participation.setUsedCode(new String());
 		return participation;
 	}
 
-	public boolean exists(Integer id) {
+	public boolean exists(final Integer id) {
 		Assert.notNull(id);
-		return participationRepository.exists(id);
+		return this.participationRepository.exists(id);
 	}
 
 	public List<Participation> findAll() {
-		return participationRepository.findAll();
+		return this.participationRepository.findAll();
 	}
 
-	public Participation save(Participation entity) {
+	public Participation save(final Participation entity) {
 		Assert.notNull(entity);
 
 		Participation aux = new Participation();
 
-		if (participationRepository.exists(entity.getId())) {
-			aux = participationRepository.findOne(entity.getId());
+		if (this.participationRepository.exists(entity.getId())) {
+			aux = this.participationRepository.findOne(entity.getId());
 			aux.setMoment(new Date());
 			aux.setUsedCode(entity.getUsedCode());
-			participationRepository.save(aux);
+			this.participationRepository.save(aux);
 
-		} else {
-
-			aux = participationRepository.save(entity);
-
-		}
+		} else
+			aux = this.participationRepository.save(entity);
 
 		return aux;
 	}
 
-	public Participation findOne(Integer id) {
+	public Participation findOne(final Integer id) {
 		Assert.notNull(id);
-		return participationRepository.findOne(id);
+		return this.participationRepository.findOne(id);
+	}
+
+	public void delete(final Participation participation) {
+		Assert.notNull(participation);
+		Assert.isTrue(this.participationRepository.exists(participation.getId()));
+
+		this.participationRepository.delete(participation);
 	}
 
 }

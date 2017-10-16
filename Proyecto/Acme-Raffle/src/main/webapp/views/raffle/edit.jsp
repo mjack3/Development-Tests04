@@ -8,4 +8,5 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<acme:acme_form type="edit" entity="${raffle}" url="raffle/manager/edit.do" numberSteps="0.25" cancel="welcome/index.do"/>
+<acme:acme_form url="raffle/managers/saveEdit.do" entity="${raffle}" type="edit">
+</acme:acme_form>
