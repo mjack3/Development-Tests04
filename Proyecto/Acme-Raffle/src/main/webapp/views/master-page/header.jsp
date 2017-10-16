@@ -72,7 +72,7 @@
 							</security:authorize>
 							
 							<security:authorize access="hasRole('MANAGER')">
-								<li><a href="raffle/managers/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
+								<li><a href="raffle/managers/list.do"><spring:message code="master.page.raffles.manager"></spring:message></a></li>
 							</security:authorize>
 							</ul>
 							
