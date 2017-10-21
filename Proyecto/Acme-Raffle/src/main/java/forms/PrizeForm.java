@@ -1,7 +1,10 @@
 
 package forms;
 
+import java.util.Collection;
+
 import domain.Prize;
+import domain.Property;
 
 public class PrizeForm extends Prize {
 	
@@ -9,7 +12,7 @@ public class PrizeForm extends Prize {
 	private int total;
 	private int raffleId;
 	private int prizeId;
-	
+	private Collection<Property> allProperties;
 	
 	public int getRaffleId() {
 		return raffleId;
@@ -41,6 +44,14 @@ public class PrizeForm extends Prize {
 
 	public void setPrizeId(int prizeId) {
 		this.prizeId = prizeId;
+	}
+
+	public Collection<Property> getAllProperties() {
+		return allProperties;
+	}
+
+	public void setAllProperties(Collection<Property> allProperties) {
+		this.allProperties = allProperties;
 	}
 
 	

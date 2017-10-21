@@ -61,8 +61,6 @@ public class PrizeService {
 
 	}
 
-
-	@Autowired
 	private Validator	validator;
 
 
