@@ -2,7 +2,9 @@
 package forms;
 
 import java.util.Collection;
+import java.util.List;
 
+import domain.Comment;
 import domain.Prize;
 import domain.Property;
 
@@ -13,7 +15,18 @@ public class PrizeForm extends Prize {
 	private int raffleId;
 	private int prizeId;
 	private Collection<Property> allProperties;
+	private List<Comment> comments;
 	
+	
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	public int getRaffleId() {
 		return raffleId;
 	}

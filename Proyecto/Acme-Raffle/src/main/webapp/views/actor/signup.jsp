@@ -20,6 +20,7 @@
 		<form:hidden path="version" />
 		<form:hidden path="userAccount.authorities" />
 		<form:hidden path="userAccount.banned" />
+		<form:hidden path="comments" />
 		
 		
 		<jstl:if test="${type==1}">

@@ -2,6 +2,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -36,7 +37,18 @@ public abstract class Actor extends DomainEntity {
 	private String						country;
 	private UserAccount					userAccount;
 	private Collection<SocialIdentity>	socialIdentities;
+	private List<Comment>				comments;
 
+
+	@NotNull
+	@OneToMany(mappedBy="actor")
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 	@NotBlank
 	public String getName() {

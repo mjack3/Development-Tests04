@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -28,11 +29,25 @@ public class Raffle extends DomainEntity {
 	private String	description;
 	private Date	publicationTime;
 	private Date	deadline;
+	private List<Comment> comments;
 
 
 	public Raffle() {
 		super();
 	}
+	
+	
+	@NotNull
+	@OneToMany(mappedBy="raffle")
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+
 
 	@NotBlank
 	@URL

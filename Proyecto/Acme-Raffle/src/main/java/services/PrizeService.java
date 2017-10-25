@@ -120,6 +120,7 @@ public class PrizeService {
 		prizeForm.setRaffleId(prize.getRaffle().getId());
 		prizeForm.setName(prize.getName());
 		prizeForm.setProperties(prize.getProperties());
+		prizeForm.setComments(prize.getComments());
 		return prizeForm;
 	}
 

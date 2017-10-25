@@ -1,11 +1,14 @@
 
 package forms;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
+import domain.Comment;
 import domain.Raffle;
 
 public class RaffleForm extends Raffle {
@@ -14,7 +17,17 @@ public class RaffleForm extends Raffle {
 	private Integer	numWinner;
 	private String	namePrize;
 	private String	descriptionPrize;
+	private List<Comment> comments;
+	
+	
+	@NotNull
+	public List<Comment> getComments() {
+		return comments;
+	}
 
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 
 	@NotNull
 	@Range(min = 1, max = 50)

@@ -104,6 +104,11 @@
 								<li><a href="tabooword/administrator/list.do"><spring:message
 											code="master.page.administrator.tabooword" /> </a></li>
 							</security:authorize>
+							
+							
+							<security:authorize access="hasRole('AUDITOR')">
+								<li><a href="auditReport/auditor/list.do"><spring:message code="master.page.auditReport.list" /></a></li>
+							</security:authorize>
 						
 					</security:authorize>
 					

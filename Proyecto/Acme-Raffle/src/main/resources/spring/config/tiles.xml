@@ -24,8 +24,16 @@
 		<value>/views/property/tiles.xml</value>
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/participation/tiles.xml</value>
-		<value>/views/socialIdentity/tiles.xml</value>
-		<value>/views/tabooword/tiles.xml</value>
-	</util:list>
+		
+		
+    	<value>/views/prize/tiles.xml</value>
+    	<value>/views/socialIdentity/tiles.xml</value>
+    	<value>/views/tabooword/tiles.xml</value>
+    	<value>/views/auditReport/tiles.xml</value>
+    	<value>/views/comment/tiles.xml</value>
+    	
+    </util:list>
+
+
 
 </beans>

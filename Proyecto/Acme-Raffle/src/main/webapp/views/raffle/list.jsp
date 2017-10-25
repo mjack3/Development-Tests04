@@ -18,7 +18,7 @@
 
 <acme:list entityUrl="{prizes:prize/list.do}" requestURI="${requestURI}"
 	list="${raffle}"
-	hidden_fields="raffle,codes,user,taxonomy,manager,participations"
+	hidden_fields="raffle,codes,user,taxonomy,manager,participations,comments"
 	image_fields="logo" variable="e">
 
 	<security:authorize access="hasRole('USER')">
@@ -38,6 +38,12 @@
 		</jstl:if>
 
 
+		<td>
+	</security:authorize>
+	<security:authorize access="hasRole('AUDITOR')">
+		<td>
+				<a href="auditReport/auditor/create.do?q=${e.id}"> <spring:message
+						code='auditReport.create' /></a>
 		<td>
 	</security:authorize>
 

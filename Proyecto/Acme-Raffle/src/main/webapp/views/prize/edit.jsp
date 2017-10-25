@@ -17,6 +17,7 @@
 	<form:hidden path="prizeId" />
 	<form:hidden path="version" />
 	<form:hidden path="allProperties" />
+	<form:hidden path="comments" />
 	<acme:textbox code="prize.name" path="name" />
 	<br />
 	<acme:textbox code="prize.description" path="description" />

@@ -2,6 +2,7 @@
 package domain;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,11 +20,23 @@ public class Prize extends DomainEntity {
 
 	private String	name;
 	private String	description;
+	private List<Comment> comments;
 
 
 	public Prize() {
 		super();
 	}
+	
+	@NotNull
+	@OneToMany(mappedBy="prize")
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
 	@NotBlank
 	public String getName() {
 		return this.name;
