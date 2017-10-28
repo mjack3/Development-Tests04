@@ -33,5 +33,10 @@
 		<put-attribute name="body" value="/views/prize/regCode.jsp" />
 	</definition>
 	
+	<definition name="prize/editProperties" extends="master.page">
+		<put-attribute name="title" value="Edit properties" />
+		<put-attribute name="body" value="/views/prize/editProperties.jsp" />
+	</definition>
+	
 
 </tiles-definitions>

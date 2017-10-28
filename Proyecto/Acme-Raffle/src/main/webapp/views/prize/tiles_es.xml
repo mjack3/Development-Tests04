@@ -35,5 +35,10 @@
 		<put-attribute name="title" value="Regenerar códigos" />
 		<put-attribute name="body" value="/views/prize/regCode.jsp" />
 	</definition>
+	
+	<definition name="prize/editProperties" extends="master.page">
+		<put-attribute name="title" value="Editar propiedades" />
+		<put-attribute name="body" value="/views/prize/editProperties.jsp" />
+	</definition>
 
 </tiles-definitions>
