@@ -22,9 +22,7 @@
 	<br />
 	<acme:textbox code="prize.description" path="description" />
 	<br />
-<a href="property/manager/create.do?prizeId=${prizeForm.prizeId}"> <spring:message
-			code="prize.createProperty" />
-	</a>
+
 	
 	<br />
 

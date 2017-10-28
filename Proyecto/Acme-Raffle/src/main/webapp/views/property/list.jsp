@@ -10,6 +10,6 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<acme:list edit_auth="property/administrator/edit.do" deleteUrl="property/administrator/delete.do" requestURI="${requestURI}" list="${properties }" />
+<acme:list editUrl="property/administrator/edit.do" deleteUrl="property/administrator/delete.do" requestURI="${requestURI}" list="${properties }" />
 
 <a href="property/administrator/create.do" class="btn btn-primary"> <spring:message code="property.create" /> </a>

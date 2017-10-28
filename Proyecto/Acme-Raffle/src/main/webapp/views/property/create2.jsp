@@ -12,6 +12,9 @@
 
 <form:form action="${requestParam}" modelAttribute="property">
 
+<form:hidden path="id"/>
+<form:hidden path="version"/>
+
 	<acme:textbox code="property.name" path="name" />
 	<br />
 

@@ -40,7 +40,7 @@ public class PropertyService {
 	}
 
 	public Property save(final Property entity) {
-		Assert.isTrue(LoginService.hasRole("ADMINISTRATOR"));
+		Assert.isTrue(LoginService.hasRole("ADMIN"));
 		Assert.notNull(entity);
 		return this.repository.save(entity);
 	}
