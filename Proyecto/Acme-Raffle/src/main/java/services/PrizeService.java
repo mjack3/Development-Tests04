@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -61,6 +60,8 @@ public class PrizeService {
 
 	}
 
+
+	@Autowired
 	private Validator	validator;
 
 
@@ -71,9 +72,17 @@ public class PrizeService {
 			prize.setRaffle(this.raffleService.findOne(prizeForm.getRaffleId()));
 		} else
 			prize = this.prizeRepository.findOne(prizeForm.getPrizeId());
-		prize.setCodes(new ArrayList<Code>());
+
 		prize.setDescription(prizeForm.getDescription());
 		prize.setName(prizeForm.getName());
+
+		if (prize.getName() == null || prize.getName() == "") {
+			binding.rejectValue("name", "NotNull", "error");
+			throw new IllegalArgumentException();
+		} else if (prize.getDescription() == null || prize.getDescription() == "") {
+			binding.rejectValue("description", "NotNull", "error");
+			throw new IllegalArgumentException();
+		}
 
 		this.validator.validate(prize, binding);
 		return prize;

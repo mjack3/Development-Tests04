@@ -21,7 +21,7 @@
 		<form:hidden path="userAccount.authorities" />
 		<form:hidden path="userAccount.banned" />
 		
-		<form:hidden path="validCodes" />
+		
 		<form:hidden path="participations" />
 
 

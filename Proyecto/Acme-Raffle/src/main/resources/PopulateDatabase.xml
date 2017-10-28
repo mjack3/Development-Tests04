@@ -235,8 +235,7 @@
 		</property>
 		<property name="reports">
 			<list>
-				<ref bean="report1" />
-				<ref bean="report2" />
+				
 			</list>
 		</property>
 		<property name="comments">
@@ -259,7 +258,7 @@
 		</property>
 		<property name="reports">
 			<list>
-				<ref bean="report3" />
+				
 			</list>
 		</property>
 		<property name="comments">
@@ -274,6 +273,7 @@
 		<property name="moment" value="10/10/2017 12:00:00" />
 		<property name="finalMode" value="true" />
 		<property name="raffle" ref="raffle1" />
+		<property name="auditor" ref="auditor1" />
 	</bean>
 
 	<bean id="report2" class="domain.AuditReport">
@@ -281,6 +281,7 @@
 		<property name="moment" value="10/10/2017 12:00:00" />
 		<property name="finalMode" value="true" />
 		<property name="raffle" ref="raffle2" />
+		<property name="auditor" ref="auditor1" />
 	</bean>
 
 	<bean id="report3" class="domain.AuditReport">
@@ -288,6 +289,7 @@
 		<property name="moment" value="10/10/2017 12:00:00" />
 		<property name="finalMode" value="true" />
 		<property name="raffle" ref="raffle1" />
+		<property name="auditor" ref="auditor2" />
 	</bean>
 	<!-- RAFFLES -->
 
@@ -314,6 +316,7 @@
 		<property name="comments">
   			<list></list>
   		</property>
+  		
 	</bean>
 
 	<bean id="raffle2" class="domain.Raffle">

@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public abstract class Actor extends DomainEntity {
 
 	public Actor() {
 		super();
+		this.comments = new ArrayList<Comment>();
+		this.socialIdentities = new ArrayList<>();
 	}
 
 
@@ -41,12 +44,12 @@ public abstract class Actor extends DomainEntity {
 
 
 	@NotNull
-	@OneToMany(mappedBy="actor")
+	@OneToMany(mappedBy = "actor")
 	public List<Comment> getComments() {
-		return comments;
+		return this.comments;
 	}
 
-	public void setComments(List<Comment> comments) {
+	public void setComments(final List<Comment> comments) {
 		this.comments = comments;
 	}
 
@@ -78,7 +81,7 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "^([+][0-9]{2}([(][0-9]{1,3}[)])?[0-9]{4,48})|([0-9]{4,48})|()$")
+	@Pattern(regexp = "^(((\\+\\d{2}(\\(\\d{1,3}\\))?)?\\d{4,40}))?$")
 	public String getPhone() {
 		return this.phone;
 	}
@@ -123,11 +126,12 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@OneToMany
+	@NotNull
 	public Collection<SocialIdentity> getSocialIdentities() {
-		return socialIdentities;
+		return this.socialIdentities;
 	}
 
-	public void setSocialIdentities(Collection<SocialIdentity> socialIdentities) {
+	public void setSocialIdentities(final Collection<SocialIdentity> socialIdentities) {
 		this.socialIdentities = socialIdentities;
 	}
 

@@ -1,7 +1,9 @@
 
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -18,25 +20,27 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Prize extends DomainEntity {
 
-	private String	name;
-	private String	description;
-	private List<Comment> comments;
+	private String			name;
+	private String			description;
+	private List<Comment>	comments;
 
 
 	public Prize() {
 		super();
-	}
-	
-	@NotNull
-	@OneToMany(mappedBy="prize")
-	public List<Comment> getComments() {
-		return comments;
+		this.comments = new ArrayList<Comment>();
+		this.codes = new HashSet<Code>();
 	}
 
-	public void setComments(List<Comment> comments) {
+	@NotNull
+	@OneToMany(mappedBy = "prize")
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -57,10 +61,10 @@ public class Prize extends DomainEntity {
 
 	//	Relationships ------------------------
 
-	private Raffle				raffle;
-	private Collection<Property>			properties;
-	private User				user;
-	private Collection<Code>	codes;
+	private Raffle					raffle;
+	private Collection<Property>	properties;
+	private User					user;
+	private Collection<Code>		codes;
 
 
 	@ManyToOne(optional = false)

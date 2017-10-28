@@ -95,7 +95,8 @@ public class RaffleManagerController extends AbstractController {
 				raffle.setDeadline(raffleForm.getDeadline());
 				raffle.setLogo(raffleForm.getLogo());
 				raffle.setManager(this.managerService.findPrincipal());
-				raffle.setPublicationTime(raffleForm.getPublicationTime());
+				if (raffleForm.getPublicationTime() != null)
+					raffle.setPublicationTime(raffleForm.getPublicationTime());
 				//genero premio
 
 				final Prize prize = new Prize();
@@ -122,7 +123,6 @@ public class RaffleManagerController extends AbstractController {
 
 		return resul;
 	}
-
 	private ModelAndView createCreateModelAndView(final RaffleForm raffleForm) {
 		// TODO Auto-generated method stub
 		return this.createCreateModelAndView(raffleForm, null);
@@ -154,6 +154,12 @@ public class RaffleManagerController extends AbstractController {
 			result = this.createEditModelAndView(raffle, null);
 		else
 			try {
+
+				if (raffle.getPublicationTime() == null || !raffle.getDeadline().after(raffle.getPublicationTime())) {
+					binding.rejectValue("publicationTime", "invalidDate", "invalidDate");
+					throw new IllegalArgumentException();
+				}
+
 				this.raffleService.save(raffle);
 
 				result = new ModelAndView("redirect:/raffle/managers/list.do");
@@ -172,8 +178,12 @@ public class RaffleManagerController extends AbstractController {
 		final Raffle raffle = this.raffleService.findOne(q);
 
 		//Si aún no ha pasado la fecha de publicación, se puede borrar
-		if (raffle.getPublicationTime().after(new Date()))
-			this.raffleService.delete(raffle);
+		try {
+			if (raffle.getPublicationTime().after(new Date()))
+				this.raffleService.delete(raffle);
+		} catch (final Throwable oops) {
+
+		}
 
 		result = new ModelAndView("raffle/list");
 		result.addObject("requestURI", "raffle/list.do");

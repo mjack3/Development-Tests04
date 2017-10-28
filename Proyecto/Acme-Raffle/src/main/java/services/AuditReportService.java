@@ -1,5 +1,7 @@
+
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -9,75 +11,91 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.AuditReportRepository;
+import security.LoginService;
 import domain.AuditReport;
 import domain.Auditor;
 import domain.Raffle;
-import repositories.AuditReportRepository;
-import security.LoginService;
 
 @Service
 @Transactional
 public class AuditReportService {
 
 	@Autowired
-	private AuditReportRepository	repository;
-	
+	private LoginService			loginService;
 	@Autowired
-	private AuditorService		auditorService;
-	
+	private AuditReportRepository	repository;
+
+	@Autowired
+	private AuditorService			auditorService;
+
+
 	public AuditReportService() {
 		super();
 	}
-	
+
 	public AuditReport create() {
-		AuditReport report= new AuditReport();
-		
+		final AuditReport report = new AuditReport();
+
 		report.setFinalMode(false);
 		report.setMoment(new Date());
 		report.setRaffle(new Raffle());
 		report.setText("");
-		
+
 		return report;
 	}
 
-	public AuditReport save(AuditReport entity) {
+	public AuditReport save(final AuditReport entity) {
 		Assert.notNull(entity);
-		return repository.save(entity);
+		return this.repository.saveAndFlush(entity);
 	}
-	
-	public AuditReport update(AuditReport entity) {
+
+	public AuditReport update(final AuditReport entity) {
 		Assert.notNull(entity);
-		Assert.isTrue(repository.exists(entity.getId()));
-		if(entity.getFinalMode())
+		Assert.isTrue(this.repository.exists(entity.getId()));
+		if (entity.getFinalMode())
 			return entity;
-		return repository.save(entity);
+		return this.repository.saveAndFlush(entity);
 	}
-
-	public AuditReport findOne(Integer id) {
+	public AuditReport findOne(final Integer id) {
 		Assert.notNull(id);
-		Assert.isTrue(repository.exists(id));
-		return repository.findOne(id);
+		Assert.isTrue(this.repository.exists(id));
+		return this.repository.findOne(id);
 	}
 
-	public void delete(AuditReport entity) {
+	public void delete(final AuditReport entity) {
 		Assert.notNull(entity);
-		Assert.isTrue(repository.exists(entity.getId()));
-		if(!entity.getFinalMode()) {
-			Auditor auditor = auditorService.findOneUserAccount(LoginService.getPrincipal().getId());
-			
-			List<AuditReport> reports = auditor.getReports();
+		Assert.isTrue(this.repository.exists(entity.getId()));
+		if (!entity.getFinalMode()) {
+			final Auditor auditor = this.auditorService.findOneUserAccount(LoginService.getPrincipal().getId());
+
+			final List<AuditReport> reports = auditor.getReports();
 			reports.remove(entity);
 			auditor.setReports(reports);
-			
-			auditorService.update(auditor);
-			
-			repository.delete(entity);
+
 		}
-		
-		
+
 	}
-	
-	
-	
-	
+	/**
+	 * Encuentra
+	 * 
+	 * @param id
+	 * @return
+	 */
+
+	public Collection<AuditReport> findAllByRaffle(final int id) {
+		// TODO Auto-generated method stub
+		Assert.notNull(id);
+		final Collection<AuditReport> auditReports = this.repository.findAllByRaffle(id);
+		Assert.notNull(auditReports);
+		return auditReports;
+	}
+
+	public void delete2(final AuditReport auditReport) {
+		// TODO Auto-generated method stub
+		Assert.notNull(auditReport);
+		Assert.isTrue(LoginService.hasRole("MANAGER"));
+		this.repository.delete(auditReport);
+	}
+
 }

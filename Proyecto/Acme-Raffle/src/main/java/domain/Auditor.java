@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.List;
@@ -7,28 +8,27 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import domain.AuditReport;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Auditor extends Actor{
+public class Auditor extends Actor {
 
 	public Auditor() {
 		super();
 	}
-	
-	private List<AuditReport> reports;
 
-	
+
+	private List<AuditReport>	reports;
+
+
 	@NotNull
-	@OneToMany
+	@OneToMany(mappedBy = "auditor")
 	public List<AuditReport> getReports() {
-		return reports;
+		return this.reports;
 	}
 
-	public void setReports(List<AuditReport> reports) {
+	public void setReports(final List<AuditReport> reports) {
 		this.reports = reports;
 	}
-	
-	
+
 }

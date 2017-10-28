@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.RaffleRepository;
+import domain.AuditReport;
 import domain.Participation;
 import domain.Prize;
 import domain.Raffle;
@@ -27,14 +29,18 @@ public class RaffleService {
 
 	@Autowired
 	private ParticipationService	participationService;
+	@Autowired
+	private AuditorService			auditorService;
+	@Autowired
+	private AuditReportService		auditReportService;
 
 
 	public Raffle save(final Raffle raffle) {
 		// TODO Auto-generated method stub
 		Assert.notNull(raffle);
 		//Assert.isTrue(LoginService.hasRole("MANAGER"));
-		Raffle saved = null;
-		saved = this.raffleRepository.save(raffle);
+
+		final Raffle saved = this.raffleRepository.save(raffle);
 
 		return saved;
 	}
@@ -74,6 +80,11 @@ public class RaffleService {
 			this.prizeService.delete(p);
 		for (final Participation p : raffle.getParticipations())
 			this.participationService.delete(p);
+
+		final Collection<AuditReport> auditReports = this.auditReportService.findAllByRaffle(raffle.getId());
+		for (final AuditReport auditReport : auditReports)
+			this.auditReportService.delete2(auditReport);
+
 		this.raffleRepository.delete(raffle);
 	}
 

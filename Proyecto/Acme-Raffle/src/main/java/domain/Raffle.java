@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -24,30 +25,29 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Raffle extends DomainEntity {
 
-	private String	logo;
-	private String	title;
-	private String	description;
-	private Date	publicationTime;
-	private Date	deadline;
-	private List<Comment> comments;
+	private String			logo;
+	private String			title;
+	private String			description;
+	private Date			publicationTime;
+	private Date			deadline;
+	private List<Comment>	comments;
 
 
 	public Raffle() {
 		super();
-	}
-	
-	
-	@NotNull
-	@OneToMany(mappedBy="raffle")
-	public List<Comment> getComments() {
-		return comments;
+		this.comments = new ArrayList<Comment>();
+		this.publicationTime = new Date();
 	}
 
-	public void setComments(List<Comment> comments) {
+	@NotNull
+	@OneToMany(mappedBy = "raffle")
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final List<Comment> comments) {
 		this.comments = comments;
 	}
-
-
 
 	@NotBlank
 	@URL

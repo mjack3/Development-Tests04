@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -15,57 +16,67 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class AuditReport extends DomainEntity{
+public class AuditReport extends DomainEntity {
 
-	
 	public AuditReport() {
 		super();
 	}
-	
-	private String			text;
-	private Date	 		moment;
-	private Boolean 		finalMode;
-	private Raffle 			raffle;
-	
+
+
+	private String	text;
+	private Date	moment;
+	private Boolean	finalMode;
+	private Raffle	raffle;
+	private Auditor	auditor;
+
+
 	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	
 	@NotNull
 	public Boolean getFinalMode() {
-		return finalMode;
+		return this.finalMode;
 	}
-	
+
 	@NotNull
-	@ManyToOne(optional=false, targetEntity=Raffle.class)
+	@ManyToOne(optional = false)
 	public Raffle getRaffle() {
-		return raffle;
+		return this.raffle;
 	}
-	
-	public void setRaffle(Raffle raffle) {
+
+	public void setRaffle(final Raffle raffle) {
 		this.raffle = raffle;
 	}
-	
-	public void setText(String text) {
+
+	public void setText(final String text) {
 		this.text = text;
 	}
-	
-	public void setFinalMode(Boolean finalMode) {
+
+	public void setFinalMode(final Boolean finalMode) {
 		this.finalMode = finalMode;
 	}
-	
-	public void setMoment(Date moment) {
+
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
-	
+
+	@ManyToOne(optional = false)
+	@NotNull
+	public Auditor getAuditor() {
+		return this.auditor;
+	}
+
+	public void setAuditor(final Auditor auditor) {
+		this.auditor = auditor;
+	}
+
 }

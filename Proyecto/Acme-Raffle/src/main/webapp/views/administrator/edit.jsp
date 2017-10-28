@@ -25,7 +25,7 @@
 		<form:hidden path="userAccount.password" />
 		<form:hidden path="userAccount.authorities" />
 		<form:hidden path="userAccount.banned" />
-		<form:hidden path="userAccount.socialIdentities" />
+		
 		<form:hidden path="comments" />
 
 
