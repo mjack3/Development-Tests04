@@ -1,7 +1,8 @@
 
 package domain;
 
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -15,19 +16,20 @@ public class Auditor extends Actor {
 
 	public Auditor() {
 		super();
+		this.reports = new HashSet<AuditReport>();
 	}
 
 
-	private List<AuditReport>	reports;
+	private Collection<AuditReport>	reports;
 
 
 	@NotNull
 	@OneToMany(mappedBy = "auditor")
-	public List<AuditReport> getReports() {
+	public Collection<AuditReport> getReports() {
 		return this.reports;
 	}
 
-	public void setReports(final List<AuditReport> reports) {
+	public void setReports(final Collection<AuditReport> reports) {
 		this.reports = reports;
 	}
 

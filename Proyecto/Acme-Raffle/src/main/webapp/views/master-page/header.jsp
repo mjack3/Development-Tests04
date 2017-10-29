@@ -103,6 +103,8 @@
 											code="master.page.administrator.property" /> </a></li>
 								<li><a href="tabooword/administrator/list.do"><spring:message
 											code="master.page.administrator.tabooword" /> </a></li>
+								<li><a href="auditor/administrator/create.do"><spring:message
+											code="master.page.administrator.auditor" /> </a></li>
 							</security:authorize>
 							
 							

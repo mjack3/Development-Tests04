@@ -12,12 +12,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Administrator;
-import domain.User;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Administrator;
+import domain.Auditor;
+import domain.User;
 
 @Service
 @Transactional
@@ -27,6 +28,12 @@ public class AdministratorService {
 
 	@Autowired
 	private AdministratorRepository	administratorRepository;
+
+	@Autowired
+	private LoginService			loginService;
+
+	@Autowired
+	AuditorService					auditorService;
 
 	@Autowired
 	private UserService				userService;
@@ -106,7 +113,7 @@ public class AdministratorService {
 
 	/**
 	 * Devuelve al administrador logueado
-	 *
+	 * 
 	 * @return manager
 	 */
 	public Administrator findPrincipal() {
@@ -153,6 +160,14 @@ public class AdministratorService {
 		res.add(this.administratorRepository.userWithMoreValidCodes());
 
 		return res;
+	}
+
+	public void saveAuditor(final Auditor auditor) {
+		// TODO Auto-generated method stub
+		Assert.notNull(auditor);
+		Assert.isTrue(LoginService.isAnyAuthenticated());
+		Assert.isTrue(LoginService.hasRole("ADMIN"));
+		this.auditorService.save(auditor);
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.AuditReportRepository;
 import security.LoginService;
@@ -40,13 +42,14 @@ public class AuditReportService {
 		report.setFinalMode(false);
 		report.setMoment(new Date());
 		report.setRaffle(new Raffle());
-		report.setText("");
+		report.setAuditor(this.auditorService.findOneUserAccount(LoginService.getPrincipal().getId()));
 
 		return report;
 	}
 
 	public AuditReport save(final AuditReport entity) {
 		Assert.notNull(entity);
+		entity.setMoment(new Date(System.currentTimeMillis() - 1));
 		return this.repository.saveAndFlush(entity);
 	}
 
@@ -69,7 +72,7 @@ public class AuditReportService {
 		if (!entity.getFinalMode()) {
 			final Auditor auditor = this.auditorService.findOneUserAccount(LoginService.getPrincipal().getId());
 
-			final List<AuditReport> reports = auditor.getReports();
+			final List<AuditReport> reports = (List<AuditReport>) auditor.getReports();
 			reports.remove(entity);
 			auditor.setReports(reports);
 
@@ -98,4 +101,18 @@ public class AuditReportService {
 		this.repository.delete(auditReport);
 	}
 
+
+	@Autowired
+	private Validator	validator;
+
+
+	public AuditReport reconstruct(AuditReport auditreport, final BindingResult binding) {
+		// TODO Auto-generated method stub
+		if (auditreport.getId() == 0)
+			auditreport = this.create();
+		else
+			auditreport = this.findOne(auditreport.getId());
+
+		return auditreport;
+	}
 }
