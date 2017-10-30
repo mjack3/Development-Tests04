@@ -11,7 +11,8 @@
 
 
 
-<acme:acme_form url="auditReport/auditor/saveEdit.do" skip_fields="raffle" entity="${auditreport}" type="edit">
+<acme:acme_form url="auditReport/auditor/saveEdit.do" skip_fields="finalMode"  hiddenFields="moment" entity="${auditreport}" type="edit">
+FINAL? <form:checkbox  path="finalMode"/> <br/>
 </acme:acme_form>
 
 

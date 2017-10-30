@@ -56,7 +56,7 @@ public class AuditReportService {
 	public AuditReport update(final AuditReport entity) {
 		Assert.notNull(entity);
 		Assert.isTrue(this.repository.exists(entity.getId()));
-		if (entity.getFinalMode())
+		if (this.repository.findOne(entity.getId()).getFinalMode())
 			return entity;
 		return this.repository.saveAndFlush(entity);
 	}

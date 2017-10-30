@@ -11,7 +11,7 @@
 
 
 
-<acme:acme_form url="auditReport/auditor/save.do" hiddenFields="id,version,raffle,auditor,moment" entity="${auditreport}" type="create">
+<acme:acme_form url="auditReport/auditor/save.do" hiddenFields="id,version,raffle,moment,auditor,finalMode" entity="${auditreport}" type="create">
 
 </acme:acme_form>
 

@@ -53,8 +53,9 @@ public class AuditReportAuditorController {
 		res = new ModelAndView("auditReport/create");
 		final AuditReport auditReport = this.auditReportService.create();
 		auditReport.setMoment(new Date(System.currentTimeMillis() - 1));
-		res.addObject("auditreport", this.auditReportService.create());
 		auditReport.setRaffle(q);
+
+		res.addObject("auditreport", auditReport);
 		this.toSave = q;
 
 		return res;
@@ -65,14 +66,20 @@ public class AuditReportAuditorController {
 		ModelAndView res;
 
 		res = new ModelAndView("auditReport/edit");
+		final AuditReport auditReport = this.auditReportService.findOne(q);
 
-		res.addObject("auditreport", this.auditReportService.findOne(q));
+		if (auditReport.getFinalMode() == true) {
+			res = this.list();
+			res.addObject("message", "error.edit.report");
+
+		}
+		res.addObject("auditreport", auditReport);
 
 		return res;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(AuditReport auditreport, final BindingResult binding) {
+	public ModelAndView save(@Valid final AuditReport auditreport, final BindingResult binding) {
 		ModelAndView res;
 
 		res = new ModelAndView("auditReport/create");
@@ -84,9 +91,9 @@ public class AuditReportAuditorController {
 		} else
 			try {
 
-				auditreport = this.auditReportService.reconstruct(auditreport, binding);
+				//auditreport = this.auditReportService.reconstruct(auditreport, binding);
 
-				auditreport.setRaffle(this.toSave);
+				//auditreport.setRaffle(this.toSave);
 				this.auditReportService.save(auditreport);
 				return this.list();
 			} catch (final Exception e) {
@@ -99,10 +106,12 @@ public class AuditReportAuditorController {
 	}
 
 	@RequestMapping(value = "/saveEdit", method = RequestMethod.POST)
-	public ModelAndView saveEdit(@Valid final AuditReport auditreport, final BindingResult binding) {
+	public ModelAndView saveEdit(final @Valid AuditReport auditreport, final BindingResult binding) {
 		ModelAndView res;
 
 		res = new ModelAndView("auditReport/edit");
+		if (auditreport.getFinalMode() == null)
+			auditreport.setFinalMode(false);
 
 		if (binding.hasErrors()) {
 			res = new ModelAndView("auditReport/edit");
@@ -123,8 +132,14 @@ public class AuditReportAuditorController {
 
 	@RequestMapping("/delete")
 	public ModelAndView delete(@RequestParam final Integer q) {
+
 		try {
 			final AuditReport prop = this.auditReportService.findOne(q);
+			if (prop.getFinalMode() == true) {
+				final ModelAndView resul = this.list();
+				resul.addObject("message", "error.edit.report");
+				return resul;
+			}
 			this.auditReportService.delete(prop);
 			return this.list();
 		} catch (final Exception e) {
