@@ -115,4 +115,12 @@ public class AuditReportService {
 
 		return auditreport;
 	}
+
+	public Collection<AuditReport> findAllByRaffleFinal(final int id) {
+		// TODO Auto-generated method stub
+		Assert.notNull(id);
+		final Collection<AuditReport> auditReports = this.repository.findAllByRaffleFinal(id);
+		Assert.notNull(auditReports);
+		return auditReports;
+	}
 }

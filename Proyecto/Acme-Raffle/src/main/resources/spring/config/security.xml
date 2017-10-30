@@ -32,7 +32,7 @@
     	<security:intercept-url pattern="/mana/save-mana-create.do" access="permitAll" />
    		<security:intercept-url pattern="/raffle/list.do" access="permitAll()" />
    		<security:intercept-url pattern="/prize/list.do" access="permitAll()" />
-   		
+   		<security:intercept-url pattern="/auditReport/auditor/list2.do" access="permitAll()" />
    		
    		<!-- SECURITY: AUTHENTICATED -->
    		<security:intercept-url pattern="/socialidentity/actor/edit.do" access="isAuthenticated()" />

@@ -47,6 +47,12 @@
 		<td>
 	</security:authorize>
 
+<security:authorize access="permitAll()">
+<a href="auditReport/auditor/list2.do?raffleId=${e.id }">AuditReport</a>
+</security:authorize>
+
+
+
 </acme:list>
 
 

@@ -1,6 +1,7 @@
 
 package controllers.auditor;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.Valid;
@@ -32,6 +33,19 @@ public class AuditReportAuditorController {
 
 	private Raffle				toSave	= null;
 
+
+	@RequestMapping("/list2")
+	public ModelAndView list2(@RequestParam final int raffleId) {
+		ModelAndView res;
+
+		res = new ModelAndView("auditReport/all/list");
+
+		final Collection<AuditReport> auditReports = this.auditReportService.findAllByRaffleFinal(raffleId);
+
+		res.addObject("auditReports", auditReports);
+
+		return res;
+	}
 
 	@RequestMapping("/list")
 	public ModelAndView list() {

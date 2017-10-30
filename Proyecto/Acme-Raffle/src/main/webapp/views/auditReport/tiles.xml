@@ -30,5 +30,10 @@
 		<put-attribute name="title" value="Edit report" />
 		<put-attribute name="body" value="/views/auditReport/edit.jsp" />
 	</definition>
+	
+	<definition name="auditReport/all/list" extends="master.page">
+		<put-attribute name="title" value="list report" />
+		<put-attribute name="body" value="/views/auditReport/list2.jsp" />
+	</definition>
 
 </tiles-definitions>

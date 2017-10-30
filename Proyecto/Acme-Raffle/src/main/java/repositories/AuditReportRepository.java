@@ -21,5 +21,7 @@ public interface AuditReportRepository extends JpaRepository<AuditReport, Intege
 
 	@Query("select resul from AuditReport resul where resul.raffle.id = ?1")
 	Collection<AuditReport> findAllByRaffle(int id);
+	@Query("select resul from AuditReport resul where resul.raffle.id = ?1 and resul.finalMode = true")
+	Collection<AuditReport> findAllByRaffleFinal(int id);
 
 }

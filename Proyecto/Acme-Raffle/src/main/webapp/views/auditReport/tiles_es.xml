@@ -17,18 +17,23 @@
 <tiles-definitions>
 
 	<definition name="auditReport/list" extends="master.page">
-		<put-attribute name="title" value="Lista de reportes" />
+		<put-attribute name="title" value="List of reports" />
 		<put-attribute name="body" value="/views/auditReport/list.jsp" />
 	</definition>
 	
 	<definition name="auditReport/create" extends="master.page">
-		<put-attribute name="title" value="Crear reporte" />
+		<put-attribute name="title" value="Create report" />
 		<put-attribute name="body" value="/views/auditReport/create.jsp" />
 	</definition>
 	
 	<definition name="auditReport/edit" extends="master.page">
-		<put-attribute name="title" value="Editar reporte" />
+		<put-attribute name="title" value="Edit report" />
 		<put-attribute name="body" value="/views/auditReport/edit.jsp" />
+	</definition>
+	
+	<definition name="auditReport/all/list" extends="master.page">
+		<put-attribute name="title" value="lista informes" />
+		<put-attribute name="body" value="/views/auditReport/list2.jsp" />
 	</definition>
 
 </tiles-definitions>
