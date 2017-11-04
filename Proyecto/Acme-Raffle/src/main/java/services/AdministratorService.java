@@ -29,8 +29,6 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository	administratorRepository;
 
-	@Autowired
-	private LoginService			loginService;
 
 	@Autowired
 	AuditorService					auditorService;
@@ -130,6 +128,7 @@ public class AdministratorService {
 
 	public User bannedUser(final User user) {
 		Assert.notNull(user);
+		Assert.notNull(this.findPrincipal());
 		Assert.isTrue(this.userService.exists(user.getId()));
 
 		final UserAccount account = user.getUserAccount();

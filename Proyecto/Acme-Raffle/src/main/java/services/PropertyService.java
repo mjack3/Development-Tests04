@@ -44,6 +44,11 @@ public class PropertyService {
 		Assert.notNull(entity);
 		return this.repository.save(entity);
 	}
+	public Property saveAF(final Property entity) {
+		Assert.isTrue(LoginService.hasRole("ADMIN"));
+		Assert.notNull(entity);
+		return this.repository.saveAndFlush(entity);
+	}
 
 	public Property update(final Property entity) {
 		Assert.notNull(entity);
@@ -84,7 +89,7 @@ public class PropertyService {
 	}
 
 
-	@Autowired
+	@Autowired(required=false)
 	private Validator	validator;
 
 

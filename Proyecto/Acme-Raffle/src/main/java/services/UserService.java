@@ -12,11 +12,12 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Participation;
-import domain.User;
 import repositories.UserRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
+import domain.Participation;
+import domain.User;
 
 @Service
 @Transactional
@@ -111,6 +112,13 @@ public class UserService {
 
 	public List<User> usersNotBanned() {
 		return this.userRepository.usersNotBanned();
+	}
+	
+	public User findPrincipal() {
+		// TODO Auto-generated method stub
+		Assert.isTrue(LoginService.hasRole("USER"));
+		final User user = this.userRepository.findOneUserAccount(LoginService.getPrincipal().getId());
+		return user;
 	}
 
 }

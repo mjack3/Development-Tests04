@@ -102,7 +102,7 @@ public class AuditReportService {
 	}
 
 
-	@Autowired
+	@Autowired(required=false)
 	private Validator	validator;
 
 
