@@ -41,6 +41,7 @@
     	<security:intercept-url pattern="/socialidentity/actor/saveEdit.do" access="isAuthenticated()" />
     	<security:intercept-url pattern="/socialidentity/actor/delete.do" access="isAuthenticated()" />
     	<security:intercept-url pattern="/socialidentity/actor/create.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/comment/**" access="isAuthenticated()" />
 		
 		<!-- SECURITY: USER -->
 				<security:intercept-url pattern="/user/edit.do" access="hasRole('USER')" />
