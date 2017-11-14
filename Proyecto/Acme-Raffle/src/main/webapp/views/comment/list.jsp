@@ -8,5 +8,15 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<acme:list requestURI="comment/list.do" list="${comments}" >
-</acme:list>
+<display:table class="table table-over" name="comments" id="row" requestURI="comment/list.do">
+	
+	<spring:message code="comment.text" var="h" />
+	<display:column property="text" title="${h }" />
+	
+	<spring:message code="comment.rating" var="h" />
+	<display:column property="rating" title="${h }" />
+	
+	<spring:message code="comment.momment" var="h" />
+	<display:column property="momment" title="${h }" />
+	
+</display:table>

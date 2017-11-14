@@ -3,11 +3,13 @@ package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.AdministratorService;
 import services.AuditorService;
 import services.CommentService;
@@ -15,6 +17,7 @@ import services.ManagerService;
 import services.PrizeService;
 import services.RaffleService;
 import services.UserService;
+import domain.Actor;
 import domain.Administrator;
 import domain.Auditor;
 import domain.Comment;
@@ -47,6 +50,8 @@ public class CommentController {
 
 	@Autowired
 	private AdministratorService	administratorService;
+	@Autowired
+	private ActorService			actorService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -76,8 +81,9 @@ public class CommentController {
 
 		return result;
 	}
-	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int raffleId) {
+
+	@RequestMapping(value = "/createOnRaffle", method = RequestMethod.GET)
+	public ModelAndView createOnRaffle(@RequestParam final int raffleId) {
 
 		ModelAndView resul;
 		final Raffle raffle = this.raffleService.findOne(raffleId);
@@ -88,6 +94,55 @@ public class CommentController {
 		return resul;
 	}
 
+	@RequestMapping(value = "/createOnPrize", method = RequestMethod.GET)
+	public ModelAndView createOnPrize(@RequestParam final int prizeId) {
+
+		ModelAndView resul;
+		final Prize prize = this.prizeService.findOne(prizeId);
+		final Comment comment = this.commentService.create();
+		comment.setPrize(prize);
+		resul = this.createEditModelAndView(comment, null);
+
+		return resul;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(Comment comment, final BindingResult bindingResult) {
+		ModelAndView resul;
+
+		try {
+			comment = this.commentService.reconstruct(comment, bindingResult);
+			if (bindingResult.hasErrors())
+				resul = this.createEditModelAndView(comment, null);
+			else {
+
+				if (comment.getActor() == null && comment.getRaffle() == null && comment.getPrize() == null)
+					throw new IllegalArgumentException();
+
+				final Comment saved = this.commentService.save(comment);
+
+				if (comment.getRaffle() != null) {
+					final Raffle raffle = comment.getRaffle();
+					raffle.getComments().add(saved);
+					this.raffleService.save(raffle);
+				} else if (comment.getActor() != null) {
+					final Actor actor = comment.getActor();
+					actor.getComments().add(saved);
+					this.actorService.save(actor);
+				} else if (comment.getPrize() != null) {
+					final Prize prize = comment.getPrize();
+					prize.getComments().add(saved);
+					this.prizeService.save(prize);
+				}
+				resul = new ModelAndView("redirect:/raffle/list.do");
+			}
+
+		} catch (final Throwable oops) {
+			resul = this.createEditModelAndView(comment, "comment.commit.error");
+		}
+
+		return resul;
+	}
 	private ModelAndView createEditModelAndView(final Comment comment, final String message) {
 		// TODO Auto-generated method stub
 		final ModelAndView resul = new ModelAndView("comment/edit");

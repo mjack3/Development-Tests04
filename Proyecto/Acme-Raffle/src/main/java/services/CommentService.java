@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CommentRepository;
 import domain.Comment;
@@ -55,6 +58,20 @@ public class CommentService {
 		// TODO Auto-generated method stub
 		final Comment comment = new Comment();
 		comment.setRating(0);
+		return comment;
+	}
+
+
+	@Autowired
+	private Validator	validator;
+
+
+	public Comment reconstruct(final Comment comment, final BindingResult bindingResult) {
+		// TODO Auto-generated method stub
+		comment.setMomment(new Date(System.currentTimeMillis() - 1));
+
+		this.validator.validate(comment, bindingResult);
+
 		return comment;
 	}
 
