@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -16,15 +17,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Comment extends DomainEntity{
+public class Comment extends DomainEntity {
 
 	private String	text;
 	private Date	momment;
 	private Integer	rating;
-	private Actor   actor;
-	private Raffle  raffle;
-	private Prize   prize;
-	
+	private Actor	actor;
+	private Raffle	raffle;
+	private Prize	prize;
+
 
 	public Comment() {
 		super();
@@ -32,60 +33,59 @@ public class Comment extends DomainEntity{
 
 	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
 	@NotNull
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	public Date getMomment() {
-		return momment;
+		return this.momment;
 	}
 
-	public void setMomment(Date momment) {
+	public void setMomment(final Date momment) {
 		this.momment = momment;
 	}
 
 	@NotNull
-	@Range(min=0,max=3)
+	@Range(min = 0, max = 3)
 	public Integer getRating() {
-		return rating;
+		return this.rating;
 	}
 
-	public void setRating(Integer rating) {
+	public void setRating(final Integer rating) {
 		this.rating = rating;
 	}
-	
-	@ManyToOne(optional=true)
+
+	@ManyToOne(optional = true)
 	public Actor getActor() {
-		return actor;
+		return this.actor;
 	}
 
-	public void setActor(Actor actor) {
+	public void setActor(final Actor actor) {
 		this.actor = actor;
 	}
 
-	@ManyToOne(optional=true)
+	@ManyToOne(optional = true)
 	public Raffle getRaffle() {
-		return raffle;
+		return this.raffle;
 	}
 
-	public void setRaffle(Raffle raffle) {
+	public void setRaffle(final Raffle raffle) {
 		this.raffle = raffle;
 	}
 
-	@ManyToOne(optional=true)
+	@ManyToOne(optional = true)
 	public Prize getPrize() {
-		return prize;
+		return this.prize;
 	}
 
-	public void setPrize(Prize prize) {
+	public void setPrize(final Prize prize) {
 		this.prize = prize;
 	}
-	
-	
+
 }
