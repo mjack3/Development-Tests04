@@ -52,6 +52,9 @@
 </security:authorize>
 
 
+<security:authorize access="isAuthenticated()">
+	<td><a href="comment/create.do?raffleId=${e.id }"> <spring:message code="comment.action" /> </a></td>
+</security:authorize>
 
 </acme:list>
 
