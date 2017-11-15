@@ -20,7 +20,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query("select u from User u where u.userAccount.id = ?1")
 	User findActorByUsernameId(Integer username);
-	
+
 	@Query("select m from User m where m.userAccount.id = ?1")
 	User findOneUserAccount(int id);
+	@Query("select a from User a join a.comments c where c.id = ?1")
+	User findOneByComment(int commentId);
 }

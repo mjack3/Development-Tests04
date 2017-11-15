@@ -56,6 +56,10 @@
 							</ul></li>
 							<li><a href="socialidentity/actor/list.do"><spring:message
 											code="master.page.socialIdentity" /> </a></li>
+											
+											
+							<li><a href="actor/list.do"><spring:message
+											code="master.page.valorateActor" /> </a></li>
 					</security:authorize>
 					
 					<security:authorize access="permitAll()">
@@ -105,6 +109,23 @@
 											code="master.page.administrator.tabooword" /> </a></li>
 								<li><a href="auditor/administrator/create.do"><spring:message
 											code="master.page.administrator.auditor" /> </a></li>
+											
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false">
+							
+							<spring:message code="master.page.commentsMenu" />
+							
+							<span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="comment/administrator/list.do"><spring:message
+											code="master.page.listcomments" /> </a></li>
+								<li><a href="comment/administrator/listbad.do"><spring:message
+											code="master.page.listbadcomments" /> </a></li>
+											
+							
+							</ul></li>
 							</security:authorize>
 							
 							

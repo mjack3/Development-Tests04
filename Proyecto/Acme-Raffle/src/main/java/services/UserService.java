@@ -26,7 +26,7 @@ public class UserService {
 	//User repositories
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository	userRepository;
 
 
 	//Constructor
@@ -113,12 +113,18 @@ public class UserService {
 	public List<User> usersNotBanned() {
 		return this.userRepository.usersNotBanned();
 	}
-	
+
 	public User findPrincipal() {
 		// TODO Auto-generated method stub
 		Assert.isTrue(LoginService.hasRole("USER"));
 		final User user = this.userRepository.findOneUserAccount(LoginService.getPrincipal().getId());
 		return user;
+	}
+
+	public User findOneByComment(final int commentId) {
+		// TODO Auto-generated method stub
+		Assert.notNull(commentId);
+		return this.userRepository.findOneByComment(commentId);
 	}
 
 }

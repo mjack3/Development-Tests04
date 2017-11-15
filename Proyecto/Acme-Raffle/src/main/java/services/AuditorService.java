@@ -83,4 +83,11 @@ public class AuditorService {
 		return auditor;
 	}
 
+	public Auditor findOneByComment(final int commentId) {
+		// TODO Auto-generated method stub
+		Assert.notNull(commentId);
+		final Auditor auditor = this.repository.findOneByComment(commentId);
+		return auditor;
+	}
+
 }

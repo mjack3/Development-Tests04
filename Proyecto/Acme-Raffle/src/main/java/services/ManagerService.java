@@ -13,13 +13,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Code;
-import domain.Manager;
-import domain.Raffle;
 import repositories.ManagerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Code;
+import domain.Manager;
+import domain.Raffle;
 
 @Service
 @Transactional
@@ -107,7 +107,7 @@ public class ManagerService {
 	}
 	/**
 	 * Devuelve al manager logueado
-	 *
+	 * 
 	 * @return manager
 	 */
 	public Manager findPrincipal() {
@@ -120,6 +120,12 @@ public class ManagerService {
 	public Collection<Code> getCodes(final Integer totalCodes, final Integer numWinner) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Manager findOneByComment(final int commentId) {
+		// TODO Auto-generated method stub
+		Assert.notNull(commentId);
+		return this.managerRepository.findOneByComment(commentId);
 	}
 
 }
