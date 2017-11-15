@@ -79,6 +79,7 @@ public class CommentController {
 		if (prize != null)
 			result.addObject("comments", prize.getComments());
 
+		result.addObject("requestURI", "comment/list.do");
 		return result;
 	}
 
@@ -101,6 +102,18 @@ public class CommentController {
 		final Prize prize = this.prizeService.findOne(prizeId);
 		final Comment comment = this.commentService.create();
 		comment.setPrize(prize);
+		resul = this.createEditModelAndView(comment, null);
+
+		return resul;
+	}
+
+	@RequestMapping(value = "/createOnActor", method = RequestMethod.GET)
+	public ModelAndView createOnActor(@RequestParam final int actorId) {
+
+		ModelAndView resul;
+		final Actor actor = this.actorService.findOne(actorId);
+		final Comment comment = this.commentService.create();
+		comment.setActor(actor);
 		resul = this.createEditModelAndView(comment, null);
 
 		return resul;

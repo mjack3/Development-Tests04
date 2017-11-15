@@ -91,4 +91,11 @@ public class RaffleService {
 	public List<Raffle> findByManager(final int id) {
 		return this.raffleRepository.findByManager(id);
 	}
+
+	public Raffle findOneByComment(final int commentId) {
+		// TODO Auto-generated method stub
+		Assert.notNull(commentId);
+
+		return this.raffleRepository.findOneByComment(commentId);
+	}
 }

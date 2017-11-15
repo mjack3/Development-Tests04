@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,17 @@ public class ActorService {
 		Assert.notNull(actor);
 		return this.actorRepository.save(actor);
 
+	}
+
+	public Collection<Actor> findAll() {
+		// TODO Auto-generated method stub
+		return this.actorRepository.findAll();
+	}
+
+	public Actor findOne(final int actorId) {
+		// TODO Auto-generated method stub
+		Assert.notNull(actorId);
+		return this.actorRepository.findOne(actorId);
 	}
 
 	//CRUD Methods

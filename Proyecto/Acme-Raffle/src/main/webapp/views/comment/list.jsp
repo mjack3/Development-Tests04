@@ -8,7 +8,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<display:table class="table table-over" name="comments" id="row" requestURI="comment/list.do">
+<display:table class="table table-over" name="comments" id="row" requestURI="${requestURI }">
 	
 	<spring:message code="comment.text" var="h" />
 	<display:column property="text" title="${h }" />
@@ -17,6 +17,16 @@
 	<display:column property="rating" title="${h }" />
 	
 	<spring:message code="comment.momment" var="h" />
-	<display:column property="momment" title="${h }" />
+	<display:column format="{0,date,dd/MM/yyyy HH:mm}" property="momment" title="${h }" />
+	
+	<security:authorize access="hasRole('ADMIN')">
+	
+	<display:column>
+		<a href="comment/administrator/delete.do?commentId=${row.id }">
+			<spring:message code="comment.delete" />
+		</a>
+	</display:column>
+	
+	</security:authorize>
 	
 </display:table>
