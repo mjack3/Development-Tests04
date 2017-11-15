@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Comment extends DomainEntity {
 
 	private String	text;
-	private Date	momment;
+	private Date	moment;
 	private Integer	rating;
 	private Actor	actor;
 	private Raffle	raffle;
@@ -43,12 +43,12 @@ public class Comment extends DomainEntity {
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getMomment() {
-		return this.momment;
+	public Date getMoment() {
+		return this.moment;
 	}
 
-	public void setMomment(final Date momment) {
-		this.momment = momment;
+	public void setMoment(final Date moment) {
+		this.moment = moment;
 	}
 
 	@NotNull
