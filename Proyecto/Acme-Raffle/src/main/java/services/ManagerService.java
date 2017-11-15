@@ -13,13 +13,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Code;
+import domain.Manager;
+import domain.Raffle;
 import repositories.ManagerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Code;
-import domain.Manager;
-import domain.Raffle;
 
 @Service
 @Transactional
@@ -28,7 +28,7 @@ public class ManagerService {
 	//Manager repositories
 
 	@Autowired
-	private ManagerRepository	managerRepository;
+	private ManagerRepository managerRepository;
 
 
 	//Constructor
@@ -107,7 +107,7 @@ public class ManagerService {
 	}
 	/**
 	 * Devuelve al manager logueado
-	 * 
+	 *
 	 * @return manager
 	 */
 	public Manager findPrincipal() {

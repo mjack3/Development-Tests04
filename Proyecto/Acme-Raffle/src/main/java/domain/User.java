@@ -7,8 +7,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -17,7 +15,7 @@ public class User extends Actor {
 	public User() {
 		super();
 	}
-	
+
 	//	Relationships	------------------
 
 
@@ -30,7 +28,7 @@ public class User extends Actor {
 	 * public Collection<Prize> getPrizes() {
 	 * return this.prizes;
 	 * }
-	 * 
+	 *
 	 * public void setPrizes(final Collection<Prize> prizes) {
 	 * this.prizes = prizes;
 	 * }
