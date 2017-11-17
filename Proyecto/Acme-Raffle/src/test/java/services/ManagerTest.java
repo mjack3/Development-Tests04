@@ -49,7 +49,7 @@ public class ManagerTest extends AbstractTest {
 
 			authenticate(username);
 			Manager manager = managerService.findPrincipal();
-			//manager.setPhone(phone);
+			manager.setPhone(phone);
 			managerService.save(manager);
 			unauthenticate();
 
