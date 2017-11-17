@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="raffle/edit" extends="master.page">
+		<put-attribute name="title" value="Editar rifa" />
+		<put-attribute name="body" value="/views/raffle/edit.jsp" />
+	</definition>
+
+	<definition name="raffle/create" extends="master.page">
+		<put-attribute name="title" value="Crear rifa" />
+		<put-attribute name="body" value="/views/raffle/create.jsp" />
+	</definition>
+	
+		<definition name="raffle/list" extends="master.page">
+		<put-attribute name="title" value="Lista de Rifa" />
+		<put-attribute name="body" value="/views/raffle/list.jsp" />
+		
+	</definition>
+	
+	<definition name="raffle/listparticipation" extends="master.page">
+		<put-attribute name="title" value="Mi Lista de Rifas Participadas" />
+		<put-attribute name="body" value="/views/raffle/listparticipation.jsp" />
+		</definition>
+
+	<definition name="raffle/list" extends="master.page">
+		<put-attribute name="title" value="Lista de rifas" />
+		<put-attribute name="body" value="/views/raffle/list.jsp" />
+	</definition>
+
+</tiles-definitions>
