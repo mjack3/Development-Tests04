@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+
+	<definition name="prize/edit" extends="master.page">
+		<put-attribute name="title" value="Editar premio" />
+		<put-attribute name="body" value="/views/prize/edit.jsp" />
+	</definition>
+
+	<definition name="prize/create" extends="master.page">
+		<put-attribute name="title" value="Crear premio" />
+		<put-attribute name="body" value="/views/prize/create.jsp" />
+		</definition>
+	<definition name="prize/win" extends="master.page">
+		<put-attribute name="title" value="GANADOR" />
+		<put-attribute name="body" value="/views/prize/win.jsp" />
+	</definition>
+	
+	<definition name="prize/lose" extends="master.page">
+		<put-attribute name="title" value="OOOOOH SORRY!" />
+		<put-attribute name="body" value="/views/prize/lose.jsp" />
+	</definition>
+	
+		<definition name="prize/list" extends="master.page">
+		<put-attribute name="title" value="Premios" />
+		<put-attribute name="body" value="/views/prize/list.jsp" />
+	</definition>
+	
+	<definition name="prize/regCode" extends="master.page">
+		<put-attribute name="title" value="Regenerar códigos" />
+		<put-attribute name="body" value="/views/prize/regCode.jsp" />
+	</definition>
+	
+	<definition name="prize/editProperties" extends="master.page">
+		<put-attribute name="title" value="Editar propiedades" />
+		<put-attribute name="body" value="/views/prize/editProperties.jsp" />
+	</definition>
+
+</tiles-definitions>
