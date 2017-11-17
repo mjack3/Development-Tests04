@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,13 +13,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Administrator;
+import domain.Auditor;
+import domain.User;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Administrator;
-import domain.Auditor;
-import domain.User;
 
 @Service
 @Transactional
@@ -110,7 +111,7 @@ public class AdministratorService {
 
 	/**
 	 * Devuelve al administrador logueado
-	 * 
+	 *
 	 * @return manager
 	 */
 	public Administrator findPrincipal() {
@@ -173,6 +174,50 @@ public class AdministratorService {
 		Assert.notNull(commentId);
 
 		return this.administratorRepository.findOneByComment(commentId);
+	}
+
+	//--------------------------
+	//---- DASHBOARD NIVEL B -----
+	//-----------------------------
+
+	//The average and the standard deviation of the number of comments per commentable entity.
+
+	public Double[] avgStddevNumberCommentsPerActor() {
+		return this.administratorRepository.avgStddevNumberCommentsPerActor();
+	}
+
+	public Double[] avgStddevNumberCommentsPerRaffle() {
+		return this.administratorRepository.avgStddevNumberCommentsPerRaffle();
+	}
+
+	public Double[] avgStddevNumberCommentsPerPrize() {
+		return this.administratorRepository.avgStddevNumberCommentsPerPrize();
+	}
+
+	//The average and the standard deviation of the number of stars per commentable entity.
+
+	public Double[] avgStddevNumberStarPerActor() {
+		return this.administratorRepository.avgStddevNumberStarPerActor();
+	}
+
+	public Double[] avgStddevNumberStarPerRaffle() {
+		return this.administratorRepository.avgStddevNumberStarPerRaffle();
+	}
+
+	public Double[] avgStddevNumberStarPerPrize() {
+		return this.administratorRepository.avgStddevNumberStarPerPrize();
+	}
+
+	//The average number of stars per actor, grouped by country.
+
+	public Collection<Object[]> avgNumberStarPerActorGroupByCountry() {
+		return this.administratorRepository.avgNumberStarPerActorGroupByCountry();
+	}
+
+	//The average number of stars per actor, grouped by city.
+
+	public Collection<Object[]> avgNumberStarPerActorGroupByCity() {
+		return this.administratorRepository.avgNumberStarPerActorGroupByCity();
 	}
 
 }

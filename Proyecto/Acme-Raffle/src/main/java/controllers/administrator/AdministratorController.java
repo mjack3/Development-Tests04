@@ -30,6 +30,17 @@ public class AdministratorController {
 
 		res.addObject("dashboard", this.administratorService.dashboard());
 
+		res.addObject("avgStddevNumberCommentsPerActor", this.administratorService.avgStddevNumberStarPerActor());
+		res.addObject("avgStddevNumberCommentsPerRaffle", this.administratorService.avgStddevNumberStarPerRaffle());
+		res.addObject("avgStddevNumberCommentsPerPrize", this.administratorService.avgStddevNumberStarPerPrize());
+
+		res.addObject("avgStddevNumberStarPerActor", this.administratorService.avgStddevNumberStarPerActor());
+		res.addObject("avgStddevNumberStarPerRaffle", this.administratorService.avgStddevNumberStarPerRaffle());
+		res.addObject("avgStddevNumberStarPerPrize", this.administratorService.avgStddevNumberStarPerPrize());
+
+		res.addObject("avgNumberStarPerActorGroupByCountry", this.administratorService.avgNumberStarPerActorGroupByCountry());
+		res.addObject("avgNumberStarPerActorGroupByCity", this.administratorService.avgNumberStarPerActorGroupByCity());
+
 		return res;
 	}
 
