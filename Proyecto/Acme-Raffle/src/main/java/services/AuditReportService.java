@@ -75,6 +75,7 @@ public class AuditReportService {
 			final List<AuditReport> reports = (List<AuditReport>) auditor.getReports();
 			reports.remove(entity);
 			auditor.setReports(reports);
+			this.repository.delete(entity);
 
 		}
 
