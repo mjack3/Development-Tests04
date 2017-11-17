@@ -8,25 +8,5 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<display:table class="table table-over" name="comments" id="row" requestURI="${requestURI }">
-	
-	<spring:message code="comment.text" var="h" />
-	<display:column property="text" title="${h }" />
-	
-	<spring:message code="comment.rating" var="h" />
-	<display:column property="rating" title="${h }" />
-	
-	<spring:message code="comment.moment" var="h" />
-	<display:column format="{0,date,dd/MM/yyyy HH:mm}" property="moment" title="${h }" />
-	
-	<security:authorize access="hasRole('ADMIN')">
-	
-	<display:column>
-		<a href="comment/administrator/delete.do?commentId=${row.id }">
-			<spring:message code="comment.delete" />
-		</a>
-	</display:column>
-	
-	</security:authorize>
-	
-</display:table>
+<acme:list requestURI="comment/list.do" list="${comments}" >
+</acme:list>

@@ -61,7 +61,7 @@ public class PrizeService {
 	}
 
 
-	@Autowired(required = false)
+	@Autowired(required=false)
 	private Validator	validator;
 
 
@@ -179,12 +179,6 @@ public class PrizeService {
 			throw new IllegalArgumentException();
 		}
 
-	}
-
-	public Prize findOneByComment(final int commentId) {
-		// TODO Auto-generated method stub
-		Assert.notNull(commentId);
-		return this.prizeRepository.findOneByComment(commentId);
 	}
 
 }

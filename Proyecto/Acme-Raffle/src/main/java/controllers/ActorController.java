@@ -1,8 +1,6 @@
 
 package controllers;
 
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.ActorService;
-import services.AdministratorService;
-import services.ManagerService;
-import services.UserService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Manager;
 import domain.User;
+import security.LoginService;
+import services.AdministratorService;
+import services.ManagerService;
+import services.UserService;
 
 @Controller
 @RequestMapping("/actor")
@@ -39,9 +36,6 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private ManagerService			managerService;
-
-	@Autowired
-	private ActorService			actorService;
 
 
 	public ActorController() {
@@ -190,22 +184,4 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
-	/**
-	 * LISTAR
-	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-		final ModelAndView resul = new ModelAndView("actor/list");
-
-		final Collection<Actor> actors = this.actorService.findAll();
-
-		for (final Actor actor : actors)
-			if (actor.getUserAccount().getId() == LoginService.getPrincipal().getId()) {
-				actors.remove(actor);
-				break;
-			}
-
-		resul.addObject("actors", actors);
-		return resul;
-	}
 }

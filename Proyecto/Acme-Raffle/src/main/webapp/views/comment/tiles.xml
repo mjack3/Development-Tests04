@@ -21,9 +21,5 @@
 		<put-attribute name="body" value="/views/comment/list.jsp" />
 	</definition>
 	
-	<definition name="comment/edit" extends="master.page">
-		<put-attribute name="title" value="To comment" />
-		<put-attribute name="body" value="/views/comment/edit.jsp" />
-	</definition>
 
 </tiles-definitions>

@@ -51,6 +51,7 @@ public class AuditorService {
 
 	public Auditor findOne(final Integer arg0) {
 		Assert.notNull(arg0);
+		Assert.isTrue(this.repository.exists(arg0));
 		return this.repository.findOne(arg0);
 	}
 
@@ -80,13 +81,6 @@ public class AuditorService {
 		authority.setAuthority("AUDITOR");
 		userAccount.setAuthorities(Arrays.asList(authority));
 		userAccount.setBanned(false);
-		return auditor;
-	}
-
-	public Auditor findOneByComment(final int commentId) {
-		// TODO Auto-generated method stub
-		Assert.notNull(commentId);
-		final Auditor auditor = this.repository.findOneByComment(commentId);
 		return auditor;
 	}
 

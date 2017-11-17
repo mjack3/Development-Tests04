@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Date;
@@ -17,15 +16,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Comment extends DomainEntity {
+public class Comment extends DomainEntity{
 
 	private String	text;
-	private Date	moment;
+	private Date	momment;
 	private Integer	rating;
-	private Actor	actor;
-	private Raffle	raffle;
-	private Prize	prize;
-
+	private Actor   actor;
+	private Raffle  raffle;
+	private Prize   prize;
+	
 
 	public Comment() {
 		super();
@@ -33,59 +32,60 @@ public class Comment extends DomainEntity {
 
 	@NotBlank
 	public String getText() {
-		return this.text;
+		return text;
 	}
 
-	public void setText(final String text) {
+	public void setText(String text) {
 		this.text = text;
 	}
 
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-	public Date getMoment() {
-		return this.moment;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	public Date getMomment() {
+		return momment;
 	}
 
-	public void setMoment(final Date moment) {
-		this.moment = moment;
+	public void setMomment(Date momment) {
+		this.momment = momment;
 	}
 
 	@NotNull
-	@Range(min = 0, max = 3)
+	@Range(min=0,max=3)
 	public Integer getRating() {
-		return this.rating;
+		return rating;
 	}
 
-	public void setRating(final Integer rating) {
+	public void setRating(Integer rating) {
 		this.rating = rating;
 	}
-
-	@ManyToOne(optional = true)
+	
+	@ManyToOne(optional=true)
 	public Actor getActor() {
-		return this.actor;
+		return actor;
 	}
 
-	public void setActor(final Actor actor) {
+	public void setActor(Actor actor) {
 		this.actor = actor;
 	}
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional=true)
 	public Raffle getRaffle() {
-		return this.raffle;
+		return raffle;
 	}
 
-	public void setRaffle(final Raffle raffle) {
+	public void setRaffle(Raffle raffle) {
 		this.raffle = raffle;
 	}
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional=true)
 	public Prize getPrize() {
-		return this.prize;
+		return prize;
 	}
 
-	public void setPrize(final Prize prize) {
+	public void setPrize(Prize prize) {
 		this.prize = prize;
 	}
-
+	
+	
 }
