@@ -52,15 +52,6 @@
 </security:authorize>
 
 
-<security:authorize access="isAuthenticated()">
-	<td><a href="comment/createOnRaffle.do?raffleId=${e.id }"> <spring:message code="comment.action" /> </a></td>
-</security:authorize>
-
-<security:authorize access="isAuthenticated()">
-<jstl:if test="${not empty e.comments }">
-	<td><a href="comment/list.do?q=${e.id }"> <spring:message code="comment.action.list" /> </a></td>
-</jstl:if>
-</security:authorize>
 
 </acme:list>
 

@@ -29,6 +29,7 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository	administratorRepository;
 
+
 	@Autowired
 	AuditorService					auditorService;
 
@@ -166,13 +167,6 @@ public class AdministratorService {
 		Assert.isTrue(LoginService.isAnyAuthenticated());
 		Assert.isTrue(LoginService.hasRole("ADMIN"));
 		this.auditorService.save(auditor);
-	}
-
-	public Administrator findOneByComment(final int commentId) {
-		// TODO Auto-generated method stub
-		Assert.notNull(commentId);
-
-		return this.administratorRepository.findOneByComment(commentId);
 	}
 
 }
