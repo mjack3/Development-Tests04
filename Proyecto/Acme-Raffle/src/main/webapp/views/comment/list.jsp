@@ -16,8 +16,8 @@
 	<spring:message code="comment.rating" var="h" />
 	<display:column property="rating" title="${h }" />
 	
-	<spring:message code="comment.momment" var="h" />
-	<display:column format="{0,date,dd/MM/yyyy HH:mm}" property="momment" title="${h }" />
+	<spring:message code="comment.moment" var="h" />
+	<display:column format="{0,date,dd/MM/yyyy HH:mm}" property="moment" title="${h }" />
 	
 	<security:authorize access="hasRole('ADMIN')">
 	
