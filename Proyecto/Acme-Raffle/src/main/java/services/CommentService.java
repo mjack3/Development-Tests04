@@ -14,8 +14,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.CommentRepository;
-import security.LoginService;
 import domain.Administrator;
 import domain.Auditor;
 import domain.Comment;
@@ -24,6 +22,8 @@ import domain.Prize;
 import domain.Raffle;
 import domain.TabooWord;
 import domain.User;
+import repositories.CommentRepository;
+import security.LoginService;
 
 @Transactional
 @Service
@@ -97,12 +97,12 @@ public class CommentService {
 
 
 	@Autowired
-	private Validator	validator;
+	private Validator validator;
 
 
 	public Comment reconstruct(final Comment comment, final BindingResult bindingResult) {
 		// TODO Auto-generated method stub
-		comment.setMomment(new Date(System.currentTimeMillis() - 1));
+		comment.setMoment(new Date(System.currentTimeMillis() - 1));
 
 		this.validator.validate(comment, bindingResult);
 

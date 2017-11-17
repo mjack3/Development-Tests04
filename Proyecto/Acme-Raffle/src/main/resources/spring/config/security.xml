@@ -25,7 +25,6 @@
 
 
 		<!-- SECURITY: ALL -->
-		<security:intercept-url pattern="/comment/**" access="permitAll" />
 		<security:intercept-url pattern="/user/signup.do" access="permitAll" />
 		<security:intercept-url pattern="/user/save-user-create.do" access="permitAll" />
 		<security:intercept-url pattern="/mana/signup.do" access="permitAll" />
