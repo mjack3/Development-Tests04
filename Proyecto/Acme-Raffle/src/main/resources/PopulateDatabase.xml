@@ -202,8 +202,8 @@
 		<property name="email" value="emailManager2@manager.es" />
 		<property name="phone" value="111111111" />
 		<property name="postal" value="11560" />
-		<property name="city" value="Sevilla" />
-		<property name="country" value="España" />
+		<property name="city" value="Bruselas" />
+		<property name="country" value="Bélgica" />
 		<property name="raffles">
 			<list>
 			</list>
@@ -227,7 +227,7 @@
 		<property name="email" value="emailAuditor1@auditor.es" />
 		<property name="phone" value="111111111" />
 		<property name="postal" value="11560" />
-		<property name="city" value="Sevilla" />
+		<property name="city" value="Coruña" />
 		<property name="country" value="España" />
 		<property name="socialIdentities">
 			<list>
@@ -239,7 +239,9 @@
 			</list>
 		</property>
 		<property name="comments">
-			<list></list>
+			<list>
+				<ref bean="comment1" />
+			</list>
 		</property>
 	</bean>
 
@@ -262,7 +264,9 @@
 			</list>
 		</property>
 		<property name="comments">
-			<list></list>
+			<list>
+			<ref bean="comment2" />
+			</list>
 		</property>
 	</bean>
 
@@ -291,6 +295,11 @@
 		<property name="raffle" ref="raffle1" />
 		<property name="auditor" ref="auditor2" />
 	</bean>
+	
+	
+	
+
+	
 	<!-- RAFFLES -->
 
 	<bean id="raffle1" class="domain.Raffle">
@@ -314,7 +323,9 @@
 			</list>
 		</property>
 		<property name="comments">
-  			<list></list>
+  			<list>
+  			<ref bean="comment3" />
+  			</list>
   		</property>
   		
 	</bean>
@@ -340,7 +351,9 @@
 			</list>
 		</property>
 		<property name="comments">
-  			<list></list>
+  			<list>
+  			<ref bean="comment4" />
+  			</list>
   		</property>
 	</bean>
 
@@ -361,7 +374,9 @@
 		</property>
 		<property name="raffle" ref="raffle1" />
 		<property name="comments">
-  			<list></list>
+  			<list>
+  			<ref bean="comment5" />
+  			</list>
   		</property>
 	</bean>
 
@@ -380,7 +395,9 @@
 		</property>
 		<property name="raffle" ref="raffle1" />
 		<property name="comments">
-  			<list></list>
+  			<list>
+  			<ref bean="comment6" />
+  			</list>
   		</property>
 	</bean>
 
@@ -614,5 +631,52 @@
 	<bean id="tabooWord20" class="domain.TabooWord">
 		<property name="name" value="corruption" />
 	</bean>
+	
+	
+		<!-- COMMENTS -->
+	
+	<bean id="comment1" class="domain.Comment">
+		<property name="text" value="comment 1 auditor" />
+		<property name="moment" value="10/10/2017 14:00:00" />
+		<property name="rating" value="3" />
+		<property name="actor" ref="auditor1" />
+	</bean>
+	
+	<bean id="comment2" class="domain.Comment">
+		<property name="text" value="comment 2 auditor" />
+		<property name="moment" value="10/11/2017 14:00:00" />
+		<property name="rating" value="2" />
+		<property name="actor" ref="auditor2" />
+	</bean>
+	
+	<bean id="comment3" class="domain.Comment">
+		<property name="text" value="comment 1 raffle" />
+		<property name="moment" value="14/10/2017 14:00:00" />
+		<property name="rating" value="1" />
+		<property name="raffle" ref="raffle1" />
+	</bean>
+	
+	<bean id="comment4" class="domain.Comment">
+		<property name="text" value="comment 2 rafle" />
+		<property name="moment" value="15/10/2017 14:00:00" />
+		<property name="rating" value="2" />
+		<property name="raffle" ref="raffle2" />
+	</bean>
+	
+	<bean id="comment5" class="domain.Comment">
+		<property name="text" value="comment 1 prize" />
+		<property name="moment" value="14/10/2017 14:00:00" />
+		<property name="rating" value="0" />
+		<property name="prize" ref="prize1" />
+	</bean>
+	
+	<bean id="comment6" class="domain.Comment">
+		<property name="text" value="comment 2 prize" />
+		<property name="moment" value="15/10/2017 14:00:00" />
+		<property name="rating" value="2" />
+		<property name="prize" ref="prize2" />
+	</bean>
+	
+	
 
 </beans>
