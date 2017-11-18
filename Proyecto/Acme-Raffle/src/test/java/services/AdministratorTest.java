@@ -67,14 +67,14 @@ public class AdministratorTest extends AbstractTest {
 		Object testingData[][] = {
 			// El Administrator logueado todo correcto. -> true
 			{
-				"admin",117, null
+				"admin",123, null
 			},
 			// Estamos autenticados pero el user es incorrecto -> false
 			{
 				"admin", 1111,IllegalArgumentException.class
 			}, {
 				// Si no estamos autentificados como admin -> false
-				null, 117, IllegalArgumentException.class
+				null, 123, IllegalArgumentException.class
 			}
 		};
 

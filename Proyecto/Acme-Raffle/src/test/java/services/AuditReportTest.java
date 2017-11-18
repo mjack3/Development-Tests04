@@ -70,17 +70,17 @@ public class AuditReportTest extends AbstractTest {
 		Object testingData[][] = {
 			
 			{
-				"auditor1",123,"Texto para auditar", null
+				"auditor1",129,"Texto para auditar", null
 			},
 			
 			{
 				"auditor1",123333,"Texto para auditar", ConstraintViolationException.class
 			},
 			{
-				"auditor1",123,"", ConstraintViolationException.class
+				"auditor1",129,"", ConstraintViolationException.class
 			},
 			{
-				"manager1",123,"Texto11111", ConstraintViolationException.class
+				"manager1",129,"Texto11111", ConstraintViolationException.class
 			}
 			
 			
@@ -118,14 +118,14 @@ public class AuditReportTest extends AbstractTest {
 		Object testingData[][] = {
 			
 			{
-				"auditor1",169, null
+				"auditor1",181, null
 			},
 			
 			{
 				"auditor1",123333, IllegalArgumentException.class
 			},
 			{
-				"manager1",123, IllegalArgumentException.class
+				"manager1",181, IllegalArgumentException.class
 			}
 			
 			
