@@ -17,7 +17,7 @@
 
 <h1><spring:message code="prize.youwin"></spring:message> </h1>
 
-<acme:acme_view entity="${prize}" skip_fields="id,version,raffle,user,codes,properties">
+<acme:acme_view entity="${prize}" skip_fields="id,version,raffle,user,codes,properties,comments">
 
 <tr>
   <td><spring:message code="prize.properties"/></td>

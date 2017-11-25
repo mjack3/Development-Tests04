@@ -58,34 +58,18 @@
 											code="master.page.socialIdentity" /> </a></li>
 											
 											
-							<li><a href="actor/list.do"><spring:message
-											code="master.page.valorateActor" /> </a></li>
 					</security:authorize>
 					
 					<security:authorize access="permitAll()">
+					
+						<li><a href="raffle/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
+					</security:authorize>
+					
 						
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">
-	<!-- RAFFLES -->
-							<spring:message code="master.page.raffles" /><span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
-							<security:authorize access="!hasRole('MANAGER')">
-								<li><a href="raffle/list.do"><spring:message code="master.page.raffles"></spring:message></a></li>
-							</security:authorize>
 							
-							<security:authorize access="hasRole('MANAGER')">
-								<li><a href="raffle/managers/list.do"><spring:message code="master.page.raffles.manager"></spring:message></a></li>
-							</security:authorize>
-							</ul>
-							
-							
-	<!-- DESPLEGABLE DE RAFFLES -->
 								<security:authorize access="hasRole('MANAGER')">
 								<li><a href="mana/edit.do?userAccountID=${id}"><spring:message code="master.page.actor.edit" /></a></li>
-								<li><a href="raffle/managers/create.do"><spring:message
-											code="master.page.create" /> </a></li>
+								<li><a href="raffle/managers/list.do"><spring:message code="master.page.raffles.manager"></spring:message></a></li>
 								</security:authorize>
 								
 								<security:authorize access="hasRole('USER')">
@@ -93,6 +77,8 @@
 								<li><a href="raffle/user/listparticipation.do"><spring:message code="master.page.listparticipation" /> </a></li>
 								
 								</security:authorize>
+								
+								
 							
 							
 							
@@ -133,7 +119,6 @@
 								<li><a href="auditReport/auditor/list.do"><spring:message code="master.page.auditReport.list" /></a></li>
 							</security:authorize>
 						
-					</security:authorize>
 					
 					
 					

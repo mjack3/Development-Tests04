@@ -112,7 +112,7 @@
 		<property name="name" value="nameAdmin" />
 		<property name="surname" value="surnameAdmin1" />
 		<property name="email" value="emailAdmin1@user.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (67) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
 		<property name="country" value="España" />
@@ -128,7 +128,7 @@
 		<property name="name" value="nameUser1" />
 		<property name="surname" value="surnameUser1" />
 		<property name="email" value="emailUser1@user.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (22) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
 		<property name="country" value="España" />
@@ -152,7 +152,7 @@
 		<property name="name" value="nameUser2" />
 		<property name="surname" value="surnameUser2" />
 		<property name="email" value="emailUser2@user.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (67) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
 		<property name="country" value="España" />
@@ -177,7 +177,7 @@
 		<property name="name" value="nameManager1" />
 		<property name="surname" value="surnameManager1" />
 		<property name="email" value="emailManager@manager.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (67) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
 		<property name="country" value="España" />
@@ -200,7 +200,7 @@
 		<property name="name" value="nameManager2" />
 		<property name="surname" value="surnameManager2" />
 		<property name="email" value="emailManager2@manager.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (23) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Bruselas" />
 		<property name="country" value="Bélgica" />
@@ -225,7 +225,7 @@
 		<property name="name" value="nameAuditor1" />
 		<property name="surname" value="surnameAuditor1" />
 		<property name="email" value="emailAuditor1@auditor.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (67) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Coruña" />
 		<property name="country" value="España" />
@@ -250,7 +250,7 @@
 		<property name="name" value="nameAuditor2" />
 		<property name="surname" value="surnameAuditor2" />
 		<property name="email" value="emailAuditor2@auditor.es" />
-		<property name="phone" value="111111111" />
+		<property name="phone" value="+34 (11) 687975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
 		<property name="country" value="España" />
@@ -307,7 +307,7 @@
 			value="https://vignette1.wikia.nocookie.net/conworld/images/c/c1/Pepa-Cola.jpg" />
 		<property name="title" value="The Pepa-Cola Vacation" />
 		<property name="description" value="descriptionRaffle1" />
-		<property name="publicationTime" value="12/31/2017" />
+		<property name="publicationTime" value="10/10/2017" />
 		<property name="deadline" value="08/10/2019" />
 		<property name="manager" ref="manager1" />
 		<property name="participations">
@@ -335,7 +335,7 @@
 			value="https://vignette1.wikia.nocookie.net/conworld/images/c/c1/Pepa-Cola.jpg" />
 		<property name="title" value="TEST RAFFLE" />
 		<property name="description" value="descriptionRaffle2" />
-		<property name="publicationTime" value="08/10/2017" />
+		<property name="publicationTime" value="12/12/2017" />
 		<property name="deadline" value="08/10/2019" />
 		<property name="manager" ref="manager2" />
 		<property name="participations">
