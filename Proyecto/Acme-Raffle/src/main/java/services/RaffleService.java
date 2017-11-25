@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -38,8 +39,9 @@ public class RaffleService {
 	public Raffle save(final Raffle raffle) {
 		// TODO Auto-generated method stub
 		Assert.notNull(raffle);
-		//Assert.isTrue(LoginService.hasRole("MANAGER"));
-
+		Assert.isTrue(raffle.getDeadline().after(raffle.getPublicationTime()));
+		Assert.isTrue(raffle.getPublicationTime().after(Calendar.getInstance().getTime()));
+		
 		final Raffle saved = this.raffleRepository.save(raffle);
 
 		return saved;

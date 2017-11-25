@@ -64,6 +64,9 @@
 
 </acme:list>
 
+<security:authorize access="hasRole('MANAGER')">
+<a href="raffle/managers/create.do"><spring:message code="raffle.create" /> </a>
+</security:authorize>
 
 
 

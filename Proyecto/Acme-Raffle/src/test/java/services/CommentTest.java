@@ -51,7 +51,7 @@ public class CommentTest extends AbstractTest {
 			comment.setRaffle(raffle);
 			comment.setMoment(new Date());
 			comment.setText(text);
-			this.commentService.saveAF(comment);
+			this.commentService.save(comment);
 
 		} catch (Throwable oops) {
 			caught = oops.getClass();

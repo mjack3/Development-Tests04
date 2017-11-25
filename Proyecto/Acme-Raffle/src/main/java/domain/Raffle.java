@@ -88,7 +88,6 @@ public class Raffle extends DomainEntity {
 	}
 
 	@NotNull
-	@Future
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getDeadline() {

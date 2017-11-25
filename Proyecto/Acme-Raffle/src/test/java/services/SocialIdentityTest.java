@@ -45,7 +45,7 @@ public class SocialIdentityTest extends AbstractTest {
 			SocialIdentity socialIdentity = this.socialIdentityService.create();
 			socialIdentity.setNick("nick");
 			socialIdentity.setUrl(url);
-			this.socialIdentityService.saveAF(socialIdentity);
+			this.socialIdentityService.save(socialIdentity);
 			
 			unauthenticate();
 
