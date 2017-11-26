@@ -44,13 +44,17 @@ public class RaffleController {
 	@RequestMapping(value = "/listAuditor", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam Integer q) {
 		ModelAndView result;
-		Date today = new Date();
-		result = new ModelAndView("raffle/list");
-		result.addObject("requestURI", "raffle/list.do");
-		result.addObject("isManager", false);
+		try {
+			Date today = new Date();
+			result = new ModelAndView("raffle/list");
+			result.addObject("requestURI", "raffle/list.do");
+			result.addObject("isManager", false);
 
-		result.addObject("raffle", Arrays.asList(auditReportService.findOne(q).getRaffle()));
-		result.addObject("today", today);
+			result.addObject("raffle", Arrays.asList(auditReportService.findOne(q).getRaffle()));
+			result.addObject("today", today);
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}
