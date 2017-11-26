@@ -206,4 +206,32 @@ public class CommentController {
 		return res;
 	}
 
+	//AVGS
+	@RequestMapping(value = "/avgactor/view", method = RequestMethod.GET)
+	public ModelAndView avgsactor(@RequestParam Integer q) {
+		ModelAndView result = new ModelAndView("actor/avgStar");
+
+		result.addObject("avgStar", actorService.avgStarCommentsActor(q));
+
+		return result;
+	}
+
+	@RequestMapping(value = "/avgraffle/view", method = RequestMethod.GET)
+	public ModelAndView avgsraffle(@RequestParam Integer q) {
+		ModelAndView result = new ModelAndView("raffle/avgStar");
+
+		result.addObject("avgStar", raffleService.avgStarCommentsRaffle(q));
+
+		return result;
+	}
+
+	@RequestMapping(value = "/avgprize/view", method = RequestMethod.GET)
+	public ModelAndView avgsprize(@RequestParam Integer q) {
+		ModelAndView result = new ModelAndView("prize/avgStar");
+
+		result.addObject("avgStar", prizeService.avgStarCommentsPrize(q));
+
+		return result;
+	}
+
 }

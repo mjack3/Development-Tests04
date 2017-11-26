@@ -99,4 +99,9 @@ public class RaffleService {
 
 		return this.raffleRepository.findOneByComment(commentId);
 	}
+
+	public Double avgStarCommentsRaffle(int id) {
+		return raffleRepository.avgStarCommentsRaffle(id);
+	}
+
 }

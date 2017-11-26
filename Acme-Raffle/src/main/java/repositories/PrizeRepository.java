@@ -21,4 +21,7 @@ public interface PrizeRepository extends JpaRepository<Prize, Integer> {
 	@Query("select a from Prize a join a.comments c where c.id = ?1")
 	Prize findOneByComment(int commentId);
 
+	@Query("select avg(a.rating/b.comments.size) from Prize b join b.comments a where b.id=?1")
+	Double avgStarCommentsPrize(int id);
+
 }

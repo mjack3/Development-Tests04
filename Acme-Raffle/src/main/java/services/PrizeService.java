@@ -11,11 +11,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.PrizeRepository;
-import security.LoginService;
 import domain.Code;
 import domain.Prize;
 import forms.PrizeForm;
+import repositories.PrizeRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -62,7 +62,7 @@ public class PrizeService {
 
 
 	@Autowired(required = false)
-	private Validator	validator;
+	private Validator validator;
 
 
 	public Prize reconstruct(final PrizeForm prizeForm, final BindingResult binding) {
@@ -185,6 +185,10 @@ public class PrizeService {
 		// TODO Auto-generated method stub
 		Assert.notNull(commentId);
 		return this.prizeRepository.findOneByComment(commentId);
+	}
+
+	public Double avgStarCommentsPrize(int id) {
+		return prizeRepository.avgStarCommentsPrize(id);
 	}
 
 }

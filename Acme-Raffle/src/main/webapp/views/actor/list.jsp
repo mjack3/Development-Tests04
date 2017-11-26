@@ -10,7 +10,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<security:authorize access="isAuthenticated()">
+
 
 	<display:table class="table table-over" name="actors" requestURI="actor/list.do" id="row" pagesize="5" keepStatus="true">
 	
@@ -35,22 +35,32 @@
 		<spring:message code="actor.country" var ="h" />
 		<display:column property="country" title="${h }" />
 		
+	
+		
 		
 <display:column>
 	<a href="comment/createOnActor.do?actorId=${row.id }"> <spring:message code="comment.action" /> </a>
 </display:column>
 
+
+
 <display:column>
 <jstl:if test="${not empty row.comments }">
+<spring:message code="actor.star" />
+	<display:column>
+	<a href="comment/avgactor/view.do?q=${row.id}"> <spring:message code="actor.star" /> </a>
+</display:column>
 	<a href="comment/list.do?q=${row.id }"> <spring:message code="comment.action.list" /> </a>
 </jstl:if>
 </display:column>
+
+
 		
 		
 </display:table>
 
 
-</security:authorize>
+
 
 
 

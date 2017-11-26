@@ -57,8 +57,12 @@
 </security:authorize>
 
 <security:authorize access="permitAll()">
+
 <jstl:if test="${not empty e.comments }">
+
+
 	<td><a href="comment/list.do?q=${e.id }"> <spring:message code="comment.action.list" /> </a></td>
+	<td><a href="comment/avgraffle/view.do?q=${e.id}"> <spring:message code="actor.star" /> </a></td>
 </jstl:if>
 </security:authorize>
 

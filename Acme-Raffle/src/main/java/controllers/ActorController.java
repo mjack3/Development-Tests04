@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Administrator;
+import domain.Manager;
+import domain.User;
 import security.LoginService;
 import services.ActorService;
 import services.AdministratorService;
 import services.ManagerService;
 import services.UserService;
-import domain.Actor;
-import domain.Administrator;
-import domain.Manager;
-import domain.User;
 
 @Controller
 @RequestMapping("/actor")
@@ -198,12 +198,13 @@ public class ActorController extends AbstractController {
 		final ModelAndView resul = new ModelAndView("actor/list");
 
 		final Collection<Actor> actors = this.actorService.findAll();
-
-		for (final Actor actor : actors)
-			if (actor.getUserAccount().getId() == LoginService.getPrincipal().getId()) {
-				actors.remove(actor);
-				break;
-			}
+		if (loginService.isAnyAuthenticated()) {
+			for (final Actor actor : actors)
+				if (actor.getUserAccount().getId() == LoginService.getPrincipal().getId()) {
+					actors.remove(actor);
+					break;
+				}
+		}
 
 		resul.addObject("actors", actors);
 		return resul;

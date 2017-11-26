@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ActorRepository;
 import domain.Actor;
+import repositories.ActorRepository;
 
 @Service
 @Transactional
@@ -19,7 +19,7 @@ public class ActorService {
 	//Manager repositories
 
 	@Autowired
-	private ActorRepository	actorRepository;
+	private ActorRepository actorRepository;
 
 
 	//Constructor
@@ -44,6 +44,10 @@ public class ActorService {
 		// TODO Auto-generated method stub
 		Assert.notNull(actorId);
 		return this.actorRepository.findOne(actorId);
+	}
+
+	public Double avgStarCommentsActor(int id) {
+		return actorRepository.avgStarCommentsActor(id);
 	}
 
 	//CRUD Methods
