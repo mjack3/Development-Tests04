@@ -54,6 +54,8 @@
 
 <security:authorize access="permitAll()">
 <display:column>
+
+	
 	<a href="comment/createOnPrize.do?prizeId=${row.id }"> <spring:message code="comment.action" /> </a>
 </display:column>
 </security:authorize>
@@ -61,15 +63,20 @@
 
 
 <security:authorize access="permitAll()">
+
+
 <display:column>
 <jstl:if test="${not empty row.comments }">
+
 	<a href="comment/list.do?q=${row.id }"> <spring:message code="comment.action.list" /> </a>
 </jstl:if>
 </display:column>
 </security:authorize>
 
 
-
+<display:column>
+	<a href="comment/avgprize/view.do?q=${row.id}"> <spring:message code="actor.star" /> </a>
+</display:column>
 
 </display:table>
  <jstl:if test="${canEdit}">

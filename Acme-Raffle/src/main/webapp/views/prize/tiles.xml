@@ -37,6 +37,10 @@
 		<put-attribute name="title" value="Edit properties" />
 		<put-attribute name="body" value="/views/prize/editProperties.jsp" />
 	</definition>
+	<definition name="prize/avgStar" extends="master.page">
+		<put-attribute name="title" value="Average Star" />
+		<put-attribute name="body" value="/views/prize/avgStar.jsp" />
+	</definition>
 	
 
 </tiles-definitions>
