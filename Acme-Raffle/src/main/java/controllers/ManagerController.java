@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Manager;
+import security.LoginService;
 import services.ManagerService;
 import utilities.Validator;
 
@@ -20,7 +22,9 @@ import utilities.Validator;
 public class ManagerController extends AbstractController {
 
 	@Autowired
-	private ManagerService managerService;
+	private ManagerService	managerService;
+	@Autowired
+	private LoginService	loginService;
 
 
 	public ManagerController() {
@@ -87,10 +91,16 @@ public class ManagerController extends AbstractController {
 	public ModelAndView edit(final int userAccountID) {
 		ModelAndView result;
 		Manager mana;
+		try {
+			Manager manager = (Manager) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
 
-		mana = this.managerService.findManagerByUsername(userAccountID);
+			mana = this.managerService.findManagerByUsername(userAccountID);
+			Assert.isTrue(manager.getId() == mana.getId());
 
-		result = this.createEditModelAndView(mana);
+			result = this.createEditModelAndView(mana);
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}

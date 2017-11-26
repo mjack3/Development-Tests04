@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,6 +107,8 @@ public class ActorSocialIdentityController {
 			result = createEditModelAndView(socialIdentity, null);
 		} else {
 			try {
+				Actor actor = this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+				Assert.isTrue(actor.getSocialIdentities().contains(socialIdentity));
 				socialIdentityService.save(socialIdentity);
 
 				result = new ModelAndView("redirect:/socialidentity/actor/list.do");

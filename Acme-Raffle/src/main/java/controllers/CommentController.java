@@ -64,31 +64,34 @@ public class CommentController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final Integer q) {
 		ModelAndView result;
+		try {
+			final Auditor auditor = this.auditorService.findOne(q);
+			final Manager manager = this.managerService.findOne(q);
+			final User user = this.userService.findOne(q);
+			final Administrator admin = this.administratorService.findOne(q);
+			final Raffle raffle = this.raffleService.findOne(q);
+			final Prize prize = this.prizeService.findOne(q);
+			result = new ModelAndView("comment/list");
+			List<Comment> commets = new LinkedList<Comment>();
+			if (auditor != null)
+				commets = auditor.getComments();
+			if (manager != null)
+				commets = manager.getComments();
+			if (user != null)
+				commets = user.getComments();
+			if (admin != null)
+				commets = admin.getComments();
+			if (raffle != null)
+				commets = raffle.getComments();
+			if (prize != null)
+				commets = prize.getComments();
 
-		final Auditor auditor = this.auditorService.findOne(q);
-		final Manager manager = this.managerService.findOne(q);
-		final User user = this.userService.findOne(q);
-		final Administrator admin = this.administratorService.findOne(q);
-		final Raffle raffle = this.raffleService.findOne(q);
-		final Prize prize = this.prizeService.findOne(q);
-		result = new ModelAndView("comment/list");
-		List<Comment> commets = new LinkedList<Comment>();
-		if (auditor != null)
-			commets = auditor.getComments();
-		if (manager != null)
-			commets = manager.getComments();
-		if (user != null)
-			commets = user.getComments();
-		if (admin != null)
-			commets = admin.getComments();
-		if (raffle != null)
-			commets = raffle.getComments();
-		if (prize != null)
-			commets = prize.getComments();
-
-		commets = hiddenTabooWords(commets);
-		result.addObject("comments", commets);
-		result.addObject("requestURI", "comment/list.do");
+			commets = hiddenTabooWords(commets);
+			result.addObject("comments", commets);
+			result.addObject("requestURI", "comment/list.do");
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 		return result;
 	}
 
@@ -96,10 +99,14 @@ public class CommentController {
 	public ModelAndView createOnRaffle(@RequestParam final int raffleId) {
 
 		ModelAndView resul;
-		final Raffle raffle = this.raffleService.findOne(raffleId);
-		final Comment comment = this.commentService.create();
-		comment.setRaffle(raffle);
-		resul = this.createEditModelAndView(comment, null);
+		try {
+			final Raffle raffle = this.raffleService.findOne(raffleId);
+			final Comment comment = this.commentService.create();
+			comment.setRaffle(raffle);
+			resul = this.createEditModelAndView(comment, null);
+		} catch (Throwable e) {
+			resul = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return resul;
 	}
@@ -108,10 +115,14 @@ public class CommentController {
 	public ModelAndView createOnPrize(@RequestParam final int prizeId) {
 
 		ModelAndView resul;
-		final Prize prize = this.prizeService.findOne(prizeId);
-		final Comment comment = this.commentService.create();
-		comment.setPrize(prize);
-		resul = this.createEditModelAndView(comment, null);
+		try {
+			final Prize prize = this.prizeService.findOne(prizeId);
+			final Comment comment = this.commentService.create();
+			comment.setPrize(prize);
+			resul = this.createEditModelAndView(comment, null);
+		} catch (Throwable e) {
+			resul = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return resul;
 	}
@@ -228,8 +239,11 @@ public class CommentController {
 	@RequestMapping(value = "/avgprize/view", method = RequestMethod.GET)
 	public ModelAndView avgsprize(@RequestParam Integer q) {
 		ModelAndView result = new ModelAndView("prize/avgStar");
-
-		result.addObject("avgStar", prizeService.avgStarCommentsPrize(q));
+		try {
+			result.addObject("avgStar", prizeService.avgStarCommentsPrize(q));
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 
 		return result;
 	}

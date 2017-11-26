@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.PropertyService;
 import domain.Property;
+import security.LoginService;
+import services.PropertyService;
 
 @RequestMapping("/property/administrator")
 @Controller
@@ -20,6 +21,8 @@ public class PropertyAdministratorController {
 
 	@Autowired
 	private PropertyService	propertyService;
+	@Autowired
+	private LoginService	loginService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -48,9 +51,14 @@ public class PropertyAdministratorController {
 	public ModelAndView edit(@RequestParam final int q) {
 
 		ModelAndView resul;
+		try {
+			final Property property = this.propertyService.findOne(q);
 
-		final Property property = this.propertyService.findOne(q);
-		resul = this.createEditModelAndView(property);
+			resul = this.createEditModelAndView(property);
+		} catch (Throwable e) {
+			resul = new ModelAndView("redirect:/welcome/index.do");
+
+		}
 
 		return resul;
 	}

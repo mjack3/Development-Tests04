@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -158,7 +159,13 @@ public class RaffleManagerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int q) {
 		ModelAndView result;
-		result = this.createEditModelAndView(this.raffleService.findOne(q), null);
+		try {
+			Manager manag = this.managerService.findPrincipal();
+			Assert.isTrue(manag.getRaffles().contains(this.raffleService.findOne(q)));
+			result = this.createEditModelAndView(this.raffleService.findOne(q), null);
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 		return result;
 	}
 
@@ -170,7 +177,8 @@ public class RaffleManagerController extends AbstractController {
 			result = this.createEditModelAndView(raffle, null);
 		else
 			try {
-
+				Manager manag = this.managerService.findPrincipal();
+				Assert.isTrue(manag.getRaffles().contains(raffle));
 				if (raffle.getDeadline().before(raffle.getPublicationTime())) {
 					binding.rejectValue("deadline", "raffle.deadlineError", "error");
 					throw new IllegalArgumentException();
@@ -205,6 +213,8 @@ public class RaffleManagerController extends AbstractController {
 
 		//Si aún no ha pasado la fecha de publicación, se puede borrar
 		try {
+			Manager manag = this.managerService.findPrincipal();
+			Assert.isTrue(manag.getRaffles().contains(raffle));
 			if (raffle.getPublicationTime().after(new Date()))
 				this.raffleService.delete(raffle);
 		} catch (final Throwable oops) {
