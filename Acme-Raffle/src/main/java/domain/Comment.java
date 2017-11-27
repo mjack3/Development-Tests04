@@ -32,6 +32,7 @@ public class Comment extends DomainEntity {
 	}
 
 	@NotBlank
+	@NotNull
 	public String getText() {
 		return this.text;
 	}

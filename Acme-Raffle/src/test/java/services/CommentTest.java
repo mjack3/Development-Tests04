@@ -13,7 +13,6 @@ package services;
 import java.util.Date;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import utilities.AbstractTest;
 import domain.Comment;
 import domain.Raffle;
-import utilities.AbstractTest;
 
 @Transactional
 @ContextConfiguration(locations = {
@@ -41,71 +40,70 @@ public class CommentTest extends AbstractTest {
 	// Tests
 	// ====================================================
 
-	protected void createCommentTest(String text, Class<?> expected) {
+	protected void createCommentTest(final String text, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
 		try {
 
-			Raffle raffle = raffleService.findAll().iterator().next();
-			Comment comment = this.commentService.create();
+			final Raffle raffle = this.raffleService.findAll().iterator().next();
+			final Comment comment = this.commentService.create();
 			comment.setRaffle(raffle);
 			comment.setMoment(new Date());
 			comment.setText(text);
 			this.commentService.save(comment);
 
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
-		checkExceptions(expected, caught);
+		this.checkExceptions(expected, caught);
 
 	}
 
 	@Test
 	public void driverCreateComment() {
 
-		Object testingData[][] = {
+		final Object testingData[][] = {
 
 			{
 				"Texto para comentar", null
 			},
 
 			{
-				"", ConstraintViolationException.class
+				null, null
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
-			createCommentTest((String) testingData[i][0], (Class<?>) testingData[i][1]);
-		}
+		for (int i = 0; i < testingData.length; i++)
+			this.createCommentTest((String) testingData[i][0], (Class<?>) testingData[i][1]);
 	}
 	@Test
 	public void listingInappropriateComment() {
-		commentService.findAllInapropiate();
+		this.commentService.findAllInapropiate();
 	}
 
-	protected void deleteCommentTest(String username, int commentId, Class<?> expected) {
+	protected void deleteCommentTest(final String username, final int commentId, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
 		try {
-			authenticate(username);
-			Comment comment = this.commentService.findOne(commentId);
+			this.authenticate(username);
+			final Comment comment = this.commentService.findOne(commentId);
 			this.commentService.delete(comment);
 
-			unauthenticate();
+			this.unauthenticate();
 
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
-		checkExceptions(expected, caught);
+		this.checkExceptions(expected, caught);
 
 	}
 
 	@Test
 	public void driverDeleteComment() {
 
-		Object testingData[][] = {
+		final Object testingData[][] = {
 
 			{
 				"admin", 175, null
@@ -120,9 +118,8 @@ public class CommentTest extends AbstractTest {
 			}
 		};
 
-		for (int i = 0; i < testingData.length; i++) {
-			deleteCommentTest((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
-		}
+		for (int i = 0; i < testingData.length; i++)
+			this.deleteCommentTest((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
 	}
 
 }
