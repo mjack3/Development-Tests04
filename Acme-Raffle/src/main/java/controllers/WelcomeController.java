@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
 import security.LoginService;
 
 @Controller
@@ -47,8 +48,11 @@ public class WelcomeController extends AbstractController {
 		moment = formatter.format(new Date());
 
 		result = new ModelAndView("welcome/index");
-
-		result.addObject("name", name);
+		if (LoginService.isAnyAuthenticated() == true) {
+			final Actor a = this.loginService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			result.addObject("name", a.getName());
+		} else
+			result.addObject("name", name);
 
 		result.addObject("moment", moment);
 

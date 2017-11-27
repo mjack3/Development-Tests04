@@ -71,18 +71,13 @@ public class AuditReportAuditorController {
 	public ModelAndView create(@RequestParam final Raffle q) {
 		ModelAndView res;
 
-		try {
-			res = new ModelAndView("auditReport/create");
-			final AuditReport auditReport = this.auditReportService.create();
-			auditReport.setMoment(new Date(System.currentTimeMillis() - 1));
-			auditReport.setRaffle(q);
+		res = new ModelAndView("auditReport/create");
+		final AuditReport auditReport = this.auditReportService.create();
+		auditReport.setMoment(new Date(System.currentTimeMillis() - 1));
+		auditReport.setRaffle(q);
 
-			res.addObject("auditreport", auditReport);
-			this.toSave = q;
-		} catch (Throwable e) {
-			res = new ModelAndView("redirect:/welcome/index.do");
-
-		}
+		res.addObject("auditReport", auditReport);
+		this.toSave = q;
 
 		return res;
 	}
@@ -90,36 +85,30 @@ public class AuditReportAuditorController {
 	@RequestMapping("/edit")
 	public ModelAndView edit(@RequestParam final Integer q) {
 		ModelAndView res;
-		try {
-			res = new ModelAndView("auditReport/edit");
-			final AuditReport auditReport = this.auditReportService.findOne(q);
-			Auditor auditor = (Auditor) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
 
-			Assert.isTrue(auditor.getReports().contains(auditReport));
+		res = new ModelAndView("auditReport/edit");
+		final AuditReport auditReport = this.auditReportService.findOne(q);
 
-			if (auditReport.getFinalMode() == true) {
-				res = this.list();
-				res.addObject("message", "error.edit.report");
-
-			}
-			res.addObject("auditreport", auditReport);
-		} catch (Throwable e) {
-			res = new ModelAndView("redirect:/welcome/index.do");
+		if (auditReport.getFinalMode() == true) {
+			res = this.list();
+			res.addObject("message", "error.edit.report");
 
 		}
+
+		res.addObject("auditReport", auditReport);
 
 		return res;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@Valid final AuditReport auditreport, final BindingResult binding) {
+	public ModelAndView save(@Valid final AuditReport auditReport, final BindingResult binding) {
 		ModelAndView res;
 
 		res = new ModelAndView("auditReport/create");
 
 		if (binding.hasErrors()) {
 			res = new ModelAndView("auditReport/create");
-			res.addObject("auditReport", auditreport);
+			res.addObject("auditReport", auditReport);
 			res.addObject("message", "commit.error");
 		} else
 			try {
@@ -127,11 +116,11 @@ public class AuditReportAuditorController {
 				//auditreport = this.auditReportService.reconstruct(auditreport, binding);
 
 				//auditreport.setRaffle(this.toSave);
-				this.auditReportService.save(auditreport);
+				this.auditReportService.save(auditReport);
 				return this.list();
 			} catch (final Exception e) {
 				res = new ModelAndView("auditReport/create");
-				res.addObject("auditReport", auditreport);
+				res.addObject("auditReport", auditReport);
 				res.addObject("message", "commit.error");
 			}
 
@@ -139,27 +128,27 @@ public class AuditReportAuditorController {
 	}
 
 	@RequestMapping(value = "/saveEdit", method = RequestMethod.POST)
-	public ModelAndView saveEdit(final @Valid AuditReport auditreport, final BindingResult binding) {
+	public ModelAndView saveEdit(final @Valid AuditReport auditReport, final BindingResult binding) {
 		ModelAndView res;
 
 		res = new ModelAndView("auditReport/edit");
-		if (auditreport.getFinalMode() == null)
-			auditreport.setFinalMode(false);
+		if (auditReport.getFinalMode() == null)
+			auditReport.setFinalMode(false);
 
 		if (binding.hasErrors()) {
 			res = new ModelAndView("auditReport/edit");
-			res.addObject("auditReport", auditreport);
+			res.addObject("auditReport", auditReport);
 			res.addObject("message", "commit.error");
 		} else
 			try {
 
 				Auditor auditor = (Auditor) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
-				Assert.isTrue(auditor.getReports().contains(auditreport));
-				this.auditReportService.update(auditreport);
+				Assert.isTrue(auditor.getReports().contains(auditReport));
+				this.auditReportService.update(auditReport);
 				return this.list();
 			} catch (final Exception e) {
 				res = new ModelAndView("auditReport/edit");
-				res.addObject("auditReport", auditreport);
+				res.addObject("auditReport", auditReport);
 				res.addObject("message", "commit.error");
 			}
 
