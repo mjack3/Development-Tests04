@@ -121,7 +121,7 @@ public class AuditReportTest extends AbstractTest {
 			{
 				"auditor1", 123333, IllegalArgumentException.class
 			}, {
-				"manager1", 181, IllegalArgumentException.class
+				null, 181, IllegalArgumentException.class
 			}
 
 		};
