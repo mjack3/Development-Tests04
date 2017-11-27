@@ -63,7 +63,7 @@ public class SocialIdentityTest extends AbstractTest {
 		final Object testingData[][] = {
 
 			{
-				"admin", "http://url.com", null
+				"admin", "https://www.dropbox.com", null
 			},
 
 			{
@@ -71,7 +71,7 @@ public class SocialIdentityTest extends AbstractTest {
 			}, {
 				"auditor1", "http://url.com", ConstraintViolationException.class
 			}, {
-				"", "http://url.com", IllegalArgumentException.class
+				"", "https://www.dropbox.com", IllegalArgumentException.class
 			}
 
 		};
