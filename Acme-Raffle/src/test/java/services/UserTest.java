@@ -66,14 +66,14 @@ public class UserTest extends AbstractTest {
 		Object testingData[][] = {
 			// El User logueado todo correcto. -> true
 			{
-				"User1","+22(340)649311851", null
+				"User1","123456", null
 			},
 			// Estamos autenticados pero el phone es incorrecto -> false
 			{
-				"User1", "(+34)649931185111",ConstraintViolationException.class
+				"User1", "holaquease",ConstraintViolationException.class
 			}, {
 				// Si no estamos autentificados como admin -> false
-				null, "(+34)6499311851", IllegalArgumentException.class
+				null, "6499311851", IllegalArgumentException.class
 			}
 		};
 
