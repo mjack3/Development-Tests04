@@ -69,6 +69,7 @@ public class AuditReportService {
 	public void delete(final AuditReport entity) {
 		Assert.notNull(entity);
 		Assert.isTrue(this.repository.exists(entity.getId()));
+		Assert.isTrue(LoginService.hasRole("AUDITOR"));
 		if (!entity.getFinalMode()) {
 			final Auditor auditor = this.auditorService.findOneUserAccount(LoginService.getPrincipal().getId());
 
