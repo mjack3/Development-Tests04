@@ -177,7 +177,7 @@
 		<property name="name" value="nameManager1" />
 		<property name="surname" value="surnameManager1" />
 		<property name="email" value="emailManager@manager.es" />
-		<property name="phone" value="+34(67)687975536" />
+		<property name="phone" value="87975536" />
 		<property name="postal" value="11560" />
 		<property name="city" value="Sevilla" />
 		<property name="country" value="España" />
