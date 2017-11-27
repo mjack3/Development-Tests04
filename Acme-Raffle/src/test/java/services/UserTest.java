@@ -70,7 +70,7 @@ public class UserTest extends AbstractTest {
 			},
 			// Estamos autenticados pero el phone es incorrecto -> false
 			{
-				"User1", "holaquease",ConstraintViolationException.class
+				"User1", "32(321)12345",ConstraintViolationException.class
 			}, {
 				// Si no estamos autentificados como admin -> false
 				null, "6499311851", IllegalArgumentException.class
