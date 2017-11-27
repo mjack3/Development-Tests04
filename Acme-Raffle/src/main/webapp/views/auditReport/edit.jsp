@@ -10,10 +10,26 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
+<form:form action="auditReport/auditor/saveEdit.do" modelAttribute="auditReport">
+		<form:hidden path="id" />
+		<form:hidden path="version" />
+		<form:hidden path="raffle" />
+		<form:hidden path="moment" />
+		<form:hidden path="auditor" />
+	
+		<acme:textarea code="auditreport.text" path="text"/>
+		<br/>
+		FINAL? <form:checkbox  path="finalMode"/> <br/>
+		
+		<spring:message code="actor.save" var="actorSaveHeader"/>
+		<spring:message code="actor.cancel" var="actorCancelHeader"/>
+		<input type="submit" class="btn btn-primary" name="save" value="${actorSaveHeader}" />
+		<input onclick="window.location = 'raffle/list.do'" class="btn btn-warning" type="button" name="cancel" value="${actorCancelHeader}"/>
+		
 
-<acme:acme_form url="auditReport/auditor/saveEdit.do" skip_fields="finalMode"  hiddenFields="moment" entity="${auditreport}" type="edit">
-FINAL? <form:checkbox  path="finalMode"/> <br/>
-</acme:acme_form>
+</form:form>
+
+
 
 
 

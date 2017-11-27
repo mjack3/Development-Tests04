@@ -75,7 +75,9 @@
 
 
 <display:column>
+<jstl:if test="${not empty row.comments }">
 	<a href="comment/avgprize/view.do?q=${row.id}"> <spring:message code="actor.star" /> </a>
+	</jstl:if>
 </display:column>
 
 </display:table>
