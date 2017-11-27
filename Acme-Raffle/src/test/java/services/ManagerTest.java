@@ -68,7 +68,7 @@ public class ManagerTest extends AbstractTest {
 		Object testingData[][] = {
 			// El Manager logueado todo correcto. -> true
 			{
-				"Manager1", "+22 (344) 649311851", null
+				"Manager1", "+22(344)649311851", null
 			},
 			// Estamos autenticados pero el phone es incorrecto -> false
 			{
