@@ -9,7 +9,7 @@
 
 
 <acme:list requestURI="tabooword/administrator/list.do" list="${taboowords}" 
-editUrl="tabooword/administrator/edit.do" deleteUrl="tabooword/administrator/delete.do">
+editUrl="tabooword/administrator/edit.do" deleteUrl="tabooword/administrator/delete.do" pagesize="12">
 </acme:list>
 
 <br/>

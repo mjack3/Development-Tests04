@@ -8,7 +8,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<display:table class="table table-over" name="comments" id="row" requestURI="${requestURI }">
+<display:table class="table table-over" name="comments" id="row" pagesize="12" requestURI="${requestURI }">
 	
 	<spring:message code="comment.text" var="h" />
 	<display:column property="text" title="${h }" />

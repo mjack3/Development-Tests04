@@ -10,7 +10,7 @@
 
 <acme:list  requestURI="auditReport/list.do"  list="${auditReports}" 
 
- hidden_fields="raffle,auditor,finalMode" variable="a">
+ hidden_fields="raffle,auditor,finalMode" variable="a" pagesize="12">
 
 
 

@@ -10,7 +10,7 @@
 
 <acme:list requestURI="auditReport/auditor/list.do" list="${auditReports}" 
 editUrl="auditReport/auditor/edit.do" deleteUrl="auditReport/auditor/delete.do"
- hidden_fields="raffle,auditor" variable="a">
+ hidden_fields="raffle,auditor" variable="a" pagesize="12">
 
 <td>
 	<a href="raffle/listAuditor.do?q=${a.id}"> <spring:message code="auditreport.raffle" /> </a>

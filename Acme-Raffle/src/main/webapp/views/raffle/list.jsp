@@ -19,7 +19,7 @@
 <acme:list entityUrl="{prizes:prize/list.do}" requestURI="${requestURI}"
 	list="${raffle}"
 	hidden_fields="raffle,codes,user,taxonomy,manager,participations,comments"
-	image_fields="logo" variable="e">
+	image_fields="logo" variable="e" pagesize="12">
 
 	<security:authorize access="hasRole('USER')">
 		<td><jstl:if
