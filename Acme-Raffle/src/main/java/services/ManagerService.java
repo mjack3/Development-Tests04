@@ -13,13 +13,13 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Code;
+import domain.Manager;
+import domain.Raffle;
 import repositories.ManagerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Code;
-import domain.Manager;
-import domain.Raffle;
 
 @Service
 @Transactional
@@ -29,6 +29,8 @@ public class ManagerService {
 
 	@Autowired
 	private ManagerRepository	managerRepository;
+	@Autowired
+	private LoginService		loginService;
 
 
 	//Constructor
@@ -70,6 +72,11 @@ public class ManagerService {
 
 		if (this.exists(manager.getId())) {
 			m = this.findOne(manager.getId());
+
+			if (!LoginService.hasRole("ADMIN")) {
+				final Manager mana = (Manager) this.loginService.findActorByUsername(LoginService.getPrincipal().getId());
+				Assert.isTrue(m.getId() == mana.getId());
+			}
 			m.setName(manager.getName());
 			m.setCity(manager.getCity());
 			m.setCountry(manager.getCountry());

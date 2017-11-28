@@ -9,7 +9,7 @@
 
 
 <acme:list requestURI="socialidentity/actor/list.do" list="${socialIdentity}" 
-editUrl="socialidentity/actor/edit.do" deleteUrl="socialidentity/actor/delete.do">
+editUrl="socialidentity/actor/edit.do" deleteUrl="socialidentity/actor/delete.do" pagesize="12">
 </acme:list>
 
 <br/>
